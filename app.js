@@ -1398,7 +1398,8 @@ function renderCompare() {
   selectorsEl.innerHTML = [0, 1, 2].map(i => `
     <select class="compare-select" data-compare-idx="${i}">
       <option value="">-- Fabricante ${i + 1} --</option>
-      ${vendors.map(v => `<option value="${v.name}" ${state.compareVendors[i] === v.name ? "selected" : ""}>${v.name}</option>`).join("")}
+      <optgroup label="Globales">${vendors.map(v => `<option value="${v.name}" ${state.compareVendors[i] === v.name ? "selected" : ""}>${v.name}</option>`).join("")}</optgroup>
+      <optgroup label="España">${spanishVendors.map(v => `<option value="${v.name}" ${state.compareVendors[i] === v.name ? "selected" : ""}>${v.name}</option>`).join("")}</optgroup>
     </select>
   `).join("");
 
@@ -1421,19 +1422,30 @@ function renderCompareResult() {
     return;
   }
 
-  const vendorObjs = selected.map(name => ({ vendor: vendors.find(v => v.name === name), index: vendors.findIndex(v => v.name === name) })).filter(v => v.vendor);
+  const allVendorPool = [...vendors, ...spanishVendors];
+  const vendorObjs = selected.map(name => {
+    const vendor = allVendorPool.find(v => v.name === name);
+    const globalIdx = vendors.findIndex(v => v.name === name);
+    return { vendor, index: globalIdx, isSpanish: globalIdx === -1 };
+  }).filter(v => v.vendor);
+
+  // For Spanish vendors without criteria scores, use strength as uniform proxy
+  function getScore(vo, criterionIdx) {
+    if (!vo.isSpanish) return criteria[criterionIdx].scores[vo.index];
+    return Math.round(vo.vendor.strength);
+  }
 
   // Build comparison table
-  let tableRows = criteria.map(c => {
-    const scores = vendorObjs.map(v => c.scores[v.index]);
+  let tableRows = criteria.map((c, ci) => {
+    const scores = vendorObjs.map(v => getScore(v, ci));
     const maxS = Math.max(...scores);
     const minS = Math.min(...scores);
     const hasDiff = (maxS - minS) >= 2;
     return `<tr class="${hasDiff ? "highlight-diff" : ""}">
       <td><strong>${c.label}</strong></td>
       ${vendorObjs.map(v => {
-        const s = c.scores[v.index];
-        return `<td><span class="compare-bar" style="width:${(s / 5) * 60}px;background:${v.vendor.color}"></span>${s}/5</td>`;
+        const s = getScore(v, ci);
+        return `<td><span class="compare-bar" style="width:${(s / 5) * 60}px;background:${v.vendor.color}"></span>${s}/5${v.isSpanish ? "*" : ""}</td>`;
       }).join("")}
     </tr>`;
   }).join("");
@@ -1445,8 +1457,9 @@ function renderCompareResult() {
 
   const polygons = vendorObjs.map(v => {
     const points = radarCriteria.map((c, i) => {
+      const ci = criteria.indexOf(c);
       const angle = (-90 + i * (360 / n)) * Math.PI / 180;
-      const r = 20 + (c.scores[v.index] / 5) * (maxR - 20);
+      const r = 20 + (getScore(v, ci) / 5) * (maxR - 20);
       return `${cx + Math.cos(angle) * r},${cy + Math.sin(angle) * r}`;
     }).join(" ");
     return `<polygon points="${points}" fill="${v.vendor.color}22" stroke="${v.vendor.color}" stroke-width="2.5"/>`;
@@ -1472,6 +1485,7 @@ function renderCompareResult() {
         <tbody>${tableRows}</tbody>
       </table>
     </div>
+    ${vendorObjs.some(v => v.isSpanish) ? `<p style="color:var(--muted);font-size:12px;margin:4px 0 0">* Fabricante español: scores estimados a partir de su fortaleza técnica global (no dispone de scoring detallado por criterio).</p>` : ""}
     <div class="compare-radar-wrap">
       <h3 style="margin:0 0 12px">Radar comparativo</h3>
       <svg viewBox="0 0 400 ${310 + vendorObjs.length * 20 + 10}" style="width:100%;min-height:340px">
