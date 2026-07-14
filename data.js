@@ -544,6 +544,26 @@ window.ICS_DATA = {
       ensStatus: "Alineado ENS",
       governmentContracts: "Proyectos en generación eléctrica, transporte y manufactura",
       incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial). Fundada 2016. Parte de INZU Group."
+    },
+    {
+      name: "Steryon",
+      color: "#00695c",
+      logo: "https://www.google.com/s2/favicons?domain=steryon.com&sz=32",
+      docsUrl: "https://steryon.com/",
+      productUrl: "https://steryon.com/",
+      compliance: "NIS2, IEC 62443, ISO 27001",
+      complianceDetail: "Plataforma modular de cyber resilience y gestión de riesgos para sistemas ciber-físicos (CPS). Automatización del 70% de validación de controles NIS2/IEC 62443/ISO 27001. Reducción del 80% de ruido de alertas mediante correlación contextual. Remediación guiada por CVE priorizada por impacto de negocio.",
+      complianceUrl: "https://steryon.com/",
+      strength: 3.6,
+      fit: 3.5,
+      risk: 1,
+      gartner: "Startup OT española (2024)",
+      bestFor: "Plataforma unificada de visibilidad de riesgo OT en tiempo real. Single pane of glass para riesgo, compliance y remediación. Automatización de cumplimiento NIS2/IEC 62443. Integración con herramientas existentes sin reemplazo. IA para clasificación documental y análisis de riesgos.",
+      caution: "Startup muy joven (fundada 2024, $1.2M funding). Sin base instalada amplia. Producto en fase de maduración. Sin presencia en cuadrantes de analistas.",
+      ccnCert: "No documentado",
+      ensStatus: "No documentado",
+      governmentContracts: "No documentado",
+      incibeRelation: "Ecosistema de ciberseguridad industrial español. Fundada 2024. Sedes en Barcelona (HQ) y Bilbao."
     }
   ],
 
