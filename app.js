@@ -28,56 +28,97 @@ function findVendor(name) {
     || spanishVendors.find(v => name.includes(v.name.split(" ")[0]));
 }
 
-const sectionMeta = {
-  dashboard: {
-    title: "Panel ejecutivo",
-    hint: "Revisa la recomendación, ranking ponderado y lectura ejecutiva antes de exportar."
+// ─── i18n ───────────────────────────────────────────────────────────
+const i18n = {
+  es: {
+    panel: "Panel ejecutivo", profile: "Perfil del cliente", scoring: "Scoring",
+    usecases: "Casos imprescindibles", framework: "Detección e inteligencia",
+    evidence: "Evidencia y confianza", capabilities: "Funcionalidades",
+    risks: "Riesgos y vulnerabilidades", technical: "Protocolos y especificaciones técnicas",
+    deployment: "Despliegue", innovation: "Innovación", spanish: "Fabricantes españoles",
+    compare: "Comparador",
+    hintDashboard: "Revisa la recomendación, ranking ponderado y lectura ejecutiva antes de exportar.",
+    hintProfile: "Define sector, tamaño, madurez OT SOC y contexto para adaptar pesos y casos imprescindibles.",
+    hintScoring: "Ajusta los pesos de decisión. Estos valores recalculan ranking, recomendación y PDF.",
+    hintUsecases: "Marca los casos obligatorios. Si un fabricante no llega al umbral, aparecerá como pendiente.",
+    hintFramework: "Compara modelo SOC/OT, radar, Data Quality e integraciones por fabricante.",
+    hintEvidence: "Contrasta fuentes públicas, confianza declarada y validaciones pendientes de PoC/RFP.",
+    hintCapabilities: "Revisa portfolio por marca, soluciones equivalentes, grado de implementación y cautelas.",
+    hintRisks: "Analiza CVEs, respuesta a parches, incidentes publicados y acciones de mitigación.",
+    hintTechnical: "Valida cobertura de protocolos industriales, arquitectura de sensores y modelo de despliegue.",
+    hintDeployment: "Evalúa provisión, on-premise, soberanía operativa y modelos de despliegue.",
+    hintInnovation: "Evalúa capacidades de IA, digital twins, predicción y preparación Industry 4.0.",
+    hintSpanish: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefónica Tech y más.",
+    hintCompare: "Selecciona 2-3 fabricantes para comparar lado a lado.",
+    previous: "Anterior", next: "Siguiente", link: "Enlace", pdfSection: "PDF sección",
+    configuration: "Configuración", pending: "Pendiente",
+    workRoute: "Ruta de trabajo", allVerticals: "Todos",
+    searchPlaceholder: "Buscar fabricantes, protocolos, secciones...",
+    navPanel: "Panel", navClient: "Cliente", navScoring: "Scoring", navCases: "Casos",
+    navDetection: "Detección", navEvidence: "Evidencia", navFunctions: "Funciones",
+    navRisk: "Riesgo", navTechnical: "Técnico", navDeploy: "Despliegue",
+    navInnovation: "Innovación", navCompare: "Comparar", navSpain: "España",
+    completionReady: "Configuración lista para revisión ejecutiva y exportación.",
+    pendingLabel: "Pendiente"
   },
-  profile: {
-    title: "Perfil del cliente",
-    hint: "Define sector, tamaño, madurez OT SOC y contexto para adaptar pesos y casos imprescindibles."
-  },
-  assessment: {
-    title: "Scoring",
-    hint: "Ajusta los pesos de decisión. Estos valores recalculan ranking, recomendación y PDF."
-  },
-  usecases: {
-    title: "Casos imprescindibles",
-    hint: "Marca los casos obligatorios. Si un fabricante no llega al umbral, aparecerá como pendiente."
-  },
-  framework: {
-    title: "Detección e inteligencia",
-    hint: "Compara modelo SOC/OT, radar, Data Quality e integraciones por fabricante."
-  },
-  evidence: {
-    title: "Evidencia y confianza",
-    hint: "Contrasta fuentes públicas, confianza declarada y validaciones pendientes de PoC/RFP."
-  },
-  capabilities: {
-    title: "Funcionalidades",
-    hint: "Revisa portfolio por marca, soluciones equivalentes, grado de implementación y cautelas."
-  },
-  risks: {
-    title: "Riesgos y vulnerabilidades",
-    hint: "Analiza CVEs, respuesta a parches, incidentes publicados y acciones de mitigación."
-  },
-  technical: {
-    title: "Protocolos y especificaciones técnicas",
-    hint: "Valida cobertura de protocolos industriales, arquitectura de sensores y modelo de despliegue."
-  },
-  deployment: {
-    title: "Despliegue",
-    hint: "Evalúa provisión, on-premise, soberanía operativa y modelos de despliegue."
-  },
-  innovation: {
-    title: "Innovación",
-    hint: "Evalúa capacidades de IA, digital twins, predicción y preparación Industry 4.0."
-  },
-  spanish: {
-    title: "Fabricantes españoles",
-    hint: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefónica Tech y más."
+  en: {
+    panel: "Executive Dashboard", profile: "Client Profile", scoring: "Scoring",
+    usecases: "Must-Have Use Cases", framework: "Detection & Intelligence",
+    evidence: "Evidence & Confidence", capabilities: "Capabilities",
+    risks: "Risks & Vulnerabilities", technical: "Protocols & Technical Specs",
+    deployment: "Deployment", innovation: "Innovation", spanish: "Spanish Vendors",
+    compare: "Compare",
+    hintDashboard: "Review recommendation, weighted ranking and executive summary before exporting.",
+    hintProfile: "Set sector, size, OT SOC maturity and context to adjust weights and use cases.",
+    hintScoring: "Adjust decision weights. These values recalculate ranking, recommendation and PDF.",
+    hintUsecases: "Mark mandatory use cases. If a vendor falls below threshold, it will show as pending.",
+    hintFramework: "Compare SOC/OT model, radar, Data Quality and integrations per vendor.",
+    hintEvidence: "Review public sources, declared confidence and pending PoC/RFP validations.",
+    hintCapabilities: "Review portfolio by brand, equivalent solutions, implementation grade and caveats.",
+    hintRisks: "Analyze CVEs, patch response, published incidents and mitigation actions.",
+    hintTechnical: "Validate industrial protocol coverage, sensor architecture and deployment model.",
+    hintDeployment: "Evaluate provisioning, on-premise, operational sovereignty and deployment models.",
+    hintInnovation: "Evaluate AI capabilities, digital twins, prediction and Industry 4.0 readiness.",
+    hintSpanish: "National industrial cybersecurity ecosystem: S2 Grupo, CounterCraft, Telefonica Tech and more.",
+    hintCompare: "Select 2-3 vendors for side-by-side comparison.",
+    previous: "Previous", next: "Next", link: "Link", pdfSection: "PDF section",
+    configuration: "Configuration", pending: "Pending",
+    workRoute: "Work path", allVerticals: "All",
+    searchPlaceholder: "Search vendors, protocols, sections...",
+    navPanel: "Panel", navClient: "Client", navScoring: "Scoring", navCases: "Cases",
+    navDetection: "Detection", navEvidence: "Evidence", navFunctions: "Functions",
+    navRisk: "Risk", navTechnical: "Technical", navDeploy: "Deploy",
+    navInnovation: "Innovation", navCompare: "Compare", navSpain: "Spain",
+    completionReady: "Configuration ready for executive review and export.",
+    pendingLabel: "Pending"
   }
 };
+
+let currentLang = localStorage.getItem("ics-lang") || "es";
+
+function t(key) {
+  return (i18n[currentLang] && i18n[currentLang][key]) || (i18n.es[key]) || key;
+}
+
+function getSectionMeta() {
+  return {
+    dashboard: { title: t("panel"), hint: t("hintDashboard") },
+    profile: { title: t("profile"), hint: t("hintProfile") },
+    assessment: { title: t("scoring"), hint: t("hintScoring") },
+    usecases: { title: t("usecases"), hint: t("hintUsecases") },
+    framework: { title: t("framework"), hint: t("hintFramework") },
+    evidence: { title: t("evidence"), hint: t("hintEvidence") },
+    capabilities: { title: t("capabilities"), hint: t("hintCapabilities") },
+    risks: { title: t("risks"), hint: t("hintRisks") },
+    technical: { title: t("technical"), hint: t("hintTechnical") },
+    deployment: { title: t("deployment"), hint: t("hintDeployment") },
+    innovation: { title: t("innovation"), hint: t("hintInnovation") },
+    compare: { title: t("compare"), hint: t("hintCompare") },
+    spanish: { title: t("spanish"), hint: t("hintSpanish") }
+  };
+}
+
+let sectionMeta = getSectionMeta();
 
 const state = {
   weights: Object.fromEntries(criteria.map(c => [c.id, c.weight])),
@@ -92,7 +133,9 @@ const state = {
   scenario: "balanced",
   scoringSource: "Pesos base",
   frameworkVendors: {},
-  currentView: "dashboard"
+  currentView: "dashboard",
+  verticalFilter: null,
+  compareVendors: ["", "", ""]
 };
 
 function persistState() {
@@ -166,8 +209,8 @@ function updateCommandPanel(viewId = activeSectionId()) {
   completionText.textContent = `${progress.percent}%`;
   completionBar.style.width = `${progress.percent}%`;
   completionHint.textContent = progress.missing.length
-    ? `Pendiente: ${progress.missing.join(", ")}.`
-    : "Configuración lista para revisión ejecutiva y exportación.";
+    ? `${t("pendingLabel")}: ${progress.missing.join(", ")}.`
+    : t("completionReady");
 }
 
 function toast(message, tone = "success") {
@@ -197,7 +240,11 @@ function scoreVendors() {
 }
 
 function renderRanking() {
-  const ranked = scoreVendors();
+  let ranked = scoreVendors();
+  if (state.verticalFilter && verticalMap[state.verticalFilter]) {
+    const allowed = verticalMap[state.verticalFilter];
+    ranked = ranked.filter(v => allowed.includes(v.name));
+  }
   const max = Math.max(...ranked.map(i => i.score));
   const profileLabel = profilePresets[state.profile.preset]?.label || "Balanceado";
   const scenarioSelect = document.getElementById("scenario");
@@ -1248,6 +1295,426 @@ function createPdfWriter() {
   };
 }
 
+// ─── VERTICAL FILTERS ───────────────────────────────────────────────
+
+const verticalMap = {
+  "Energía": ["Claroty","Nozomi Networks","Dragos","Fortinet OT","Cisco Industrial","Honeywell","Siemens","Schneider Electric","Waterfall Security","Radiflow","Forescout"],
+  "Oil & Gas": ["Claroty","Nozomi Networks","Dragos","Fortinet OT","Honeywell","Xage Security","Waterfall Security"],
+  "Manufactura": ["Claroty","Nozomi Networks","Fortinet OT","Cisco Industrial","TXOne Networks","Siemens","Schneider Electric","Armis","Forescout"],
+  "Agua": ["Claroty","Nozomi Networks","Dragos","Radiflow","Schneider Electric","Waterfall Security"],
+  "Transporte": ["Claroty","Nozomi Networks","Dragos","Cisco Industrial","Fortinet OT","Forescout"],
+  "Farmacéutica": ["Claroty","Nozomi Networks","TXOne Networks","Honeywell","Schneider Electric"],
+  "Defensa": ["Dragos","Waterfall Security","OPSWAT","Xage Security"]
+};
+
+function renderVerticalFilters() {
+  const target = document.getElementById("verticalFilters");
+  if (!target) return;
+  const verticals = [t("allVerticals"), ...Object.keys(verticalMap)];
+  target.innerHTML = verticals.map(v => {
+    const isAll = v === t("allVerticals");
+    const active = isAll ? !state.verticalFilter : state.verticalFilter === v;
+    return `<button class="vertical-chip ${active ? "active" : ""}" data-vertical="${isAll ? "" : v}" type="button">${v}</button>`;
+  }).join("");
+  target.querySelectorAll(".vertical-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.verticalFilter = btn.dataset.vertical || null;
+      renderVerticalFilters();
+      refresh();
+    });
+  });
+}
+
+// ─── COMPARE ────────────────────────────────────────────────────────
+
+function renderCompare() {
+  const selectorsEl = document.getElementById("compareSelectors");
+  const resultEl = document.getElementById("compareResult");
+  if (!selectorsEl || !resultEl) return;
+
+  selectorsEl.innerHTML = [0, 1, 2].map(i => `
+    <select class="compare-select" data-compare-idx="${i}">
+      <option value="">-- Fabricante ${i + 1} --</option>
+      ${vendors.map(v => `<option value="${v.name}" ${state.compareVendors[i] === v.name ? "selected" : ""}>${v.name}</option>`).join("")}
+    </select>
+  `).join("");
+
+  selectorsEl.querySelectorAll(".compare-select").forEach(sel => {
+    sel.addEventListener("change", e => {
+      state.compareVendors[Number(e.target.dataset.compareIdx)] = e.target.value;
+      renderCompareResult();
+    });
+  });
+
+  renderCompareResult();
+}
+
+function renderCompareResult() {
+  const resultEl = document.getElementById("compareResult");
+  if (!resultEl) return;
+  const selected = state.compareVendors.filter(Boolean);
+  if (selected.length < 2) {
+    resultEl.innerHTML = `<p style="color:var(--muted);padding:12px">Selecciona al menos 2 fabricantes para comparar.</p>`;
+    return;
+  }
+
+  const vendorObjs = selected.map(name => ({ vendor: vendors.find(v => v.name === name), index: vendors.findIndex(v => v.name === name) })).filter(v => v.vendor);
+
+  // Build comparison table
+  let tableRows = criteria.map(c => {
+    const scores = vendorObjs.map(v => c.scores[v.index]);
+    const maxS = Math.max(...scores);
+    const minS = Math.min(...scores);
+    const hasDiff = (maxS - minS) >= 2;
+    return `<tr class="${hasDiff ? "highlight-diff" : ""}">
+      <td><strong>${c.label}</strong></td>
+      ${vendorObjs.map(v => {
+        const s = c.scores[v.index];
+        return `<td><span class="compare-bar" style="width:${(s / 5) * 60}px;background:${v.vendor.color}"></span>${s}/5</td>`;
+      }).join("")}
+    </tr>`;
+  }).join("");
+
+  // Build radar overlay SVG
+  const radarCriteria = criteria.slice(0, 9);
+  const n = radarCriteria.length;
+  const cx = 200, cy = 160, maxR = 120;
+
+  const polygons = vendorObjs.map(v => {
+    const points = radarCriteria.map((c, i) => {
+      const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+      const r = 20 + (c.scores[v.index] / 5) * (maxR - 20);
+      return `${cx + Math.cos(angle) * r},${cy + Math.sin(angle) * r}`;
+    }).join(" ");
+    return `<polygon points="${points}" fill="${v.vendor.color}22" stroke="${v.vendor.color}" stroke-width="2.5"/>`;
+  }).join("");
+
+  const radarLabels = radarCriteria.map((c, i) => {
+    const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+    const lx = cx + Math.cos(angle) * (maxR + 22);
+    const ly = cy + Math.sin(angle) * (maxR + 22);
+    const label = c.label.length > 14 ? c.label.slice(0, 12) + "..." : c.label;
+    return `<text x="${lx}" y="${ly + 4}" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="700">${label}</text>`;
+  }).join("");
+
+  const legend = vendorObjs.map((v, i) => `
+    <rect x="${16}" y="${310 + i * 20}" width="14" height="14" rx="3" fill="${v.vendor.color}"/>
+    <text x="36" y="${322 + i * 20}" fill="var(--ink)" font-size="12" font-weight="800">${v.vendor.name}</text>
+  `).join("");
+
+  resultEl.innerHTML = `
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead><tr><th>Criterio</th>${vendorObjs.map(v => `<th style="border-left:3px solid ${v.vendor.color}">${v.vendor.name}</th>`).join("")}</tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+    <div class="compare-radar-wrap">
+      <h3 style="margin:0 0 12px">Radar comparativo</h3>
+      <svg viewBox="0 0 400 ${310 + vendorObjs.length * 20 + 10}" style="width:100%;min-height:340px">
+        ${[maxR, maxR * 0.66, maxR * 0.33].map(r => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--line)"/>`).join("")}
+        ${polygons}
+        ${radarLabels}
+        ${legend}
+      </svg>
+    </div>
+  `;
+}
+
+// ─── PURDUE MODEL ───────────────────────────────────────────────────
+
+const purdueMap = {
+  5: ["Forescout","Microsoft Defender IoT","Armis"],
+  4: ["Claroty","Nozomi Networks","Forescout","Microsoft Defender IoT","Armis","Tenable OT"],
+  "3.5": ["Waterfall Security","Fortinet OT","Cisco Industrial","OPSWAT","Cyolo","Xage Security"],
+  3: ["Claroty","Nozomi Networks","Dragos","Honeywell","Siemens","Schneider Electric","Radiflow"],
+  2: ["Claroty","Nozomi Networks","Dragos","TXOne Networks","Siemens","Honeywell","Radiflow"],
+  1: ["TXOne Networks","Siemens","Schneider Electric","OPSWAT"],
+  0: ["Nozomi Networks","Dragos","Siemens"]
+};
+
+const purdueLabels = {
+  5: "Enterprise Network (ERP, email)",
+  4: "Site Business (MES, historian)",
+  "3.5": "DMZ (firewalls, data diodes, jump servers)",
+  3: "Site Operations (HMI, eng. workstations)",
+  2: "Area Control (PLCs, RTUs, DCS controllers)",
+  1: "Basic Control (sensors, actuators, drives)",
+  0: "Process (physical process)"
+};
+
+function renderPurdueModel() {
+  const target = document.getElementById("purdueModel");
+  if (!target) return;
+
+  const levels = ["5", "4", "3.5", "3", "2", "1", "0"];
+  const bandH = 52, padTop = 50, padLeft = 10, svgW = 800;
+  const svgH = padTop + levels.length * bandH + 20;
+  const colors = ["#3b82f6", "#6366f1", "#ec4899", "#f59e0b", "#10b981", "#06b6d4", "#8b5cf6"];
+
+  let bands = levels.map((lvl, i) => {
+    const y = padTop + i * bandH;
+    const vendorList = purdueMap[lvl] || [];
+    const dots = vendorList.map((vn, di) => {
+      const vendor = findVendor(vn);
+      const c = vendor ? vendor.color : "#94a3b8";
+      const dx = 320 + di * 56;
+      const shortName = vn.split(" ")[0];
+      return `<circle cx="${dx}" cy="${y + bandH / 2}" r="8" fill="${c}" opacity="0.9"/>
+              <text x="${dx}" y="${y + bandH / 2 + 20}" text-anchor="middle" fill="var(--muted)" font-size="8" font-weight="700">${shortName}</text>`;
+    }).join("");
+
+    return `
+      <rect x="${padLeft}" y="${y}" width="${svgW - padLeft * 2}" height="${bandH - 4}" rx="6" fill="${colors[i]}18" stroke="${colors[i]}44" stroke-width="1"/>
+      <text x="${padLeft + 8}" y="${y + 20}" fill="var(--ink)" font-size="13" font-weight="900">Level ${lvl}</text>
+      <text x="${padLeft + 8}" y="${y + 36}" fill="var(--muted)" font-size="10">${purdueLabels[lvl]}</text>
+      ${dots}
+    `;
+  }).join("");
+
+  target.innerHTML = `
+    <h3 style="margin:0 0 12px;font-size:18px">Modelo Purdue: cobertura por fabricante</h3>
+    <svg viewBox="0 0 ${svgW} ${svgH}" style="width:100%;min-height:${svgH}px">
+      <text x="${svgW / 2}" y="30" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="900">Modelo de referencia Purdue para redes ICS/OT</text>
+      ${bands}
+    </svg>
+  `;
+}
+
+// ─── CVE TIMELINE ───────────────────────────────────────────────────
+
+function renderCveTimeline() {
+  const target = document.getElementById("cveTimeline");
+  if (!target || !cveItems || !cveItems.length) { if (target) target.innerHTML = ""; return; }
+
+  // Collect all CVEs with dates
+  const allCves = [];
+  cveItems.forEach(item => {
+    const vendor = findVendor(item.vendor);
+    if (!vendor) return;
+    (item.cves || []).forEach(c => {
+      if (c.date) {
+        allCves.push({ vendor: item.vendor, color: vendor.color, date: new Date(c.date), cvss: c.cvss || 5, id: c.id });
+      }
+    });
+  });
+
+  if (!allCves.length) { target.innerHTML = ""; return; }
+
+  allCves.sort((a, b) => a.date - b.date);
+  const minDate = allCves[0].date.getTime();
+  const maxDate = Math.max(Date.now(), allCves[allCves.length - 1].date.getTime());
+  const vendorNames = [...new Set(allCves.map(c => c.vendor))];
+  const padL = 140, padR = 30, padT = 50, rowH = 36;
+  const svgW = 900, svgH = padT + vendorNames.length * rowH + 40;
+
+  const timeX = (d) => padL + ((d.getTime() - minDate) / (maxDate - minDate)) * (svgW - padL - padR);
+
+  const rows = vendorNames.map((vn, i) => {
+    const y = padT + i * rowH + rowH / 2;
+    return `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" fill="var(--ink)" font-size="11" font-weight="800">${vn}</text>
+            <line x1="${padL}" y1="${y}" x2="${svgW - padR}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+  }).join("");
+
+  const dots = allCves.map(c => {
+    const vi = vendorNames.indexOf(c.vendor);
+    const y = padT + vi * rowH + rowH / 2;
+    const x = timeX(c.date);
+    const r = 4 + (c.cvss / 10) * 8;
+    return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c.color}" opacity="0.8"><title>${c.id} (CVSS ${c.cvss}) - ${c.date.toLocaleDateString("es-ES")}</title></circle>`;
+  }).join("");
+
+  // Time labels
+  const years = new Set(allCves.map(c => c.date.getFullYear()));
+  const yearLabels = [...years].map(yr => {
+    const d = new Date(yr, 6, 1);
+    const x = timeX(d);
+    if (x < padL || x > svgW - padR) return "";
+    return `<text x="${x}" y="${svgH - 8}" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="700">${yr}</text>`;
+  }).join("");
+
+  target.innerHTML = `
+    <svg viewBox="0 0 ${svgW} ${svgH}" role="img" aria-label="Timeline de CVEs">
+      <rect x="0" y="0" width="${svgW}" height="${svgH}" fill="#fbfcfe" rx="0"/>
+      <text x="${svgW / 2}" y="30" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="900">Timeline de vulnerabilidades por fabricante</text>
+      ${rows}
+      ${dots}
+      ${yearLabels}
+    </svg>
+  `;
+}
+
+// ─── SEARCH (Ctrl+K) ───────────────────────────────────────────────
+
+function wireSearch() {
+  const overlay = document.getElementById("searchOverlay");
+  const input = document.getElementById("searchInput");
+  const results = document.getElementById("searchResults");
+  if (!overlay || !input || !results) return;
+
+  const openSearch = () => { overlay.classList.add("open"); input.value = ""; results.innerHTML = ""; input.focus(); };
+  const closeSearch = () => { overlay.classList.remove("open"); };
+
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); overlay.classList.contains("open") ? closeSearch() : openSearch(); }
+    if (e.key === "Escape" && overlay.classList.contains("open")) closeSearch();
+  });
+
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeSearch(); });
+
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase().trim();
+    if (!q) { results.innerHTML = ""; return; }
+
+    const items = [];
+
+    // Vendors
+    vendors.forEach(v => {
+      if (v.name.toLowerCase().includes(q) || v.bestFor.toLowerCase().includes(q)) {
+        items.push({ label: v.name, type: "Fabricante", view: "dashboard", target: "vendorStrip" });
+      }
+    });
+
+    // Spanish vendors
+    spanishVendors.forEach(v => {
+      if (v.name.toLowerCase().includes(q)) {
+        items.push({ label: v.name, type: "España", view: "spanish" });
+      }
+    });
+
+    // Criteria
+    criteria.forEach(c => {
+      if (c.label.toLowerCase().includes(q)) {
+        items.push({ label: c.label, type: "Criterio", view: "assessment" });
+      }
+    });
+
+    // Use cases
+    useCases.forEach(u => {
+      if (u.label.toLowerCase().includes(q)) {
+        items.push({ label: u.label, type: "Caso", view: "usecases" });
+      }
+    });
+
+    // Sections
+    Object.entries(sectionMeta).forEach(([id, meta]) => {
+      if (meta.title.toLowerCase().includes(q)) {
+        items.push({ label: meta.title, type: "Sección", view: id });
+      }
+    });
+
+    // Protocols
+    integrationProtocolItems.forEach(p => {
+      if (p.protocol.toLowerCase().includes(q) || (p.description || "").toLowerCase().includes(q)) {
+        items.push({ label: p.protocol, type: "Protocolo", view: "technical", target: "protocolMap" });
+      }
+    });
+
+    results.innerHTML = items.slice(0, 12).map(it => `
+      <div class="search-result-item" data-view="${it.view}" data-target="${it.target || ""}">
+        <span>${it.label}</span>
+        <span class="search-type">${it.type}</span>
+      </div>
+    `).join("") || `<div class="search-kbd">Sin resultados</div>`;
+
+    results.querySelectorAll(".search-result-item").forEach(el => {
+      el.addEventListener("click", () => {
+        closeSearch();
+        const viewId = el.dataset.view;
+        const targetId = el.dataset.target;
+        document.querySelectorAll(".rail-item").forEach(i => i.classList.remove("active"));
+        document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+        const rail = document.querySelector(`.rail-item[data-view="${viewId}"]`);
+        if (rail) rail.classList.add("active");
+        const viewEl = document.getElementById(viewId);
+        if (viewEl) viewEl.classList.add("active");
+        history.replaceState(null, "", `#${viewId}`);
+        state.currentView = viewId;
+        persistState();
+        updateCommandPanel(viewId);
+        if (targetId) setTimeout(() => document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      });
+    });
+  });
+}
+
+// ─── DARK MODE ──────────────────────────────────────────────────────
+
+function wireDarkMode() {
+  const btn = document.getElementById("toggleDark");
+  if (!btn) return;
+  const saved = localStorage.getItem("ics-dark-mode");
+  if (saved === "true") document.documentElement.setAttribute("data-theme", "dark");
+
+  btn.addEventListener("click", () => {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    if (isDark) {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("ics-dark-mode", "false");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("ics-dark-mode", "true");
+    }
+  });
+}
+
+// ─── LANGUAGE TOGGLE ────────────────────────────────────────────────
+
+function wireLangToggle() {
+  const btn = document.getElementById("toggleLang");
+  const label = document.getElementById("langLabel");
+  if (!btn || !label) return;
+  label.textContent = currentLang === "es" ? "EN" : "ES";
+
+  btn.addEventListener("click", () => {
+    currentLang = currentLang === "es" ? "en" : "es";
+    localStorage.setItem("ics-lang", currentLang);
+    label.textContent = currentLang === "es" ? "EN" : "ES";
+    sectionMeta = getSectionMeta();
+    updateCommandPanel();
+    // Update nav rail labels
+    const navLabels = {
+      dashboard: currentLang === "es" ? "Panel" : "Panel",
+      profile: currentLang === "es" ? "Cliente" : "Client",
+      assessment: currentLang === "es" ? "Scoring" : "Scoring",
+      usecases: currentLang === "es" ? "Casos" : "Cases",
+      framework: currentLang === "es" ? "Detección" : "Detection",
+      evidence: currentLang === "es" ? "Evidencia" : "Evidence",
+      capabilities: currentLang === "es" ? "Funciones" : "Functions",
+      risks: currentLang === "es" ? "Riesgo" : "Risk",
+      technical: currentLang === "es" ? "Técnico" : "Technical",
+      deployment: currentLang === "es" ? "Despliegue" : "Deploy",
+      innovation: currentLang === "es" ? "Innovación" : "Innovation",
+      compare: currentLang === "es" ? "Comparar" : "Compare",
+      spanish: currentLang === "es" ? "España" : "Spain"
+    };
+    document.querySelectorAll(".rail-item[data-view]").forEach(btn => {
+      const span = btn.querySelector("span");
+      if (span && navLabels[btn.dataset.view]) span.textContent = navLabels[btn.dataset.view];
+    });
+    // Update command panel buttons
+    const prevBtn = document.getElementById("previousSection");
+    const nextBtn = document.getElementById("nextSection");
+    const linkBtn = document.getElementById("copySectionLink");
+    const pdfBtn = document.getElementById("exportCurrentSection");
+    if (prevBtn) { const s = prevBtn.querySelector("span"); if (s) s.textContent = t("previous"); }
+    if (nextBtn) { const s = nextBtn.querySelector("span"); if (s) s.textContent = t("next"); }
+    if (linkBtn) { const s = linkBtn.querySelector("span"); if (s) s.textContent = t("link"); }
+    if (pdfBtn) { const s = pdfBtn.querySelector("span"); if (s) s.textContent = t("pdfSection"); }
+    // Update kicker and completion labels
+    const kicker = document.querySelector(".command-copy .kicker");
+    if (kicker) kicker.textContent = t("workRoute");
+    const confSpan = document.querySelector(".completion-card > div:first-child > span");
+    if (confSpan) confSpan.textContent = t("configuration");
+    // Update search placeholder
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) searchInput.placeholder = t("searchPlaceholder");
+    // Re-render vertical filters
+    renderVerticalFilters();
+    toast(currentLang === "es" ? "Idioma: Español" : "Language: English", "info");
+  });
+}
+
 // ─── INIT ────────────────────────────────────────────────────────────
 
 function refresh() { renderRanking(); renderQuadrant(); }
@@ -1255,12 +1722,16 @@ function refresh() { renderRanking(); renderQuadrant(); }
 function init() {
   restoreState();
   document.getElementById("scenario").value = state.scenario || "balanced";
+  wireDarkMode();
+  wireLangToggle();
   renderScoringMethodology();
   renderCriteria();
   renderProfile();
   renderUseCases();
   renderRisks();
+  renderCveTimeline();
   renderTechnical();
+  renderPurdueModel();
   renderDeployment();
   renderInnovation();
   renderCapabilities();
@@ -1269,8 +1740,11 @@ function init() {
   renderVendors();
   renderSpanish();
   renderProtocolMap();
+  renderCompare();
+  renderVerticalFilters();
   wireNavigation();
   wireSectionExports();
+  wireSearch();
   refresh();
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./service-worker.js").catch(() => {});

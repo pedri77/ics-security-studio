@@ -49,6 +49,12 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
         <span>PDF completo</span>
       </button>
+      <button class="icon-button" id="toggleDark" type="button" aria-label="Alternar modo oscuro">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-button" id="toggleLang" type="button" aria-label="Switch language">
+        <span style="font-weight:900;font-size:13px" id="langLabel">EN</span>
+      </button>
       <button class="icon-button" id="resetApp" type="button" aria-label="Restablecer evaluación">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.34-5.66M4 5v6h6"/></svg>
       </button>
@@ -100,6 +106,10 @@
       <button class="rail-item" data-view="innovation" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M5.64 5.64l2.83 2.83m7.06 7.06 2.83 2.83M3 12h4m10 0h4M5.64 18.36l2.83-2.83m7.06-7.06 2.83-2.83"/></svg>
         <span>Innovación</span>
+      </button>
+      <button class="rail-item" data-view="compare" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg>
+        <span>Comparar</span>
       </button>
       <button class="rail-item spanish-rail" data-view="spanish" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M3 15h18"/></svg>
@@ -177,6 +187,8 @@
           </article>
         </div>
 
+        <div class="vertical-filters" id="verticalFilters"></div>
+
         <div class="visual-grid">
           <section class="visual-panel ranking-panel">
             <div class="panel-title">
@@ -242,6 +254,7 @@
             <span>Actualizado a 2026-07</span>
           </div>
           <div class="risk-visual" id="riskVisual"></div>
+          <div class="cve-timeline" id="cveTimeline"></div>
           <div class="cve-table" id="cveTable"></div>
           <div class="risk-grid" id="riskGrid"></div>
         </section>
@@ -286,6 +299,7 @@
             <h2>Protocolos y especificaciones técnicas</h2>
             <span>Cobertura de protocolos industriales y arquitectura</span>
           </div>
+          <div class="purdue-model" id="purdueModel"></div>
           <div class="protocol-map" id="protocolMap"></div>
           <div class="tech-grid" id="techGrid"></div>
         </section>
@@ -311,6 +325,17 @@
         </section>
       </section>
 
+      <section class="view" id="compare">
+        <section class="visual-panel">
+          <div class="panel-title">
+            <h2>Comparador de fabricantes</h2>
+            <span>Selecciona 2-3 fabricantes</span>
+          </div>
+          <div class="compare-selectors" id="compareSelectors"></div>
+          <div class="compare-result" id="compareResult"></div>
+        </section>
+      </section>
+
       <section class="view" id="spanish">
         <section class="visual-panel spanish-section">
           <div class="panel-title">
@@ -324,6 +349,13 @@
       </section>
     </section>
   </main>
+
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <input type="text" id="searchInput" placeholder="Buscar fabricantes, protocolos, secciones..." autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
 
   <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
 
