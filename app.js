@@ -22,6 +22,12 @@ const {
 
 const STORAGE_KEY = "ics-security-studio-state-v1";
 
+function findVendor(name) {
+  return vendors.find(v => v.name === name)
+    || spanishVendors.find(v => v.name === name)
+    || spanishVendors.find(v => name.includes(v.name.split(" ")[0]));
+}
+
 const sectionMeta = {
   dashboard: {
     title: "Panel ejecutivo",
@@ -282,7 +288,7 @@ function renderRiskVisual() {
       <text x="24" y="34" fill="#17212f" font-size="18" font-weight="850">Riesgo operativo vs CVEs recientes</text>
       <text x="24" y="56" fill="#647084" font-size="12">Tamaño = volumen CVEs. Color = riesgo operativo estimado.</text>
       ${cveItems.map((item, i) => {
-        const vendor = vendors.find(v => v.name === item.vendor);
+        const vendor = findVendor(item.vendor);
         if (!vendor) return "";
         const x = 60 + i * (820 / cveItems.length);
         const risk = vendor.risk;
@@ -505,7 +511,7 @@ function renderRisks() {
 
 function renderTechnical() {
   document.getElementById("techGrid").innerHTML = (techItems || []).map(item => {
-    const vendor = vendors.find(v => v.name === item.vendor);
+    const vendor = findVendor(item.vendor);
     if (!vendor) return "";
     const protocols = Array.isArray(item.protocolsSupported) ? item.protocolsSupported.join(", ") : (item.protocolsSupported || item.protocols || "");
     const sensors = Array.isArray(item.sensorTypes) ? item.sensorTypes.join(", ") : (item.sensorTypes || item.sensorArchitecture || "");
@@ -534,7 +540,7 @@ function renderTechnical() {
 
 function renderDeployment() {
   document.getElementById("deploymentGrid").innerHTML = (deploymentItems || []).map(item => {
-    const vendor = vendors.find(v => v.name === item.vendor);
+    const vendor = findVendor(item.vendor);
     if (!vendor) return "";
     return `
       <article class="deployment-item" style="--vendor-accent:${vendor.color}">
@@ -558,7 +564,7 @@ function renderDeployment() {
 
 function renderInnovation() {
   document.getElementById("innovationGrid").innerHTML = (innovationItems || []).map(item => {
-    const vendor = vendors.find(v => v.name === item.vendor);
+    const vendor = findVendor(item.vendor);
     if (!vendor) return "";
     const maturity = item.maturity || 0;
     return `
@@ -588,7 +594,7 @@ function renderCapabilities() {
     return;
   }
   document.getElementById("capabilitiesGrid").innerHTML = productCapabilities.map(item => {
-    const vendor = vendors.find(v => v.name === item.vendor);
+    const vendor = findVendor(item.vendor);
     if (!vendor) return "";
     return `
       <article class="capability-item" style="--vendor-accent:${vendor.color}">
@@ -615,7 +621,7 @@ function renderCapabilities() {
 
 function renderEvidence() {
   document.getElementById("evidenceGrid").innerHTML = (evidenceItems || []).map(item => {
-    const vendor = vendors.find(v => v.name === item.vendor);
+    const vendor = findVendor(item.vendor);
     if (!vendor) return "";
     return `
       <article class="evidence-item" style="--vendor-accent:${vendor.color}">
