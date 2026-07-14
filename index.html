@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Comparativa interactiva de fabricantes de ciberseguridad industrial OT/ICS/SCADA: Claroty, Nozomi, Dragos, Fortinet, Cisco, Microsoft, Armis, TXOne y mas. Seccion especial fabricantes espanoles.">
+  <meta name="description" content="Comparativa interactiva de fabricantes de ciberseguridad industrial OT/ICS/SCADA: Claroty, Nozomi, Dragos, Fortinet, Cisco, Microsoft, Armis, TXOne y mas. Sección especial fabricantes españoles.">
   <meta name="robots" content="index,follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#b45309">
@@ -16,7 +16,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:title" content="ICS Security Studio">
-  <meta property="og:description" content="Comparativa visual de fabricantes de ciberseguridad industrial OT/ICS/SCADA con scoring, riesgos, protocolos y seccion fabricantes espanoles.">
+  <meta property="og:description" content="Comparativa visual de fabricantes de ciberseguridad industrial OT/ICS/SCADA con scoring, riesgos, protocolos y sección fabricantes españoles.">
   <meta property="og:url" content="https://pedri77.github.io/ics-security-studio/">
   <meta name="twitter:card" content="summary">
   <title>ICS Security Studio</title>
@@ -31,30 +31,30 @@
         <p class="eyebrow">ICS Security Studio</p>
       </div>
       <h1>Comparativa de ciberseguridad industrial OT/ICS/SCADA</h1>
-      <div class="hero-metrics" aria-label="Alcance de la evaluacion">
+      <div class="hero-metrics" aria-label="Alcance de la evaluación">
         <button class="hero-chip" data-view="dashboard" data-target="rankingBars" type="button">Ranking</button>
         <button class="hero-chip" data-view="dashboard" data-target="vendorStrip" type="button">Fabricantes</button>
-        <button class="hero-chip" data-view="spanish" type="button">Espana</button>
+        <button class="hero-chip" data-view="spanish" type="button">España</button>
         <button class="hero-chip" data-view="capabilities" type="button">Funciones</button>
         <button class="hero-chip" data-view="risks" type="button">Riesgos</button>
         <button class="hero-chip" data-view="technical" type="button">Protocolos</button>
         <button class="hero-chip" data-view="deployment" type="button">Despliegue</button>
-        <button class="hero-chip" data-view="innovation" type="button">Innovacion</button>
+        <button class="hero-chip" data-view="innovation" type="button">Innovación</button>
       </div>
     </div>
     <div class="topbar-actions">
-      <button class="download-button" id="exportPdf" type="button" aria-label="Descargar evaluacion completa en PDF" title="Descargar PDF completo">
+      <button class="download-button" id="exportPdf" type="button" aria-label="Descargar evaluación completa en PDF" title="Descargar PDF completo">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
         <span>PDF completo</span>
       </button>
-      <button class="icon-button" id="resetApp" type="button" aria-label="Restablecer evaluacion">
+      <button class="icon-button" id="resetApp" type="button" aria-label="Restablecer evaluación">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.34-5.66M4 5v6h6"/></svg>
       </button>
     </div>
   </header>
 
   <main class="app-shell">
-    <aside class="rail" aria-label="Navegacion principal">
+    <aside class="rail" aria-label="Navegación principal">
       <button class="rail-item active" data-view="dashboard" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4v9Zm9 7h7V4h-7v16ZM4 20h7v-5H4v5Z"/></svg>
         <span>Panel</span>
@@ -73,7 +73,7 @@
       </button>
       <button class="rail-item" data-view="framework" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 4-6"/></svg>
-        <span>Deteccion</span>
+        <span>Detección</span>
       </button>
       <button class="rail-item" data-view="evidence" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>
@@ -97,45 +97,45 @@
       </button>
       <button class="rail-item" data-view="innovation" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M5.64 5.64l2.83 2.83m7.06 7.06 2.83 2.83M3 12h4m10 0h4M5.64 18.36l2.83-2.83m7.06-7.06 2.83-2.83"/></svg>
-        <span>Innovacion</span>
+        <span>Innovación</span>
       </button>
       <button class="rail-item spanish-rail" data-view="spanish" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M3 15h18"/></svg>
-        <span>Espana</span>
+        <span>España</span>
       </button>
     </aside>
 
     <section class="workspace">
-      <section class="command-panel" aria-label="Control de evaluacion">
+      <section class="command-panel" aria-label="Control de evaluación">
         <div class="command-copy">
           <span class="kicker">Ruta de trabajo</span>
           <strong id="currentSectionTitle">Panel ejecutivo</strong>
-          <p id="currentSectionHint">Revisa la recomendacion, el scoring y los riesgos antes de exportar.</p>
+          <p id="currentSectionHint">Revisa la recomendación, el scoring y los riesgos antes de exportar.</p>
         </div>
-        <div class="completion-card" aria-label="Progreso de configuracion">
+        <div class="completion-card" aria-label="Progreso de configuración">
           <div>
-            <span>Configuracion</span>
+            <span>Configuración</span>
             <strong id="completionText">0%</strong>
           </div>
           <div class="completion-track" aria-hidden="true"><span id="completionBar"></span></div>
-          <p id="completionHint">Define perfil, pesos y casos imprescindibles para personalizar la recomendacion.</p>
+          <p id="completionHint">Define perfil, pesos y casos imprescindibles para personalizar la recomendación.</p>
         </div>
         <div class="command-actions">
-          <button class="utility-button" id="previousSection" type="button" aria-label="Ir a la seccion anterior" title="Seccion anterior">
+          <button class="utility-button" id="previousSection" type="button" aria-label="Ir a la sección anterior" title="Sección anterior">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
             <span>Anterior</span>
           </button>
-          <button class="utility-button primary" id="nextSection" type="button" aria-label="Ir a la siguiente seccion" title="Siguiente seccion">
+          <button class="utility-button primary" id="nextSection" type="button" aria-label="Ir a la siguiente sección" title="Siguiente sección">
             <span>Siguiente</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
           </button>
-          <button class="utility-button" id="copySectionLink" type="button" aria-label="Copiar enlace a esta seccion" title="Copiar enlace a esta seccion">
+          <button class="utility-button" id="copySectionLink" type="button" aria-label="Copiar enlace a esta sección" title="Copiar enlace a esta sección">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15M14 11a5 5 0 0 0-7.07 0l-2 2A5 5 0 0 0 12 20.07l1.15-1.15"/></svg>
             <span>Enlace</span>
           </button>
-          <button class="utility-button" id="exportCurrentSection" type="button" aria-label="Descargar la seccion actual en PDF" title="Descargar seccion actual">
+          <button class="utility-button" id="exportCurrentSection" type="button" aria-label="Descargar la sección actual en PDF" title="Descargar sección actual">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
-            <span>PDF seccion</span>
+            <span>PDF sección</span>
           </button>
         </div>
       </section>
@@ -147,7 +147,7 @@
               <span class="kicker">Recomendacion preliminar</span>
               <strong id="winnerName">-</strong>
             </div>
-            <p id="winnerReason">Ajusta los pesos y los casos imprescindibles para obtener una recomendacion.</p>
+            <p id="winnerReason">Ajusta los pesos y los casos imprescindibles para obtener una recomendación.</p>
             <div class="config-summary" id="activeConfig"></div>
             <button class="inline-link" data-view="assessment" type="button">Ajustar pesos</button>
             <div class="scenario-control">
@@ -165,7 +165,7 @@
           <article class="summary-panel">
             <span class="kicker">Requisitos pendientes</span>
             <strong id="gateCount">0</strong>
-            <p>Casos imprescindibles que requieren validacion, arquitectura complementaria o compromiso del fabricante.</p>
+            <p>Casos imprescindibles que requieren validación, arquitectura complementaria o compromiso del fabricante.</p>
           </article>
 
           <article class="summary-panel">
@@ -215,7 +215,7 @@
       <section class="view" id="assessment">
         <section class="visual-panel">
           <div class="panel-title">
-            <h2>Ponderacion de criterios</h2>
+            <h2>Ponderación de criterios</h2>
             <span>Arrastra los sliders</span>
           </div>
           <div class="methodology-panel" id="scoringMethodology"></div>
@@ -227,7 +227,7 @@
         <section class="visual-panel">
           <div class="panel-title">
             <h2>Casos imprescindibles</h2>
-            <span>Condicionan la recomendacion final</span>
+            <span>Condicionan la recomendación final</span>
           </div>
           <div class="usecase-list" id="usecaseList"></div>
         </section>
@@ -272,7 +272,7 @@
         <section class="visual-panel">
           <div class="panel-title">
             <h2>Funcionalidades por producto y marca</h2>
-            <span>Capacidades, portfolio y grado de implementacion</span>
+            <span>Capacidades, portfolio y grado de implementación</span>
           </div>
           <div class="capability-grid" id="capabilitiesGrid"></div>
         </section>
@@ -291,7 +291,7 @@
       <section class="view" id="deployment">
         <section class="visual-panel">
           <div class="panel-title">
-            <h2>Implementacion, despliegue y on-premise</h2>
+            <h2>Implementación, despliegue y on-premise</h2>
             <span>Modelo operativo y soberania</span>
           </div>
           <div class="deployment-grid" id="deploymentGrid"></div>
@@ -301,7 +301,7 @@
       <section class="view" id="innovation">
         <section class="visual-panel">
           <div class="panel-title">
-            <h2>Innovacion: IA, Digital Twins y prediccion</h2>
+            <h2>Innovación: IA, Digital Twins y prediccion</h2>
             <span>Capacidades avanzadas para Industry 4.0</span>
           </div>
           <div class="innovation-grid" id="innovationGrid"></div>
@@ -311,10 +311,10 @@
       <section class="view" id="spanish">
         <section class="visual-panel spanish-section">
           <div class="panel-title">
-            <h2>Fabricantes espanoles de ciberseguridad industrial</h2>
+            <h2>Fabricantes españoles de ciberseguridad industrial</h2>
             <span>Ecosistema nacional OT/ICS</span>
           </div>
-          <p class="spanish-intro">Espana cuenta con un ecosistema creciente de empresas especializadas en ciberseguridad industrial, desde líderes como S2 Grupo hasta startups innovadoras como Alias Robotics. Esta seccion evalua su posicionamiento, certificaciones ENS, relacion con CCN-CERT/INCIBE y contratos con la administracion publica.</p>
+          <p class="spanish-intro">España cuenta con un ecosistema creciente de empresas especializadas en ciberseguridad industrial, desde líderes como S2 Grupo hasta startups innovadoras como Alias Robotics. Esta sección evalua su posicionamiento, certificaciones ENS, relacion con CCN-CERT/INCIBE y contratos con la administracion publica.</p>
           <div class="spanish-ranking" id="spanishRanking"></div>
           <div class="spanish-grid" id="spanishGrid"></div>
         </section>

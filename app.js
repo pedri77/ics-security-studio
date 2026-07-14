@@ -25,50 +25,50 @@ const STORAGE_KEY = "ics-security-studio-state-v1";
 const sectionMeta = {
   dashboard: {
     title: "Panel ejecutivo",
-    hint: "Revisa la recomendacion, ranking ponderado y lectura ejecutiva antes de exportar."
+    hint: "Revisa la recomendación, ranking ponderado y lectura ejecutiva antes de exportar."
   },
   profile: {
     title: "Perfil del cliente",
-    hint: "Define sector, tamano, madurez OT SOC y contexto para adaptar pesos y casos imprescindibles."
+    hint: "Define sector, tamaño, madurez OT SOC y contexto para adaptar pesos y casos imprescindibles."
   },
   assessment: {
     title: "Scoring",
-    hint: "Ajusta los pesos de decision. Estos valores recalculan ranking, recomendacion y PDF."
+    hint: "Ajusta los pesos de decisión. Estos valores recalculan ranking, recomendación y PDF."
   },
   usecases: {
     title: "Casos imprescindibles",
-    hint: "Marca los casos obligatorios. Si un fabricante no llega al umbral, aparecera como pendiente."
+    hint: "Marca los casos obligatorios. Si un fabricante no llega al umbral, aparecerá como pendiente."
   },
   framework: {
-    title: "Deteccion e inteligencia",
+    title: "Detección e inteligencia",
     hint: "Compara modelo SOC/OT, radar, Data Quality e integraciones por fabricante."
   },
   evidence: {
     title: "Evidencia y confianza",
-    hint: "Contrasta fuentes publicas, confianza declarada y validaciones pendientes de PoC/RFP."
+    hint: "Contrasta fuentes públicas, confianza declarada y validaciones pendientes de PoC/RFP."
   },
   capabilities: {
     title: "Funcionalidades",
-    hint: "Revisa portfolio por marca, soluciones equivalentes, grado de implementacion y cautelas."
+    hint: "Revisa portfolio por marca, soluciones equivalentes, grado de implementación y cautelas."
   },
   risks: {
     title: "Riesgos y vulnerabilidades",
-    hint: "Analiza CVEs, respuesta a parches, incidentes publicados y acciones de mitigacion."
+    hint: "Analiza CVEs, respuesta a parches, incidentes publicados y acciones de mitigación."
   },
   technical: {
-    title: "Protocolos y tecnico",
+    title: "Protocolos y técnico",
     hint: "Valida cobertura de protocolos industriales, arquitectura de sensores y modelo de despliegue."
   },
   deployment: {
     title: "Despliegue",
-    hint: "Evalua provision, on-premise, soberania operativa y modelos de despliegue."
+    hint: "Evalúa provisión, on-premise, soberanía operativa y modelos de despliegue."
   },
   innovation: {
-    title: "Innovacion",
-    hint: "Evalua capacidades de IA, digital twins, prediccion y preparacion Industry 4.0."
+    title: "Innovación",
+    hint: "Evalúa capacidades de IA, digital twins, predicción y preparación Industry 4.0."
   },
   spanish: {
-    title: "Fabricantes espanoles",
+    title: "Fabricantes españoles",
     hint: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefonica Tech y mas."
   }
 };
@@ -142,7 +142,7 @@ function configurationProgress() {
   if (profileDone < profileFields.length) missing.push("perfil cliente");
   if (!requiredCount) missing.push("casos imprescindibles");
   if (!weightsChanged) missing.push("pesos");
-  if (!frameworkSelected) missing.push("fabricante en deteccion");
+  if (!frameworkSelected) missing.push("fabricante en detección");
   return { percent, missing };
 }
 
@@ -161,7 +161,7 @@ function updateCommandPanel(viewId = activeSectionId()) {
   completionBar.style.width = `${progress.percent}%`;
   completionHint.textContent = progress.missing.length
     ? `Pendiente: ${progress.missing.join(", ")}.`
-    : "Configuracion lista para revision ejecutiva y exportacion.";
+    : "Configuración lista para revisión ejecutiva y exportación.";
 }
 
 function toast(message, tone = "success") {
@@ -204,7 +204,7 @@ function renderRanking() {
       <div class="vendor-name with-logo"><img src="${item.logo}" alt="${item.name}" loading="lazy">${item.name}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${(item.score / max) * 100}%;background:${item.color}"></div></div>
       <div class="score">${item.score.toFixed(2)}</div>
-      ${item.unmetRequirements.length ? `<div class="gate-note">Requiere validacion: ${item.unmetRequirements.join(", ")}</div>` : ""}
+      ${item.unmetRequirements.length ? `<div class="gate-note">Requiere validación: ${item.unmetRequirements.join(", ")}</div>` : ""}
     </div>
   `).join("");
 
@@ -265,7 +265,7 @@ function renderVendors() {
       <p><strong>Cumplimiento:</strong> ${v.complianceDetail}</p>
       <div class="disadvantage-box"><strong>Cautelas</strong>${v.caution}</div>
       <div class="vendor-links">
-        <a href="${v.docsUrl}" target="_blank" rel="noreferrer">Documentacion</a>
+        <a href="${v.docsUrl}" target="_blank" rel="noreferrer">Documentación</a>
         <a href="${v.productUrl}" target="_blank" rel="noreferrer">Producto</a>
         <a href="${v.complianceUrl}" target="_blank" rel="noreferrer">Cumplimiento</a>
       </div>
@@ -280,7 +280,7 @@ function renderRiskVisual() {
     <svg viewBox="0 0 900 310" role="img" aria-label="Grafo visual de riesgo">
       <rect x="0" y="0" width="900" height="310" fill="#fbfcfe"/>
       <text x="24" y="34" fill="#17212f" font-size="18" font-weight="850">Riesgo operativo vs CVEs recientes</text>
-      <text x="24" y="56" fill="#647084" font-size="12">Tamano = volumen CVEs. Color = riesgo operativo estimado.</text>
+      <text x="24" y="56" fill="#647084" font-size="12">Tamaño = volumen CVEs. Color = riesgo operativo estimado.</text>
       ${cveItems.map((item, i) => {
         const vendor = vendors.find(v => v.name === item.vendor);
         if (!vendor) return "";
@@ -345,11 +345,11 @@ function renderMetricInfo(metricId) {
   if (!guide) return "";
   return `
     <details class="metric-info">
-      <summary aria-label="Ver explicacion de la metrica">i</summary>
+      <summary aria-label="Ver explicación de la métrica">i</summary>
       <div class="metric-popover">
-        <strong>Como se pondera</strong><p>${guide.basis}</p>
+        <strong>Cómo se pondera</strong><p>${guide.basis}</p>
         <strong>Evidencia usada</strong><p>${guide.evidence}</p>
-        <strong>Validacion recomendada</strong><p>${guide.validation}</p>
+        <strong>Validación recomendada</strong><p>${guide.validation}</p>
         <div class="metric-links">${guide.links.map((l, i) => `<a href="${l}" target="_blank" rel="noreferrer">Fuente ${i + 1}</a>`).join("")}</div>
       </div>
     </details>
@@ -362,13 +362,13 @@ function renderScoringMethodology() {
   target.innerHTML = `
     <article class="methodology-card">
       <div>
-        <span class="kicker">Metodologia de ponderacion OT/ICS</span>
-        <strong>De donde salen las metricas y como defender el scoring</strong>
-        <p>Las notas 1-5 son una valoracion cualitativa basada en documentacion oficial, capacidades publicadas, advisories, cobertura de protocolos industriales y criterio tecnico de arquitectura OT. No sustituyen una PoC.</p>
+        <span class="kicker">Metodología de ponderación OT/ICS</span>
+        <strong>De donde salen las métricas y cómo defender el scoring</strong>
+        <p>Las notas 1-5 son una valoracion cualitativa basada en documentación oficial, capacidades publicadas, advisories, cobertura de protocolos industriales y criterio técnico de arquitectura OT. No sustituyen una PoC.</p>
       </div>
       <div class="methodology-steps">
-        <div><span>1</span><p><strong>Base documental:</strong> documentacion oficial, fichas de producto, certificaciones IEC 62443 y advisories.</p></div>
-        <div><span>2</span><p><strong>Ajuste cliente:</strong> pesos, casos imprescindibles, sector industrial, SOC OT y requisitos de soberania.</p></div>
+        <div><span>1</span><p><strong>Base documental:</strong> documentación oficial, fichas de producto, certificaciones IEC 62443 y advisories.</p></div>
+        <div><span>2</span><p><strong>Ajuste cliente:</strong> pesos, casos imprescindibles, sector industrial, SOC OT y requisitos de soberanía.</p></div>
         <div><span>3</span><p><strong>Validacion PoC:</strong> cada "i" indica que probar y que evidencia pedir al fabricante.</p></div>
       </div>
     </article>
@@ -415,7 +415,7 @@ function renderProfile() {
       <select id="profileSector">
         ${["No definido", "Energia / Utilities", "Oil & Gas", "Manufactura", "Agua / Saneamiento", "Transporte", "Farmaceutica", "Mineria", "Defensa", "Sector publico"].map(s => `<option ${s === state.profile.sector ? "selected" : ""}>${s}</option>`).join("")}
       </select>
-      <label for="profileSize">Tamano planta/operacion</label>
+      <label for="profileSize">Tamaño planta/operacion</label>
       <select id="profileSize">
         ${["No definido", "< 500 dispositivos OT", "500-5.000 dispositivos", "5.000-50.000 dispositivos", "> 50.000 dispositivos"].map(s => `<option ${s === state.profile.size ? "selected" : ""}>${s}</option>`).join("")}
       </select>
@@ -500,6 +500,12 @@ function renderTechnical() {
   document.getElementById("techGrid").innerHTML = (techItems || []).map(item => {
     const vendor = vendors.find(v => v.name === item.vendor);
     if (!vendor) return "";
+    const protocols = Array.isArray(item.protocolsSupported) ? item.protocolsSupported.join(", ") : (item.protocolsSupported || item.protocols || "");
+    const sensors = Array.isArray(item.sensorTypes) ? item.sensorTypes.join(", ") : (item.sensorTypes || item.sensorArchitecture || "");
+    const deploy = item.deploymentModel || "";
+    const arch = item.architecture || "";
+    const api = item.apiCapabilities || "";
+    const scale = item.scalability || "";
     return `
       <article class="tech-item" style="--vendor-accent:${vendor.color}">
         <div class="vendor-card-head">
@@ -507,10 +513,12 @@ function renderTechnical() {
           <strong>${item.vendor}</strong>
         </div>
         <dl>
-          <div><dt>Protocolos soportados</dt><dd>${item.protocols}</dd></div>
-          <div><dt>Arquitectura de sensores</dt><dd>${item.sensorArchitecture}</dd></div>
-          <div><dt>Modelo de despliegue</dt><dd>${item.deploymentModel}</dd></div>
-          <div><dt>Validar en PoC</dt><dd>${item.validate}</dd></div>
+          <div><dt>Protocolos soportados</dt><dd>${protocols}</dd></div>
+          <div><dt>Arquitectura</dt><dd>${arch}</dd></div>
+          <div><dt>Tipos de sensor</dt><dd>${sensors}</dd></div>
+          <div><dt>Modelo de despliegue</dt><dd>${deploy}</dd></div>
+          ${api ? `<div><dt>API</dt><dd>${api}</dd></div>` : ""}
+          ${scale ? `<div><dt>Escalabilidad</dt><dd>${scale}</dd></div>` : ""}
         </dl>
       </article>
     `;
@@ -528,11 +536,14 @@ function renderDeployment() {
           <strong>${item.vendor}</strong>
         </div>
         <div class="deployment-meta">
-          <div><span>Implementacion / provision</span><p>${item.implementation}</p></div>
-          <div><span>Solucion on-premise</span><p>${item.onprem}</p></div>
-          <div><span>Validar en PoC</span><p>${item.poc}</p></div>
+          <div><span>On-premise</span><p>${item.onPremise || item.onprem || "No documentado"}</p></div>
+          <div><span>Cloud</span><p>${item.cloud || "No documentado"}</p></div>
+          <div><span>Hibrido</span><p>${item.hybrid || "No documentado"}</p></div>
+          ${item.airGapped ? `<div><span>Air-gapped</span><p>${item.airGapped}</p></div>` : ""}
+          ${item.typicalDeployTime ? `<div><span>Tiempo de despliegue</span><p>${item.typicalDeployTime}</p></div>` : ""}
+          ${item.sensorDeployment ? `<div><span>Despliegue de sensores</span><p>${item.sensorDeployment}</p></div>` : ""}
+          ${item.detail ? `<div><span>Detalle</span><p>${item.detail}</p></div>` : ""}
         </div>
-        <ul>${(item.success || []).map(s => `<li><a href="${s.url}" target="_blank" rel="noreferrer">${s.label}</a></li>`).join("")}</ul>
       </article>
     `;
   }).join("");
@@ -542,6 +553,7 @@ function renderInnovation() {
   document.getElementById("innovationGrid").innerHTML = (innovationItems || []).map(item => {
     const vendor = vendors.find(v => v.name === item.vendor);
     if (!vendor) return "";
+    const maturity = item.maturity || 0;
     return `
       <article class="innovation-item" style="--vendor-accent:${vendor.color}">
         <div class="vendor-card-head">
@@ -549,16 +561,14 @@ function renderInnovation() {
           <strong>${item.vendor}</strong>
         </div>
         <div class="score-pair">
-          <div class="badge"><span>IA/ML</span><strong>${item.aiScore}/5</strong></div>
-          <div class="badge"><span>Innovacion</span><strong>${item.innovationScore}/5</strong></div>
+          <div class="badge"><span>Madurez</span><strong>${maturity}/5</strong></div>
+          <div class="badge"><span>Nivel</span><strong>${maturity >= 4 ? "Alto" : maturity >= 3 ? "Medio" : "Basico"}</strong></div>
         </div>
         <div class="innovation-meta">
-          <div><span>IA / Machine Learning</span><p>${item.ai}</p></div>
-          <div><span>Innovacion OT</span><p>${item.innovation}</p></div>
-          <div><span>Validar en PoC</span><p>${item.validate}</p></div>
-        </div>
-        <div class="vendor-links">
-          ${(item.sources || []).map((s, i) => `<a href="${s}" target="_blank" rel="noreferrer">Fuente ${i + 1}</a>`).join("")}
+          ${item.aiCapabilities ? `<div><span>IA / Machine Learning</span><p>${item.aiCapabilities}</p></div>` : ""}
+          ${item.digitalTwin ? `<div><span>Digital Twin</span><p>${item.digitalTwin}</p></div>` : ""}
+          ${item.predictiveSecurity ? `<div><span>Seguridad predictiva</span><p>${item.predictiveSecurity}</p></div>` : ""}
+          ${item.innovation ? `<div><span>Innovación</span><p>${item.innovation}</p></div>` : ""}
         </div>
       </article>
     `;
@@ -580,7 +590,7 @@ function renderCapabilities() {
           <div><strong>${item.vendor}</strong><p>${item.primary}</p></div>
         </div>
         <div class="capability-score">
-          <span>Grado de implementacion</span>
+          <span>Grado de implementación</span>
           <strong>${item.maturity.toFixed(1)}/5</strong>
           <div class="bar-track"><div class="bar-fill" style="width:${(item.maturity / 5) * 100}%;background:${vendor.color}"></div></div>
           <p>${item.implementationGrade}</p>
@@ -589,7 +599,7 @@ function renderCapabilities() {
         <div class="capability-block"><span>Otras soluciones</span><div class="fit-chips">${item.adjacent.map(v => `<span class="fit-chip">${v}</span>`).join("")}</div></div>
         <div class="capability-block"><span>Equivalentes en otros fabricantes</span><p>${item.peerOverlap.join(" - ")}</p></div>
         <div class="advantage-box"><strong>Diferenciadores</strong><p>${item.differentiators.join(" - ")}</p></div>
-        <div class="disadvantage-box"><strong>Precaucion</strong><p>${item.caution}</p></div>
+        <div class="disadvantage-box"><strong>Precaución</strong><p>${item.caution}</p></div>
         <div class="vendor-links">${item.sources.map((s, i) => `<a href="${s}" target="_blank" rel="noreferrer">Fuente ${i + 1}</a>`).join("")}</div>
       </article>
     `;
@@ -611,11 +621,11 @@ function renderEvidence() {
           <strong>${item.confidence.toFixed(1)}/5</strong>
           <div class="bar-track"><div class="bar-fill" style="width:${(item.confidence / 5) * 100}%;background:${vendor.color}"></div></div>
         </div>
-        ${item.items.map(e => `
+        ${(item.items || item.sources || []).map(e => `
           <div class="evidence-row">
-            <span class="badge">${e.type}</span>
-            <p><strong>${e.title}</strong></p>
-            <p>Confianza: ${e.confidence}/5</p>
+            <span class="badge">${e.type || "Fuente"}</span>
+            <p><strong>${e.title || e.name || ""}</strong></p>
+            ${e.confidence ? `<p>Confianza: ${e.confidence}/5</p>` : ""}
             ${e.url ? `<a href="${e.url}" target="_blank" rel="noreferrer">Ver fuente</a>` : `<small>Pendiente PoC/RFP</small>`}
           </div>
         `).join("")}
@@ -647,7 +657,7 @@ function renderFramework() {
 
   document.getElementById("frameworkGrid").innerHTML = `
     <article class="framework-item">
-      <strong>Ranking por fortaleza tecnica</strong>
+      <strong>Ranking por fortaleza técnica</strong>
       <div class="fit-chips">${advancedRanking.map(i => `<span class="fit-chip high">${i.vendor.name}: ${i.score.toFixed(1)}</span>`).join("")}</div>
     </article>
     ${marketHtml}
@@ -697,7 +707,7 @@ function renderFramework() {
 function renderFrameworkVendorDetails() {
   const selected = selectedFrameworkIndexes();
   if (!selected.length) {
-    document.getElementById("frameworkVendorDetail").innerHTML = `<article class="vendor-framework-panel"><strong>Selecciona al menos un fabricante</strong></article>`;
+    document.getElementById("frameworkVendorDetail").innerHTML = `<article class="vendor-framework-panel"><strong>Seleccióna al menos un fabricante</strong></article>`;
     return;
   }
   document.getElementById("frameworkVendorDetail").innerHTML = selected.map(({ vendor, index }) => {
@@ -706,7 +716,7 @@ function renderFrameworkVendorDetails() {
       <article class="vendor-framework-panel" style="--vendor-accent:${vendor.color}">
         <div class="vendor-card-head">
           <img src="${vendor.logo}" alt="${vendor.name}" loading="lazy">
-          <div><strong>${vendor.name}</strong><p>Fortaleza tecnica: ${score.toFixed(1)}/5</p></div>
+          <div><strong>${vendor.name}</strong><p>Fortaleza técnica: ${score.toFixed(1)}/5</p></div>
         </div>
         ${threatHeatmap && threatHeatmap.length ? `
           <div class="heatmap-panel vendor-heatmap">
@@ -729,7 +739,7 @@ function renderFrameworkVendorDetails() {
 
 function renderSpanish() {
   if (!spanishVendors.length) {
-    document.getElementById("spanishGrid").innerHTML = `<article class="spanish-card"><strong>Sin datos de fabricantes espanoles</strong></article>`;
+    document.getElementById("spanishGrid").innerHTML = `<article class="spanish-card"><strong>Sin datos de fabricantes españoles</strong></article>`;
     return;
   }
 
@@ -757,7 +767,7 @@ function renderSpanish() {
           </div>
         </div>
         <div class="badge-row">
-          <span class="flag-badge">Espana</span>
+          <span class="flag-badge">España</span>
           <span class="ens-status ${ensClass}">${v.ensStatus || "No documentado"}</span>
           <span class="badge">${v.gartner || ""}</span>
         </div>
@@ -836,7 +846,7 @@ function wireNavigation() {
   document.getElementById("exportCurrentSection").addEventListener("click", () => {
     const id = activeSectionId();
     exportSectionPdf(id);
-    toast(`PDF de ${sectionMeta[id]?.title || "seccion"} generado.`);
+    toast(`PDF de ${sectionMeta[id]?.title || "sección"} generado.`);
   });
   document.getElementById("previousSection").addEventListener("click", () => {
     const order = getNavOrder();
@@ -871,7 +881,7 @@ function exportBlob(blob, filename) {
   URL.revokeObjectURL(a.href);
 }
 
-function exportPdf() { syncProfileForm(); exportBlob(createPdf(), "ics-security-studio-evaluacion.pdf"); }
+function exportPdf() { syncProfileForm(); exportBlob(createPdf(), "ics-security-studio-evaluación.pdf"); }
 function exportSectionPdf(id) { syncProfileForm(); exportBlob(createPdf(id), `ics-security-studio-${id}.pdf`); }
 
 function createPdf(sectionId) {
@@ -905,7 +915,7 @@ function createPdf(sectionId) {
   }
 
   if (!sectionId || sectionId === "spanish") {
-    doc.section("Fabricantes espanoles");
+    doc.section("Fabricantes españoles");
     spanishVendors.forEach(v => {
       doc.subsection(v.name);
       doc.kv("Fortaleza", `${v.strength}/5`);
