@@ -5,7 +5,7 @@
 <h1 align="center">ICS Security Studio</h1>
 
 <p align="center">
-  <strong>Comparativa interactiva de fabricantes de ciberseguridad industrial OT/ICS/SCADA con scoring, riesgos, protocolos y seccion especial de fabricantes espanoles.</strong>
+  <strong>Comparativa interactiva de fabricantes de ciberseguridad industrial OT/ICS/SCADA con scoring, riesgos, protocolos y sección especial de fabricantes españoles.</strong>
 </p>
 
 <p align="center">
@@ -29,66 +29,73 @@
 
 ## `> cat overview.md`
 
-Herramienta de evaluacion visual para comparar **15 fabricantes globales** y **10 fabricantes espanoles** de ciberseguridad industrial OT/ICS/SCADA, con scoring ponderado, analisis de riesgo basado en CVEs, cobertura de protocolos industriales y generacion de informes PDF ejecutivos.
+Herramienta de evaluación visual para comparar **20 fabricantes globales** y **12 fabricantes españoles** de ciberseguridad industrial OT/ICS/SCADA, con scoring ponderado, análisis de riesgo basado en CVEs, cobertura de protocolos industriales y generación de informes PDF ejecutivos.
 
 ### Fabricantes globales evaluados
 
 | Fabricante | Especialidad | Posicionamiento |
 |------------|-------------|-----------------|
 | **Claroty** | Visibilidad IT/OT/IoMT, xDome | Leader (Gartner CPS 2025) |
-| **Nozomi Networks** | Monitorizacion pasiva, Guardian/Vantage | Leader (Gartner CPS 2025) |
+| **Nozomi Networks** | Monitorización pasiva, Guardian/Vantage | Leader (Gartner CPS 2025) |
 | **Dragos** | Threat intel ICS, WorldView | Leader (Gartner CPS 2025) |
-| **Fortinet OT** | Segmentacion, FortiGate Rugged | Westlands Advisory #1 IT/OT |
+| **Fortinet OT** | Segmentación, FortiGate Rugged | Westlands Advisory #1 IT/OT |
 | **Cisco Industrial** | Cyber Vision, ISA 3000 | Visionary (Gartner CPS 2025) |
-| **Microsoft Defender IoT** | Monitorizacion agentless, XDR | Leader (Gartner CPS 2025) |
+| **Microsoft Defender IoT** | Monitorización agentless, XDR | Leader (Gartner CPS 2025) |
 | **Armis** | Asset intelligence, agentless | Leader (Gartner CPS 2025) |
 | **TXOne Networks** | Endpoint OT, Stellar | Visionary (Gartner CPS 2025) |
 | **Honeywell** | Forge Cybersecurity+, SMX | Niche Player |
 | **Siemens** | SINEC Security, S7 protection | Ecosistema Siemens |
 | **Tenable OT** | Vulnerability management | Tenable One IT/OT |
-| **Waterfall Security** | Diodos unidireccionales | Lider data diodes |
-| **OPSWAT** | Sanitizacion USB, MetaDefender | CIP/nuclear |
+| **Waterfall Security** | Diodos unidireccionales | Líder data diodes |
+| **OPSWAT** | Sanitización USB, MetaDefender | CIP/nuclear |
 | **Schneider Electric** | EcoStruxure, Foxboro SDA | IEC 62443 SL2 |
 | **Radiflow** | iSID, CIARA risk management | EMEA/MEA |
+| **Forescout** | Visibilidad agentless IT/OT/IoT | Leader (Forrester IoT 2024) |
+| **Cyolo** | Acceso remoto seguro OT, zero trust | Niche (acceso remoto OT) |
+| **Xage Security** | Zero trust nativo OT, identidad distribuida | Cool Vendor (Gartner 2023) |
+| **runZero** | Asset discovery ultrarrápido | Accenture (2026) |
+| **NetRise** | Firmware/SBOM security analysis | Accenture (2026) |
 
-### Fabricantes espanoles
+### Fabricantes españoles
 
 | Fabricante | Sede | Especialidad |
 |------------|------|-------------|
 | **S2 Grupo** | Valencia | SOC IT+OT, GLORIA (CCN-CNI), Defensa |
-| **CounterCraft** | San Sebastian | Cyber deception IT/OT |
-| **Alias Robotics** | Vitoria | Ciberseguridad robotica, alias1 LLM |
+| **CounterCraft** | San Sebastián | Cyber deception IT/OT |
+| **Alias Robotics** | Vitoria | Ciberseguridad robótica, alias1 LLM |
 | **Barbara IoT** | Madrid | Edge AI industrial seguro |
-| **Enigmedia/Opscura** | San Sebastian | Cifrado OT transparente, cloaking |
-| **InprOTech** | Vigo | Monitorizacion OT, Guardian |
-| **Telefonica Tech** | Madrid | Mission Critical SOC, 17M IoT |
+| **Enigmedia/Opscura** | San Sebastián | Cifrado OT transparente, cloaking |
+| **InprOTech** | Vigo | Monitorización OT, Guardian |
+| **Telefónica Tech** | Madrid | Mission Critical SOC, 17M IoT |
 | **Deloitte Spain** | Madrid | EMEA Cybersphere Center, FAST |
 | **Tarlogic** | Santiago | Pentesting OT/ICS |
 | **Cipher (Prosegur)** | Madrid | SOC managed IT/OT |
+| **Titanium (+ Rutile)** | San Sebastián | Plataforma Rutile + SOC OT 24/7 |
+| **Steryon** | Barcelona | Risk management CPS, NIS2 automation |
 
 ---
 
 ## `> cat features.md`
 
 ```
- Evaluacion OT                Reporting                   Riesgo
+ Evaluación OT                Reporting                   Riesgo
  ──────────────               ─────────                   ──────
  18 criterios OT/ICS          PDF ejecutivo completo      Matriz de riesgo CVE
- 15 casos de uso OT           Export por seccion           CVEs reales por fabricante
+ 15 casos de uso OT           Export por sección           CVEs reales por fabricante
  Perfiles industriales        Enlace copiable             Incidentes documentados
- Presets por vertical         Progreso de evaluacion      Respuesta a parches
+ Presets por vertical         Progreso de evaluación      Respuesta a parches
 
- Protocolos                   Compliance                  Espana
+ Protocolos                   Compliance                  España
  ──────────                   ──────────                  ──────
- Modbus, OPC-UA, DNP3         IEC 62443 zonas/conductos   10 fabricantes espanoles
- S7, PROFINET, EtherNet/IP    NERC CIP, NIS2, ENS         Certificacion ENS
- IEC 61850, IEC 104           NIST CSF, TSA Pipeline      Relacion CCN-CERT/INCIBE
- BACnet, HART, MQTT           Reporting automatizado      Contratos publicos
+ Modbus, OPC-UA, DNP3         IEC 62443 zonas/conductos   12 fabricantes españoles
+ S7, PROFINET, EtherNet/IP    NERC CIP, NIS2, ENS         Certificación ENS
+ IEC 61850, IEC 104           NIST CSF, TSA Pipeline      Relación CCN-CERT/INCIBE
+ BACnet, HART, MQTT           Reporting automatizado      Contratos públicos
 
- Innovacion                   Despliegue                  Amenazas
+ Innovación                   Despliegue                  Amenazas
  ──────────                   ─────────                   ────────
  IA/ML por fabricante         On-premise / cloud / SaaS   Ransomware industrial
- Digital twins security       Sensores pasivos/activos    Manipulacion de procesos
+ Digital twins security       Sensores pasivos/activos    Manipulación de procesos
  Predictive maintenance       Diodos unidireccionales     Malware en PLCs/RTUs
  Industry 4.0 readiness       Modelo Purdue               Ataques supply chain
 ```
@@ -105,11 +112,11 @@ Herramienta de evaluacion visual para comparar **15 fabricantes globales** y **1
 └─────────────┘    └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
-1. **Seleccionar perfil** industrial (energia, oil&gas, manufactura, agua, transporte, defensa...)
-2. **Aplicar preset** por vertical (infra critica, manufactura, energia, sector publico ENS)
-3. **Revisar scoring** con ranking visual y cuadrante tecnico
-4. **Validar** protocolos, amenazas OT, CVEs, despliegue, innovacion y fabricantes espanoles
-5. **Descargar PDF** ejecutivo completo o por seccion individual
+1. **Seleccionar perfil** industrial (energía, oil&gas, manufactura, agua, transporte, defensa...)
+2. **Aplicar preset** por vertical (infra crítica, manufactura, energia, sector público ENS)
+3. **Revisar scoring** con ranking visual y cuadrante técnico
+4. **Validar** protocolos, amenazas OT, CVEs, despliegue, innovación y fabricantes españoles
+5. **Descargar PDF** ejecutivo completo o por sección individual
 
 ---
 
@@ -117,12 +124,12 @@ Herramienta de evaluacion visual para comparar **15 fabricantes globales** y **1
 
 ```
 ics-security-studio/
-├── index.html                 # Layout principal con 12 secciones + Espana
+├── index.html                 # Layout principal con 12 secciones + España
 ├── styles.css                 # Sistema visual industrial, responsive
-├── data.js                    # 15 fabricantes globales + 10 espanoles + 18 criterios
-├── app.js                     # Motor de scoring, graficos, navegacion y PDF
-├── manifest.webmanifest       # Configuracion PWA
-├── robots.txt                 # Indexacion SEO
+├── data.js                    # 20 fabricantes globales + 12 españoles + 18 criterios
+├── app.js                     # Motor de scoring, gráficos, navegación y PDF
+├── manifest.webmanifest       # Configuración PWA
+├── robots.txt                 # Indexación SEO
 ├── sitemap.xml                # Mapa del sitio
 ├── DISCLAIMER.md              # Disclaimer legal
 └── .nojekyll                  # GitHub Pages sin Jekyll
@@ -134,18 +141,18 @@ ics-security-studio/
 
 | Seccion | Contenido |
 |---------|-----------|
-| **Panel** | Ranking ponderado, cuadrante tecnico, lectura ejecutiva |
+| **Panel** | Ranking ponderado, cuadrante técnico, lectura ejecutiva |
 | **Cliente** | Perfil por sector industrial, tamano planta, SOC OT |
-| **Scoring** | 18 criterios OT con sliders (descubrimiento activos, protocolos, segmentacion...) |
+| **Scoring** | 18 criterios OT con sliders (descubrimiento activos, protocolos, segmentación...) |
 | **Casos** | 15 casos de uso OT (visibilidad, Purdue, virtual patching, NIS2...) |
-| **Deteccion** | Heatmap 6 amenazas OT, cobertura por fabricante |
-| **Evidencia** | Nivel de confianza, fuentes publicas, validaciones pendientes |
+| **Detección** | Heatmap 6 amenazas OT, cobertura por fabricante |
+| **Evidencia** | Nivel de confianza, fuentes públicas, validaciones pendientes |
 | **Funciones** | 15 fichas fabricante con capacidades, diferenciadores, cautelas |
 | **Riesgo** | CVEs reales, respuesta a parches, incidentes documentados |
-| **Tecnico** | Protocolos industriales, arquitectura sensores, modelo despliegue |
-| **Despliegue** | On-premise, cloud, hibrido, soberania por fabricante |
-| **Innovacion** | IA/ML, digital twins, predictive, Industry 4.0 |
-| **Espana** | 10 fabricantes con ENS, CCN-CERT, INCIBE, contratos publicos |
+| **Técnico** | Protocolos industriales, arquitectura sensores, modelo despliegue |
+| **Despliegue** | On-premise, cloud, híbrido, soberanía por fabricante |
+| **Innovación** | IA/ML, digital twins, predictive, Industry 4.0 |
+| **España** | 12 fabricantes con ENS, CCN-CERT, INCIBE, contratos públicos |
 
 ---
 
@@ -155,16 +162,16 @@ ics-security-studio/
 - **Deep links** navegables por hash para compartir secciones concretas
 - **SEO ready**: canonical, Open Graph, Twitter Card, sitemap
 - **Accesibilidad**: enlace de salto al contenido principal
-- **CSP**: politica de seguridad de contenido via meta tag
+- **CSP**: política de seguridad de contenido vía meta tag
 - **Zero dependencies**: vanilla JavaScript, sin frameworks ni build tools
-- **Responsive**: adaptado a desktop, tablet y movil
-- **Seccion espanola dedicada** con datos de CCN-CERT, INCIBE y contratos publicos
+- **Responsive**: adaptado a desktop, tablet y móvil
+- **Sección española dedicada** con datos de CCN-CERT, INCIBE y contratos públicos
 
 ---
 
 ## `> cat deploy.md`
 
-Desplegada automaticamente en **GitHub Pages** desde la rama `main`, carpeta raiz.
+Desplegada automáticamente en **GitHub Pages** desde la rama `main`, carpeta raíz.
 
 ```bash
 # Clonar y servir en local
@@ -178,15 +185,15 @@ python3 -m http.server 8080
 
 ## `> cat data-sources.md`
 
-Los datos provienen de fuentes publicas:
+Los datos provienen de fuentes públicas:
 
 - **Gartner Magic Quadrant** CPS Protection Platforms 2025/2026
 - **Forrester Wave** IoT Security Q3 2025
 - **Westlands Advisory** IT/OT Network Protection 2025
 - **NVD/CVE** y advisories oficiales de fabricantes
-- **Documentacion oficial** de producto y certificaciones
+- **Documentación oficial** de producto y certificaciones
 - **Informes de mercado** (Frost & Sullivan, ABI Research)
-- **CCN-CERT**, **INCIBE** y registros ENS para fabricantes espanoles
+- **CCN-CERT**, **INCIBE** y registros ENS para fabricantes españoles
 
 ---
 
