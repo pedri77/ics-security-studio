@@ -1,0 +1,10 @@
+{
+  "name": "ICS Security Studio",
+  "short_name": "ICS Studio",
+  "description": "Comparativa interactiva de fabricantes de ciberseguridad industrial OT/ICS/SCADA",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#b45309",
+  "icons": []
+}
