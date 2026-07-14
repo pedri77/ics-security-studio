@@ -826,8 +826,9 @@ function renderProtocolMap() {
                 ${allVendors.map(vn => {
                   const s = (p.support || []).find(s => s.vendor === vn);
                   if (!s) return `<td class="proto-none">-</td>`;
-                  const cls = s.level === "Full DPI" ? "proto-full" : s.level === "IPS signatures" ? "proto-ips" : "proto-basic";
-                  return `<td class="${cls}" title="${s.detail || ""}">${s.level === "Full DPI" ? "DPI" : s.level === "IPS signatures" ? "IPS" : "Basic"}</td>`;
+                  const cls = s.level.includes("DPI") ? "proto-full" : s.level === "IPS signatures" ? "proto-ips" : s.level.includes("Passive") ? "proto-basic" : s.level === "Native" ? "proto-full" : "proto-basic";
+                  const label = s.level.includes("Full DPI") ? "DPI" : s.level.includes("Passive") ? "Pasivo" : s.level === "IPS signatures" ? "IPS" : s.level === "Native" ? "Nativo" : s.level === "Full" ? "Full" : "Basic";
+                  return `<td class="${cls}" title="${s.detail || ""}">${label}</td>`;
                 }).join("")}
               </tr>
             `).join("")}
