@@ -1337,7 +1337,19 @@ function createPdf(sectionId) {
     doc.kv("Requisitos pendientes de validación", String(ranked.reduce((s, i) => s + i.unmetRequirements.length, 0)));
     doc.kv("Nivel de riesgo medio", (vendors.reduce((s, v) => s + v.risk, 0) / vendors.length).toFixed(1));
     doc.section("2. Ranking ponderado");
-    doc.barChart("Ranking", ranked.map(i => ({ label: i.name, value: i.score, color: i.color })), 5);
+    doc.barChart("Ranking ponderado por criterios", ranked.map(i => ({ label: i.name, value: i.score, color: i.color })), 5);
+
+    // Quadrant chart
+    doc.quadrantChart("Cuadrante técnico: Ajuste vs Fortaleza", ranked.map(i => ({ name: i.name, color: i.color, x: i.fit, y: i.strength })));
+
+    // Radar chart top 5
+    const top5 = ranked.slice(0, 5);
+    const radarCrit = criteria.slice(0, 9);
+    doc.radarChart("Radar comparativo (Top 5)", top5.map(v => {
+      const vi = vendors.findIndex(vv => vv.name === v.name);
+      return { name: v.name, color: v.color, scores: radarCrit.map(c => vi >= 0 ? c.scores[vi] : Math.round(v.strength)) };
+    }), radarCrit.map(c => c.label));
+
     ranked.forEach((item, idx) => {
       doc.kv(`#${idx + 1} ${item.name}`, `${item.score.toFixed(2)}/5`);
       if (item.unmetRequirements.length) doc.paragraph(`Requiere validación en: ${item.unmetRequirements.join(", ")}`);
@@ -1372,6 +1384,27 @@ function createPdf(sectionId) {
 
   if (!sectionId || sectionId === "risks") {
     doc.section("Riesgos y vulnerabilidades");
+
+    // Risk bubbles chart
+    const bubbleItems = cveItems.filter(i => i.cves.length > 0).map(i => {
+      const v = findVendor(i.vendor);
+      return { name: i.vendor, color: v?.color || "#647084", risk: v?.risk || 2, cveCount: i.cves.length };
+    });
+    if (bubbleItems.length) doc.riskBubbles("Riesgo operativo vs CVEs recientes", bubbleItems);
+
+    // Threat heatmap
+    if (threatHeatmap && threatHeatmap.length) {
+      const heatVendors = [...new Set(threatHeatmap.flatMap(t => t.vendorCoverage.map(v => v.vendor)))].slice(0, 6);
+      const heatRows = threatHeatmap.map(t => ({
+        label: t.threat,
+        cells: heatVendors.map(vn => {
+          const vc = t.vendorCoverage.find(c => c.vendor === vn);
+          return { value: vc ? vc.coverage : 0 };
+        })
+      }));
+      doc.heatmapTable("Cobertura de amenazas OT por fabricante", heatVendors.map(v => v.split(" ")[0]), heatRows);
+    }
+
     (riskItems || []).forEach(i => { doc.subsection(`${i.vendor} - ${i.level || "Media"}`); if (i.detail) doc.paragraph(i.detail); });
     (cveItems || []).forEach(i => {
       if (i.cves.length) doc.kv(`${i.vendor} CVEs`, i.cves.map(c => `${c.id} (CVSS ${c.cvss})`).join("; "));
@@ -1381,6 +1414,7 @@ function createPdf(sectionId) {
 
   if (!sectionId || sectionId === "capabilities") {
     doc.section("Funcionalidades");
+    doc.barChart("Madurez de plataforma por fabricante", productCapabilities.map(i => ({ label: i.vendor, value: i.maturity, color: findVendor(i.vendor)?.color || "#647084" })), 5);
     productCapabilities.forEach(i => {
       doc.subsection(`${i.vendor} - ${i.primary}`);
       doc.kv("Madurez", `${i.maturity}/5`);
@@ -1431,6 +1465,8 @@ function createPdf(sectionId) {
 
   if (!sectionId || sectionId === "spanish") {
     doc.section("Fabricantes españoles");
+    const sortedES = [...spanishVendors].sort((a, b) => b.strength - a.strength);
+    doc.barChart("Ranking de fabricantes españoles por fortaleza", sortedES.map(v => ({ label: v.name, value: v.strength, color: v.color })), 5);
     spanishVendors.forEach(v => {
       doc.subsection(v.name);
       doc.kv("Fortaleza / Ajuste", `${v.strength}/5 | ${v.fit}/5`);
@@ -1527,6 +1563,130 @@ function createPdfWriter() {
         y += rh;
       });
       y += 12;
+    },
+    radarChart(title, vendorDataArr, criteriaLabels) {
+      // vendorDataArr: [{name, color, scores:[]}]
+      const size = 240, cx = margin + size / 2 + 40, cy2 = size / 2;
+      ensure(size + 50);
+      rect(margin, y, cw, size + 40, "#fbfcfe");
+      text(title, margin + 12, y + 18, 11, true, "#17212f");
+      const baseY = y + 30;
+      const n = criteriaLabels.length;
+      const maxR2 = 90;
+      // Grid circles
+      [maxR2, maxR2 * 0.66, maxR2 * 0.33].forEach(r => {
+        const segs = 36;
+        for (let s = 0; s < segs; s++) {
+          const a1 = (s / segs) * Math.PI * 2, a2 = ((s + 1) / segs) * Math.PI * 2;
+          line(cx + Math.cos(a1) * r, baseY + cy2 + Math.sin(a1) * r, cx + Math.cos(a2) * r, baseY + cy2 + Math.sin(a2) * r, "#d8dee8", 0.5);
+        }
+      });
+      // Axis labels
+      criteriaLabels.forEach((lbl, i) => {
+        const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+        const lx = cx + Math.cos(angle) * (maxR2 + 16);
+        const ly = baseY + cy2 + Math.sin(angle) * (maxR2 + 16);
+        const short = lbl.length > 12 ? lbl.slice(0, 10) + ".." : lbl;
+        text(short, lx - textWidth(short, 7) / 2, ly + 3, 7, false, "#647084");
+      });
+      // Vendor polygons
+      vendorDataArr.forEach(vd => {
+        const pts = vd.scores.map((s, i) => {
+          const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+          const r = 10 + (s / 5) * (maxR2 - 10);
+          return { x: cx + Math.cos(angle) * r, y: baseY + cy2 + Math.sin(angle) * r };
+        });
+        // Draw polygon as lines
+        for (let i = 0; i < pts.length; i++) {
+          const next = pts[(i + 1) % pts.length];
+          line(pts[i].x, pts[i].y, next.x, next.y, vd.color, 2);
+        }
+      });
+      // Legend
+      const legendX = cx + size / 2 + 20;
+      vendorDataArr.forEach((vd, i) => {
+        rect(legendX, baseY + 10 + i * 16, 10, 10, vd.color);
+        text(vd.name, legendX + 14, baseY + 18 + i * 16, 8, true, "#17212f");
+      });
+      y += size + 46;
+    },
+    quadrantChart(title, items) {
+      // items: [{name, color, x(fit), y(strength)}]
+      const w = cw, h = 200;
+      ensure(h + 50);
+      rect(margin, y, w, h + 30, "#fbfcfe");
+      text(title, margin + 12, y + 18, 11, true, "#17212f");
+      const baseY = y + 30;
+      const pad = 40;
+      // Axes
+      line(margin + pad, baseY + h - pad, margin + w - 20, baseY + h - pad, "#17212f", 1);
+      line(margin + pad, baseY + h - pad, margin + pad, baseY + 10, "#17212f", 1);
+      // Midlines
+      line(margin + pad, baseY + (h - pad) / 2 + 5, margin + w - 20, baseY + (h - pad) / 2 + 5, "#d8dee8", 0.5);
+      line(margin + (w + pad) / 2, baseY + h - pad, margin + (w + pad) / 2, baseY + 10, "#d8dee8", 0.5);
+      // Labels
+      text("Ajuste cliente", margin + w - 80, baseY + h - pad + 14, 7, true, "#647084");
+      text("Fortaleza", margin + 4, baseY + 40, 7, true, "#647084");
+      // Plot dots
+      items.forEach(it => {
+        const px = margin + pad + ((it.x - 3) / 2) * (w - pad - 30);
+        const py = baseY + h - pad - ((it.y - 3) / 2) * (h - pad - 20);
+        // Filled circle as small rect (PDF circle is complex, use small rects)
+        const r = 5;
+        rect(px - r, py - r, r * 2, r * 2, it.color);
+        text(it.name, px + r + 4, py + 3, 7, true, "#17212f");
+      });
+      y += h + 36;
+    },
+    heatmapTable(title, headers, rows) {
+      // rows: [{label, cells:[{value, color}]}]
+      const colW = Math.min(60, (cw - 140) / headers.length);
+      const rowH = 18;
+      const tableH = 30 + (rows.length + 1) * rowH;
+      ensure(tableH + 20);
+      rect(margin, y, cw, tableH, "#fbfcfe");
+      text(title, margin + 12, y + 18, 11, true, "#17212f");
+      y += 28;
+      // Header
+      text("Amenaza", margin + 8, y + 12, 7, true, "#647084");
+      headers.forEach((h, i) => {
+        const short = h.length > 8 ? h.slice(0, 6) + ".." : h;
+        text(short, margin + 140 + i * colW, y + 12, 6, true, "#647084");
+      });
+      y += rowH;
+      line(margin, y, margin + cw, y, "#d8dee8", 0.5);
+      // Rows
+      rows.forEach(row => {
+        text(row.label, margin + 8, y + 12, 7, true, "#17212f");
+        row.cells.forEach((cell, i) => {
+          const cx2 = margin + 140 + i * colW;
+          const bg = cell.value >= 4 ? "#dcfce7" : cell.value >= 3 ? "#fef3c7" : "#fee2e2";
+          rect(cx2, y + 1, colW - 4, rowH - 3, bg);
+          text(`${cell.value}/5`, cx2 + 4, y + 12, 7, true, cell.value >= 4 ? "#047857" : cell.value >= 3 ? "#92400e" : "#b91c1c");
+        });
+        y += rowH;
+      });
+      y += 8;
+    },
+    riskBubbles(title, items) {
+      // items: [{name, color, risk, cveCount}]
+      const h = 140;
+      ensure(h + 40);
+      rect(margin, y, cw, h + 30, "#fbfcfe");
+      text(title, margin + 12, y + 18, 11, true, "#17212f");
+      const baseY = y + 36;
+      const maxCve = Math.max(...items.map(i => i.cveCount), 1);
+      items.forEach((it, i) => {
+        const x = margin + 40 + i * ((cw - 60) / items.length);
+        const by = baseY + h - 40 - it.risk * 20;
+        const r = 6 + (it.cveCount / maxCve) * 12;
+        rect(x - r, by - r, r * 2, r * 2, it.color);
+        text(String(it.cveCount), x - 3, by + 3, 8, true, "#ffffff");
+        text(it.name.split(" ")[0], x - 10, baseY + h - 18, 6, true, "#17212f");
+      });
+      text("Bajo", margin + 8, baseY + h - 24, 6, false, "#647084");
+      text("Alto", margin + 8, baseY + 6, 6, false, "#647084");
+      y += h + 36;
     },
     toBlob() {
       footer(); pages.push(cmds.join("\n"));
