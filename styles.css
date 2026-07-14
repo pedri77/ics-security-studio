@@ -268,18 +268,39 @@ select:focus-visible {
 
 .rail-item.active {
   color: white;
-  background: var(--teal);
+  background: var(--rail-color, var(--teal));
 }
 
 .rail-item:hover {
-  color: var(--ink);
+  color: var(--rail-color, var(--ink));
   background: #eef2f7;
 }
 
 .rail-item.active:hover {
   color: white;
-  background: var(--teal);
+  background: var(--rail-color, var(--teal));
 }
+
+.rail-item svg {
+  color: var(--rail-color, currentColor);
+}
+
+.rail-item.active svg {
+  color: white;
+}
+
+.rail-item[data-view="dashboard"]  { --rail-color: #2563eb; }
+.rail-item[data-view="profile"]    { --rail-color: #0f766e; }
+.rail-item[data-view="assessment"] { --rail-color: #b45309; }
+.rail-item[data-view="usecases"]   { --rail-color: #059669; }
+.rail-item[data-view="framework"]  { --rail-color: #6d28d9; }
+.rail-item[data-view="evidence"]   { --rail-color: #0369a1; }
+.rail-item[data-view="capabilities"] { --rail-color: #7c3aed; }
+.rail-item[data-view="risks"]      { --rail-color: #dc2626; }
+.rail-item[data-view="technical"]  { --rail-color: #0891b2; }
+.rail-item[data-view="deployment"] { --rail-color: #4338ca; }
+.rail-item[data-view="innovation"] { --rail-color: #ca8a04; }
+.rail-item[data-view="spanish"]    { --rail-color: #c2185b; }
 
 .workspace,
 .view {
