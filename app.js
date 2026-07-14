@@ -75,7 +75,7 @@ const sectionMeta = {
 
 const state = {
   weights: Object.fromEntries(criteria.map(c => [c.id, c.weight])),
-  required: Object.fromEntries(useCases.map(u => [u.label, u.required || false])),
+  required: Object.fromEntries(useCases.map(u => [u.label, false])),
   profile: {
     preset: "balanced",
     sector: "No definido",
@@ -184,7 +184,7 @@ function scoreVendors() {
       totalWeight += w;
     });
     const unmetRequirements = useCases
-      .filter(u => state.required[u.label] && u.fit[vi] < 4)
+      .filter(u => state.required[u.label] && (u.fits || u.fit)[vi] < 4)
       .map(u => u.label);
     return { ...vendor, score: score / totalWeight, unmetRequirements };
   }).sort((a, b) => b.score - a.score);
@@ -288,7 +288,7 @@ function renderRiskVisual() {
         const risk = vendor.risk;
         const y = 240 - risk * 38;
         const radius = 18 + (item.cves.length / maxCves) * 22;
-        const critical = item.cves.filter(c => c.severity === "Critica" || c.severity === "Alta").length;
+        const critical = item.cves.filter(c => (c.cvss || 0) >= 7 || c.severity === "Critica" || c.severity === "Alta").length;
         return `
           <line x1="${x}" y1="245" x2="${x}" y2="82" stroke="#e2e8f0" stroke-width="1"/>
           <circle cx="${x}" cy="${y}" r="${radius}" fill="${vendor.color}" opacity="0.90"/>
@@ -312,7 +312,10 @@ function renderCveTable() {
     html += `<div class="risk-subpanel"><h3>Incidentes documentados en medios</h3><table><thead><tr><th>Fabricante</th><th>Fecha</th><th>Tipo</th><th>Impacto</th><th>Noticia</th></tr></thead><tbody>${mediaIncidentItems.map(i => `<tr><td><strong>${i.vendor}</strong></td><td>${i.date}</td><td><span class="status-pill">${i.type}</span></td><td>${i.impact}</td><td><a href="${i.url}" target="_blank" rel="noreferrer">${i.source}</a></td></tr>`).join("")}</tbody></table></div>`;
   }
   if (cveItems.length) {
-    html += `<div class="risk-subpanel"><h3>Relacion de CVEs/advisories</h3><table><thead><tr><th>Fabricante</th><th>CVEs</th><th>Fuente</th><th>Lectura</th></tr></thead><tbody>${cveItems.map(i => `<tr><td><strong>${i.vendor}</strong></td><td>${i.cves.map(c => `<span class="cve-badge ${c.severity.toLowerCase()}">${c.id}</span><br><small>${c.product} - ${c.severity}</small>`).join("<br>")}</td><td>${i.source}</td><td>${i.note}</td></tr>`).join("")}</tbody></table></div>`;
+    html += `<div class="risk-subpanel"><h3>Relación de CVEs/advisories</h3><table><thead><tr><th>Fabricante</th><th>CVEs</th><th>Resumen</th></tr></thead><tbody>${cveItems.map(i => `<tr><td><strong>${i.vendor}</strong></td><td>${i.cves.length ? i.cves.map(c => {
+      const sev = c.cvss >= 9 ? "alta" : c.cvss >= 7 ? "high" : "medium";
+      return `<span class="cve-badge ${sev}">${c.id} (${c.cvss})</span><br><small>${c.description || ""}</small>`;
+    }).join("<br>") : "<small>Sin CVEs críticos</small>"}</td><td>${i.summary || ""}</td></tr>`).join("")}</tbody></table></div>`;
   }
   target.innerHTML = html;
 }
@@ -462,7 +465,7 @@ function renderUseCases() {
       </button>
       <div class="fit-chips">
         ${vendors.map((v, i) => {
-          const fit = u.fit[i];
+          const fit = (u.fits || u.fit || [])[i];
           return `<span class="fit-chip ${fit >= 4 ? "high" : "low"}">${v.name}: ${fit}</span>`;
         }).join("")}
       </div>
@@ -488,10 +491,12 @@ function renderRisks() {
     <article class="risk-item">
       <div class="risk-head">
         <strong>${item.vendor}</strong>
-        <span class="risk-level ${item.level.toLowerCase()}">${item.level}</span>
+        <span class="risk-level ${(item.level || "media").toLowerCase()}">${item.level || "Media"}</span>
       </div>
-      <ul>${item.items.map(r => `<li>${r}</li>`).join("")}</ul>
-      <p><strong>Accion:</strong> ${item.action}</p>
+      ${item.items ? `<ul>${item.items.map(r => `<li>${r}</li>`).join("")}</ul>` : ""}
+      ${item.detail ? `<p>${item.detail}</p>` : ""}
+      ${item.action ? `<p><strong>Acción:</strong> ${item.action}</p>` : ""}
+      ${item.score ? `<p><strong>Score riesgo:</strong> ${item.score}/5</p>` : ""}
     </article>
   `).join("");
 }
@@ -621,7 +626,8 @@ function renderEvidence() {
           <strong>${item.confidence.toFixed(1)}/5</strong>
           <div class="bar-track"><div class="bar-fill" style="width:${(item.confidence / 5) * 100}%;background:${vendor.color}"></div></div>
         </div>
-        ${(item.items || item.sources || []).map(e => `
+        ${item.lastUpdated ? `<p><small>Actualizado: ${item.lastUpdated}</small></p>` : ""}
+        ${(item.items || []).map(e => `
           <div class="evidence-row">
             <span class="badge">${e.type || "Fuente"}</span>
             <p><strong>${e.title || e.name || ""}</strong></p>
@@ -629,6 +635,12 @@ function renderEvidence() {
             ${e.url ? `<a href="${e.url}" target="_blank" rel="noreferrer">Ver fuente</a>` : `<small>Pendiente PoC/RFP</small>`}
           </div>
         `).join("")}
+        ${!item.items && item.sources ? `
+          <div class="evidence-row">
+            <span class="badge">Fuentes</span>
+            <p>${(Array.isArray(item.sources) ? item.sources : [item.sources]).map(s => typeof s === "string" ? s : (s.title || s.name || "")).join(" · ")}</p>
+          </div>
+        ` : ""}
       </article>
     `;
   }).join("");
