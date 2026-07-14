@@ -111,6 +111,10 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg>
         <span>Comparar</span>
       </button>
+      <button class="rail-item" data-view="startups" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Startups</span>
+      </button>
       <button class="rail-item spanish-rail" data-view="spanish" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M3 15h18"/></svg>
         <span>España</span>
@@ -333,6 +337,17 @@
           </div>
           <div class="compare-selectors" id="compareSelectors"></div>
           <div class="compare-result" id="compareResult"></div>
+        </section>
+      </section>
+
+      <section class="view" id="startups">
+        <section class="visual-panel">
+          <div class="panel-title">
+            <h2>Startups emergentes en ciberseguridad industrial</h2>
+            <span>Empresas innovadoras OT/ICS a nivel mundial</span>
+          </div>
+          <p style="margin:0 0 18px;color:var(--muted);line-height:1.6">El sector de ciberseguridad industrial vive una explosión de startups que abordan problemas no resueltos por los incumbentes: seguridad a nivel de dispositivo, análisis de firmware, evaluación autónoma, convergencia safety/security y gestión de riesgo ciber-físico con IA.</p>
+          <div class="startup-grid" id="startupGrid"></div>
         </section>
       </section>
 

@@ -36,7 +36,7 @@ const i18n = {
     evidence: "Evidencia y confianza", capabilities: "Funcionalidades",
     risks: "Riesgos y vulnerabilidades", technical: "Protocolos y especificaciones técnicas",
     deployment: "Despliegue", innovation: "Innovación", spanish: "Fabricantes españoles",
-    compare: "Comparador",
+    compare: "Comparador", startups: "Startups emergentes",
     hintDashboard: "Revisa la recomendación, ranking ponderado y lectura ejecutiva antes de exportar.",
     hintProfile: "Define sector, tamaño, madurez OT SOC y contexto para adaptar pesos y casos imprescindibles.",
     hintScoring: "Ajusta los pesos de decisión. Estos valores recalculan ranking, recomendación y PDF.",
@@ -50,6 +50,7 @@ const i18n = {
     hintInnovation: "Evalúa capacidades de IA, digital twins, predicción y preparación Industry 4.0.",
     hintSpanish: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefónica Tech y más.",
     hintCompare: "Selecciona 2-3 fabricantes para comparar lado a lado.",
+    hintStartups: "Startups innovadoras en ciberseguridad OT/ICS a nivel mundial: funding, especialidad y diferenciador.",
     previous: "Anterior", next: "Siguiente", link: "Enlace", pdfSection: "PDF sección",
     configuration: "Configuración", pending: "Pendiente",
     workRoute: "Ruta de trabajo", allVerticals: "Todos",
@@ -57,7 +58,7 @@ const i18n = {
     navPanel: "Panel", navClient: "Cliente", navScoring: "Scoring", navCases: "Casos",
     navDetection: "Detección", navEvidence: "Evidencia", navFunctions: "Funciones",
     navRisk: "Riesgo", navTechnical: "Técnico", navDeploy: "Despliegue",
-    navInnovation: "Innovación", navCompare: "Comparar", navSpain: "España",
+    navInnovation: "Innovación", navCompare: "Comparar", navStartups: "Startups", navSpain: "España",
     completionReady: "Configuración lista para revisión ejecutiva y exportación.",
     pendingLabel: "Pendiente"
   },
@@ -67,7 +68,7 @@ const i18n = {
     evidence: "Evidence & Confidence", capabilities: "Capabilities",
     risks: "Risks & Vulnerabilities", technical: "Protocols & Technical Specs",
     deployment: "Deployment", innovation: "Innovation", spanish: "Spanish Vendors",
-    compare: "Compare",
+    compare: "Compare", startups: "Emerging Startups",
     hintDashboard: "Review recommendation, weighted ranking and executive summary before exporting.",
     hintProfile: "Set sector, size, OT SOC maturity and context to adjust weights and use cases.",
     hintScoring: "Adjust decision weights. These values recalculate ranking, recommendation and PDF.",
@@ -81,6 +82,7 @@ const i18n = {
     hintInnovation: "Evaluate AI capabilities, digital twins, prediction and Industry 4.0 readiness.",
     hintSpanish: "National industrial cybersecurity ecosystem: S2 Grupo, CounterCraft, Telefonica Tech and more.",
     hintCompare: "Select 2-3 vendors for side-by-side comparison.",
+    hintStartups: "Innovative OT/ICS cybersecurity startups worldwide: funding, specialty and differentiator.",
     previous: "Previous", next: "Next", link: "Link", pdfSection: "PDF section",
     configuration: "Configuration", pending: "Pending",
     workRoute: "Work path", allVerticals: "All",
@@ -114,6 +116,7 @@ function getSectionMeta() {
     deployment: { title: t("deployment"), hint: t("hintDeployment") },
     innovation: { title: t("innovation"), hint: t("hintInnovation") },
     compare: { title: t("compare"), hint: t("hintCompare") },
+    startups: { title: t("startups"), hint: t("hintStartups") },
     spanish: { title: t("spanish"), hint: t("hintSpanish") }
   };
 }
@@ -905,6 +908,197 @@ function wireSectionExports() {
     });
     title.appendChild(button);
   });
+}
+
+// ─── STARTUPS SECTION ────────────────────────────────────────────────
+
+const startupData = [
+  {
+    name: "Kai",
+    hq: "San Jose, CA, EE.UU.",
+    founded: 2024,
+    funding: "$125M (Seed + Series A)",
+    investors: "Evolution Equity Partners, N47",
+    stage: "Series A",
+    color: "#2563eb",
+    specialty: "Plataforma IA unificada IT/OT",
+    differentiator: "Fundada por Galina Antova (co-fundadora Claroty) y Damiano Bolzoni (co-fundador SecurityMatters). Automatiza detección de amenazas, compliance, vulnerability management, shadow IT/OT discovery y threat modeling en una sola plataforma.",
+    url: "https://kai.security"
+  },
+  {
+    name: "OTOPIQ Security",
+    hq: "Jersey City, NJ, EE.UU.",
+    founded: 2025,
+    funding: "Respaldado por Awz Ventures",
+    investors: "Awz Ventures",
+    stage: "Seed",
+    color: "#0d9488",
+    specialty: "Zero-trust a nivel de dispositivo OT",
+    differentiator: "Construido sobre tecnología NanoLock (adquirida). Protección device-level para PLCs, RTUs, HMIs. IA para seguridad automatizada. Despliegues en manufactura, puertos, hospitales. Enfoque dual comercial/defensa.",
+    url: "https://otopiqsecurity.com"
+  },
+  {
+    name: "Frenos",
+    hq: "Charlotte, NC, EE.UU.",
+    founded: 2024,
+    funding: "$3.88M Seed",
+    investors: "DataTribe (cyber foundry)",
+    stage: "Seed",
+    color: "#dc2626",
+    specialty: "Evaluación autónoma de seguridad OT",
+    differentiator: "Digital network twin + AI reasoning agent. Reduce evaluaciones de seguridad de meses a minutos sin impacto en operaciones. Ganador DataTribe Challenge 2024.",
+    url: "https://frenos.io"
+  },
+  {
+    name: "Bastazo",
+    hq: "Bentonville, AR, EE.UU.",
+    founded: 2023,
+    funding: "$5.3M Seed",
+    investors: "Cortado Ventures",
+    stage: "Seed",
+    color: "#7c3aed",
+    specialty: "Detección de vulnerabilidades OT con IA",
+    differentiator: "IA + conocimiento de dominio para detección de vulnerabilidades en tiempo real, priorización contextual y remediación paso a paso. Mapeo directo a NERC CIP. Despliegues en utilities y manufactura USA.",
+    url: "https://bastazo.com"
+  },
+  {
+    name: "Indurex",
+    hq: "Ámsterdam, Países Bajos",
+    founded: 2025,
+    funding: "No divulgado",
+    investors: "No divulgado",
+    stage: "Pre-seed",
+    color: "#ea580c",
+    specialty: "Convergencia safety + cybersecurity CPS",
+    differentiator: "AI-native, engineering-first. Aborda el gap entre process safety y ciberseguridad en entornos OT. Detecta amenazas ciber-físicas que explotan comportamiento de procesos y dependencias de seguridad. Fundadores expertos en OT y SIS.",
+    url: "https://indurex.io"
+  },
+  {
+    name: "Steryon",
+    hq: "Barcelona, España",
+    founded: 2024,
+    funding: "€1M Seed",
+    investors: "4Founders Capital, Abac Nest Ventures",
+    stage: "Seed",
+    color: "#00695c",
+    specialty: "Cyber resilience y risk management CPS",
+    differentiator: "Plataforma modular: visibilidad de riesgo en tiempo real, compliance automation (70% validación controles), reducción 80% ruido alertas. Seleccionada Google for Startups AI for Cybersecurity 2025. Sedes Barcelona + Bilbao.",
+    url: "https://steryon.com"
+  },
+  {
+    name: "DefenXee",
+    hq: "Reino Unido",
+    founded: 2023,
+    funding: "No divulgado",
+    investors: "No divulgado",
+    stage: "Early",
+    color: "#1e3a5f",
+    specialty: "Trust convergence platform OT + AI",
+    differentiator: "Motor de políticas unificado para IT, OT, IA e infraestructuras híbridas. Gobernanza de agentes IA en entornos industriales. Acceso privilegiado OT. Soberanía total (air-gapped, HSM). Protocolos IEC-104, DNP3, SCADA nativos.",
+    url: "https://defenxee.com"
+  },
+  {
+    name: "Phosphorus",
+    hq: "Nashville, TN, EE.UU.",
+    founded: 2017,
+    funding: "$68M (Series A+)",
+    investors: "SYN Ventures, Zscaler",
+    stage: "Series A",
+    color: "#059669",
+    specialty: "Gestión de dispositivos IoT/OT a escala",
+    differentiator: "Descubrimiento, evaluación, remediación y gestión de dispositivos IoT/OT a gran escala. Rotación automática de credenciales. Parcheo de firmware sin agentes. Integración SIEM/SOAR. Más de 150 fabricantes OT soportados.",
+    url: "https://phosphorus.io"
+  },
+  {
+    name: "DeNexus",
+    hq: "Madrid / San Francisco",
+    founded: 2019,
+    funding: "$17.5M (Series A)",
+    investors: "Energize Ventures, Mundi Ventures",
+    stage: "Series A",
+    color: "#b45309",
+    specialty: "Cuantificación de ciber-riesgo OT",
+    differentiator: "DeRISK: cuantificación de riesgo ciber-industrial basada en datos. Modela impacto financiero de ciberataques OT. Fundadores españoles. Clientes en energía, manufactura, oil&gas. Conexión España-Silicon Valley.",
+    url: "https://denexus.io"
+  },
+  {
+    name: "Shift5",
+    hq: "Arlington, VA, EE.UU.",
+    founded: 2019,
+    funding: "$100M+ (Series B)",
+    investors: "Paladin Capital, General Catalyst",
+    stage: "Series B",
+    color: "#4338ca",
+    specialty: "Ciberseguridad para activos de defensa y transporte",
+    differentiator: "Observabilidad y protección de datos en movimiento para aviones, trenes, barcos y vehículos militares. Contratos DoD, US Air Force, US Army. Serial bus monitoring. Detección de anomalías en protocolos propietarios de transporte.",
+    url: "https://shift5.io"
+  },
+  {
+    name: "Cyolo",
+    hq: "Tel Aviv, Israel",
+    founded: 2020,
+    funding: "$60M+ (Series B)",
+    investors: "National Grid Partners, Flint Capital",
+    stage: "Series B",
+    color: "#1565c0",
+    specialty: "Acceso remoto seguro OT zero-trust",
+    differentiator: "Acceso remoto sin VPN a redes OT. Identity-based, no IP-based. Grabación de sesiones. JIT provisioning. Datos nunca salen del perímetro del cliente. Arquitectura diseñada para utilities y oil&gas.",
+    url: "https://cyolo.io"
+  },
+  {
+    name: "Xage Security",
+    hq: "Palo Alto, CA, EE.UU.",
+    founded: 2017,
+    funding: "$50M+",
+    investors: "Valor Equity Partners, Chevron Technology Ventures",
+    stage: "Series B",
+    color: "#ef6c00",
+    specialty: "Zero trust mesh para OT/ICS",
+    differentiator: "Fabric de seguridad distribuida (blockchain-based). MFA para dispositivos legacy OT. Microsegmentación asset-to-asset. Rotación de credenciales SCADA. Contratos DoD y energía USA. Arquitectura sin dependencia cloud.",
+    url: "https://xage.com"
+  }
+];
+
+function renderStartups() {
+  const target = document.getElementById("startupGrid");
+  if (!target) return;
+
+  const sorted = [...startupData].sort((a, b) => {
+    const stageOrder = { "Series B": 0, "Series A": 1, "Seed": 2, "Pre-seed": 3, "Early": 4 };
+    return (stageOrder[a.stage] ?? 5) - (stageOrder[b.stage] ?? 5);
+  });
+
+  target.innerHTML = `
+    <div class="startup-summary">
+      <div class="fit-chips">
+        <span class="fit-chip high">${sorted.length} startups</span>
+        <span class="fit-chip high">${sorted.filter(s => s.stage === "Series B" || s.stage === "Series A").length} Series A/B</span>
+        <span class="fit-chip">${sorted.filter(s => s.stage === "Seed" || s.stage === "Pre-seed").length} Seed/Pre-seed</span>
+        <span class="fit-chip">${sorted.filter(s => s.hq.includes("España") || s.hq.includes("Madrid")).length} con raíces españolas</span>
+      </div>
+    </div>
+    ${sorted.map(s => `
+      <article class="startup-card" style="--vendor-accent:${s.color}">
+        <div class="startup-head">
+          <strong>${s.name}</strong>
+          <span class="startup-stage stage-${s.stage.toLowerCase().replace(/\s+/g, "-")}">${s.stage}</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge">${s.hq}</span>
+          <span class="badge">${s.founded}</span>
+          <span class="badge" style="background:#dcfce7;color:#047857">${s.funding}</span>
+        </div>
+        <p><strong>${s.specialty}</strong></p>
+        <p style="color:var(--muted);font-size:13px">${s.differentiator}</p>
+        <div class="badge-row">
+          <span class="badge" style="font-size:11px">Inversores: ${s.investors}</span>
+        </div>
+        <div class="vendor-links">
+          <a href="${s.url}" target="_blank" rel="noreferrer">Web</a>
+        </div>
+      </article>
+    `).join("")}
+  `;
 }
 
 // ─── SPANISH MATRIX ──────────────────────────────────────────────────
@@ -1815,6 +2009,7 @@ function init() {
   renderFramework();
   renderEvidence();
   renderVendors();
+  renderStartups();
   renderSpanish();
   renderSpanishMatrix();
   renderProtocolMap();

@@ -2001,6 +2001,92 @@ input[type="range"] {
   color: var(--muted);
 }
 
+/* ─── Startups section ───────────────────────────── */
+.rail-item[data-view="startups"] { --rail-color: #f59e0b; }
+
+.startup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.startup-summary {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+}
+
+.startup-card {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 16px 16px 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+  overflow: hidden;
+}
+
+.startup-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--vendor-accent, #f59e0b);
+}
+
+.startup-card p {
+  margin: 0;
+}
+
+.startup-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.startup-head strong {
+  font-size: 18px;
+}
+
+.startup-stage {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.stage-series-b {
+  background: #dcfce7;
+  color: #047857;
+}
+
+.stage-series-a {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.stage-seed {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.stage-pre-seed,
+.stage-early {
+  background: #eef2f7;
+  color: var(--muted);
+}
+
+/* Dark mode startup cards */
+[data-theme="dark"] .startup-card {
+  background: #0f172a;
+  border-color: var(--line);
+}
+
 /* ─── Spanish capability matrix ──────────────────── */
 .spanish-matrix {
   margin-bottom: 18px;
