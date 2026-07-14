@@ -277,8 +277,8 @@ function renderRiskVisual() {
   if (!cveItems || !cveItems.length) { document.getElementById("riskVisual").innerHTML = ""; return; }
   const maxCves = Math.max(...cveItems.map(i => i.cves.length));
   document.getElementById("riskVisual").innerHTML = `
-    <svg viewBox="0 0 900 310" role="img" aria-label="Grafo visual de riesgo">
-      <rect x="0" y="0" width="900" height="310" fill="#fbfcfe"/>
+    <svg viewBox="0 0 900 380" role="img" aria-label="Grafo visual de riesgo">
+      <rect x="0" y="0" width="900" height="380" fill="#fbfcfe"/>
       <text x="24" y="34" fill="#17212f" font-size="18" font-weight="850">Riesgo operativo vs CVEs recientes</text>
       <text x="24" y="56" fill="#647084" font-size="12">Tamaño = volumen CVEs. Color = riesgo operativo estimado.</text>
       ${cveItems.map((item, i) => {
@@ -289,12 +289,14 @@ function renderRiskVisual() {
         const y = 240 - risk * 38;
         const radius = 18 + (item.cves.length / maxCves) * 22;
         const critical = item.cves.filter(c => (c.cvss || 0) >= 7 || c.severity === "Critica" || c.severity === "Alta").length;
+        const rotate = cveItems.length > 6 ? `transform="rotate(-45 ${x} 280)"` : "";
+        const anchor = cveItems.length > 6 ? "end" : "middle";
         return `
           <line x1="${x}" y1="245" x2="${x}" y2="82" stroke="#e2e8f0" stroke-width="1"/>
           <circle cx="${x}" cy="${y}" r="${radius}" fill="${vendor.color}" opacity="0.90"/>
           <text x="${x}" y="${y + 5}" text-anchor="middle" fill="white" font-size="14" font-weight="900">${item.cves.length}</text>
-          <text x="${x}" y="272" text-anchor="middle" fill="#17212f" font-size="11" font-weight="850">${item.vendor}</text>
-          <text x="${x}" y="288" text-anchor="middle" fill="#647084" font-size="10">Alta/Crit: ${critical}</text>
+          <text x="${x}" y="280" text-anchor="${anchor}" fill="#17212f" font-size="11" font-weight="850" ${rotate}>${item.vendor}</text>
+          <text x="${x}" y="296" text-anchor="${anchor}" fill="#647084" font-size="10" ${rotate ? `transform="rotate(-45 ${x} 296)"` : ""}>Alta/Crit: ${critical}</text>
         `;
       }).join("")}
     </svg>

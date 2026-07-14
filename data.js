@@ -531,19 +531,19 @@ window.ICS_DATA = {
       logo: "https://www.google.com/s2/favicons?domain=titaniumindustrialsecurity.com&sz=32",
       docsUrl: "https://www.titaniumindustrialsecurity.com/",
       productUrl: "https://www.titaniumindustrialsecurity.com/",
-      compliance: "IEC 62443, ENS, NIS2",
-      complianceDetail: "Consultoría especializada en ciberseguridad industrial OT/ICS. Evaluaciones de seguridad, planes de mejora, cumplimiento normativo sectorial.",
-      complianceUrl: "https://www.titaniumindustrialsecurity.com/",
-      strength: 3.7,
-      fit: 3.6,
+      compliance: "IEC 62443, ISO 27001, ENS, NIS2",
+      complianceDetail: "Servicios integrales de ciberseguridad industrial: diagnóstico con tecnologías propietarias pasivas, SOC 24/7, laboratorio industrial, auditorías IEC 62443/ISO 27001/NIS2, diseño de arquitecturas seguras IT/OT, pentesting industrial y respuesta a incidentes.",
+      complianceUrl: "https://www.titaniumindustrialsecurity.com/servicios_es.html",
+      strength: 3.9,
+      fit: 3.8,
       risk: 2,
       gartner: "Especialista OT español",
-      bestFor: "Consultoría OT especializada. Evaluaciones de seguridad industrial. Experiencia en generación eléctrica, transporte y manufactura.",
-      caution: "Empresa de servicios, sin producto propio de monitorización. Tamaño pequeño. Menor cobertura geográfica que grandes consultoras.",
+      bestFor: "Ciberseguridad industrial integral: diagnóstico con tecnologías propietarias, SOC OT 24/7/365, laboratorio industrial para pruebas, auditoría IEC 62443, pentesting OT y respuesta a incidentes. Sedes en San Sebastián, León, Bilbao y Madrid.",
+      caution: "Menor escala internacional que grandes consultoras. Cobertura geográfica centrada en España. Sin presencia en cuadrantes de analistas internacionales.",
       ccnCert: "Alineado con marco de ciberseguridad industrial nacional",
       ensStatus: "Alineado ENS",
-      governmentContracts: "No documentado públicamente",
-      incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial)"
+      governmentContracts: "Proyectos en generación eléctrica, transporte y manufactura",
+      incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial). Fundada 2016."
     }
   ],
 
