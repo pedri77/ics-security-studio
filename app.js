@@ -368,13 +368,13 @@ function renderScoringMethodology() {
     <article class="methodology-card">
       <div>
         <span class="kicker">Metodología de ponderación OT/ICS</span>
-        <strong>De donde salen las métricas y cómo defender el scoring</strong>
+        <strong>De dónde salen las métricas y cómo defender el scoring</strong>
         <p>Las notas 1-5 son una valoracion cualitativa basada en documentación oficial, capacidades publicadas, advisories, cobertura de protocolos industriales y criterio técnico de arquitectura OT. No sustituyen una PoC.</p>
       </div>
       <div class="methodology-steps">
         <div><span>1</span><p><strong>Base documental:</strong> documentación oficial, fichas de producto, certificaciones IEC 62443 y advisories.</p></div>
         <div><span>2</span><p><strong>Ajuste cliente:</strong> pesos, casos imprescindibles, sector industrial, SOC OT y requisitos de soberanía.</p></div>
-        <div><span>3</span><p><strong>Validacion PoC:</strong> cada "i" indica que probar y que evidencia pedir al fabricante.</p></div>
+        <div><span>3</span><p><strong>Validación PoC:</strong> cada "i" indica qué probar y qué evidencia pedir al fabricante.</p></div>
       </div>
     </article>
   `;
@@ -420,7 +420,7 @@ function renderProfile() {
       <select id="profileSector">
         ${["No definido", "Energia / Utilities", "Oil & Gas", "Manufactura", "Agua / Saneamiento", "Transporte", "Farmaceutica", "Mineria", "Defensa", "Sector publico"].map(s => `<option ${s === state.profile.sector ? "selected" : ""}>${s}</option>`).join("")}
       </select>
-      <label for="profileSize">Tamaño planta/operacion</label>
+      <label for="profileSize">Tamaño planta/operación</label>
       <select id="profileSize">
         ${["No definido", "< 500 dispositivos OT", "500-5.000 dispositivos", "5.000-50.000 dispositivos", "> 50.000 dispositivos"].map(s => `<option ${s === state.profile.size ? "selected" : ""}>${s}</option>`).join("")}
       </select>
@@ -545,7 +545,7 @@ function renderDeployment() {
         <div class="deployment-meta">
           <div><span>On-premise</span><p>${item.onPremise || item.onprem || "No documentado"}</p></div>
           <div><span>Cloud</span><p>${item.cloud || "No documentado"}</p></div>
-          <div><span>Hibrido</span><p>${item.hybrid || "No documentado"}</p></div>
+          <div><span>Híbrido</span><p>${item.hybrid || "No documentado"}</p></div>
           ${item.airGapped ? `<div><span>Air-gapped</span><p>${item.airGapped}</p></div>` : ""}
           ${item.typicalDeployTime ? `<div><span>Tiempo de despliegue</span><p>${item.typicalDeployTime}</p></div>` : ""}
           ${item.sensorDeployment ? `<div><span>Despliegue de sensores</span><p>${item.sensorDeployment}</p></div>` : ""}
@@ -679,7 +679,7 @@ function renderFramework() {
 
   document.getElementById("frameworkVendorControls").innerHTML = `
     <article class="framework-selector">
-      <strong>Analisis por fabricante</strong>
+      <strong>Análisis por fabricante</strong>
       <p>Marca fabricantes para ver detalle.</p>
       <div class="vendor-checks">
         ${vendors.map(v => `
@@ -721,7 +721,7 @@ function renderFramework() {
 function renderFrameworkVendorDetails() {
   const selected = selectedFrameworkIndexes();
   if (!selected.length) {
-    document.getElementById("frameworkVendorDetail").innerHTML = `<article class="vendor-framework-panel"><strong>Seleccióna al menos un fabricante</strong></article>`;
+    document.getElementById("frameworkVendorDetail").innerHTML = `<article class="vendor-framework-panel"><strong>Selecciona al menos un fabricante</strong></article>`;
     return;
   }
   document.getElementById("frameworkVendorDetail").innerHTML = selected.map(({ vendor, index }) => {
