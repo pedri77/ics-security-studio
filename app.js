@@ -69,7 +69,7 @@ const sectionMeta = {
   },
   spanish: {
     title: "Fabricantes españoles",
-    hint: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefonica Tech y mas."
+    hint: "Ecosistema nacional de ciberseguridad industrial: S2 Grupo, CounterCraft, Telefónica Tech y más."
   }
 };
 
