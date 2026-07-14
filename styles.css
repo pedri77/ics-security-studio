@@ -2001,6 +2001,23 @@ input[type="range"] {
   color: var(--muted);
 }
 
+/* ─── Spanish capability matrix ──────────────────── */
+.spanish-matrix {
+  margin-bottom: 18px;
+}
+
+.spanish-cap-table th {
+  height: 100px;
+  vertical-align: bottom;
+  padding-bottom: 8px;
+}
+
+.spanish-cap-table td:first-child {
+  text-align: left;
+  min-width: 160px;
+  white-space: nowrap;
+}
+
 /* ─── Compare section ─────────────────────────────── */
 .rail-item[data-view="compare"] { --rail-color: #0d9488; }
 

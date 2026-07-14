@@ -907,7 +907,70 @@ function wireSectionExports() {
   });
 }
 
-// ─── SPANISH SECTION ─────────────────────────────────────────────────
+// ─── SPANISH MATRIX ──────────────────────────────────────────────────
+
+const spanishCapabilities = {
+  "S2 Grupo":              { tipo: "Mixto",     soc: true,  ens: "Alto",     iec: "Auditoría",  nis2: true,  ccn: "Directo",   geo: "Global (35 países)", verticales: "Defensa, Energía, Transporte, Agua", tamaño: "700+ empleados, 56.7M€", grupo: "Independiente (interés SEPI)" },
+  "CounterCraft":          { tipo: "Producto",  soc: false, ens: "Alineado", iec: "No",         nis2: false, ccn: "Alineado",  geo: "Global (UK, US)",    verticales: "Defensa, Gobierno, Finanzas",       tamaño: "~50 empleados",          grupo: "VC funded ($5M)" },
+  "Alias Robotics":        { tipo: "Producto",  soc: false, ens: "No",       iec: "Contexto",   nis2: false, ccn: "No",        geo: "Europa",             verticales: "Manufactura, Automotive, Defensa",  tamaño: "~20 empleados",          grupo: "EIC + NATO DIANA" },
+  "Barbara IoT":           { tipo: "Producto",  soc: false, ens: "No",       iec: "Alineado",   nis2: false, ccn: "No",        geo: "Europa, ME, US",     verticales: "Manufactura, Energía, Agua",        tamaño: "~30 empleados",          grupo: "VC funded ($5.1M)" },
+  "Enigmedia/Opscura":     { tipo: "Producto",  soc: false, ens: "No",       iec: "Diseño",     nis2: false, ccn: "Alineado",  geo: "Europa",             verticales: "Manufactura, Energía, Oil&Gas",     tamaño: "~15 empleados",          grupo: "Santander + Alma Mundi" },
+  "InprOTech":             { tipo: "Mixto",     soc: false, ens: "Alineado", iec: "Sí",         nis2: true,  ccn: "Alineado",  geo: "España + Europa",    verticales: "Manufactura, Energía, Agua, Gob.",  tamaño: "54 empleados, 3.6M€",   grupo: "Inprosec (inversor estratégico)" },
+  "Telefónica Tech":       { tipo: "Servicios", soc: true,  ens: "Alto",     iec: "Auditoría",  nis2: true,  ccn: "Certificado", geo: "Global",           verticales: "Energía, Salud, Transporte",        tamaño: "Miles (div. Telefónica)", grupo: "Telefónica" },
+  "Deloitte Spain":        { tipo: "Servicios", soc: true,  ens: "Alto",     iec: "Auditoría",  nis2: true,  ccn: "Colaborador", geo: "EMEA (desde Madrid)", verticales: "Energía, Manufactura, Automotive", tamaño: "ECC Madrid (EMEA hub)",  grupo: "Deloitte Global" },
+  "Tarlogic":              { tipo: "Servicios", soc: false, ens: "Alineado", iec: "Testing",    nis2: false, ccn: "Alineado",  geo: "Europa",             verticales: "Manufactura, Energía, Finanzas",    tamaño: "~80 empleados",          grupo: "Independiente (FT Growth 2026)" },
+  "Cipher (Prosegur)":     { tipo: "Servicios", soc: true,  ens: "Alineado", iec: "No",         nis2: true,  ccn: "Alineado",  geo: "Global (5 países)",  verticales: "Energía, Infra crítica, Finanzas",  tamaño: "Div. Prosegur (cotizada)", grupo: "Prosegur" },
+  "Titanium Industrial Security": { tipo: "Mixto", soc: true, ens: "Alineado", iec: "Auditoría", nis2: true, ccn: "Alineado", geo: "España (4 sedes)",   verticales: "Energía, Transporte, Manufactura",  tamaño: "30 empleados",           grupo: "INZU Group" },
+  "Steryon":               { tipo: "Producto",  soc: false, ens: "No",       iec: "Alineado",   nis2: true,  ccn: "No",        geo: "España",             verticales: "Infra crítica, Manufactura",        tamaño: "8 empleados, $1.2M",     grupo: "VC funded (2024)" }
+};
+
+function renderSpanishMatrix() {
+  const target = document.getElementById("spanishMatrix");
+  if (!target || !spanishVendors.length) return;
+
+  const dims = [
+    { key: "tipo",       label: "Tipo de oferta",    format: v => { const cls = v === "Producto" ? "proto-full" : v === "Mixto" ? "proto-ips" : "proto-basic"; return `<td class="${cls}">${v}</td>`; }},
+    { key: "soc",        label: "SOC OT dedicado",   format: v => v ? `<td class="proto-full">Sí</td>` : `<td class="proto-none">No</td>` },
+    { key: "ens",        label: "Certificación ENS",  format: v => { const cls = v === "Alto" ? "proto-full" : v === "Alineado" ? "proto-ips" : "proto-none"; return `<td class="${cls}">${v}</td>`; }},
+    { key: "iec",        label: "IEC 62443",          format: v => { const cls = v === "Sí" || v === "Auditoría" ? "proto-full" : v === "Alineado" || v === "Diseño" || v === "Testing" || v === "Contexto" ? "proto-ips" : "proto-none"; return `<td class="${cls}">${v}</td>`; }},
+    { key: "nis2",       label: "NIS2 ready",         format: v => v ? `<td class="proto-full">Sí</td>` : `<td class="proto-none">No</td>` },
+    { key: "ccn",        label: "CCN-CERT",           format: v => { const cls = v === "Directo" || v === "Certificado" ? "proto-full" : v === "Colaborador" || v === "Alineado" ? "proto-ips" : "proto-none"; return `<td class="${cls}">${v}</td>`; }},
+    { key: "geo",        label: "Cobertura geográfica", format: v => `<td>${v}</td>` },
+    { key: "verticales", label: "Verticales",         format: v => `<td style="font-size:11px">${v}</td>` },
+    { key: "tamaño",     label: "Tamaño",             format: v => `<td style="font-size:11px">${v}</td>` },
+    { key: "grupo",      label: "Grupo / Funding",    format: v => `<td style="font-size:11px">${v}</td>` }
+  ];
+
+  const orderedVendors = [...spanishVendors].sort((a, b) => b.strength - a.strength);
+
+  target.innerHTML = `
+    <div class="protocol-matrix">
+      <h3>Matriz de capacidades del ecosistema español OT</h3>
+      <p style="margin:0 0 12px;color:var(--muted)">Comparativa de certificaciones, tipo de oferta, cobertura y posicionamiento de los ${spanishVendors.length} fabricantes españoles de ciberseguridad industrial.</p>
+      <div class="protocol-table-wrap">
+        <table class="protocol-table spanish-cap-table">
+          <thead>
+            <tr>
+              <th>Capacidad</th>
+              ${orderedVendors.map(v => `<th style="min-width:90px"><span style="writing-mode:vertical-lr;transform:rotate(180deg);white-space:nowrap;font-size:10px">${v.name.split(" ")[0]}</span></th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${dims.map(d => `
+              <tr>
+                <td><strong>${d.label}</strong></td>
+                ${orderedVendors.map(v => {
+                  const cap = spanishCapabilities[v.name];
+                  return cap ? d.format(cap[d.key]) : `<td class="proto-none">-</td>`;
+                }).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
 
 function renderSpanish() {
   if (!spanishVendors.length) {
@@ -1739,6 +1802,7 @@ function init() {
   renderEvidence();
   renderVendors();
   renderSpanish();
+  renderSpanishMatrix();
   renderProtocolMap();
   renderCompare();
   renderVerticalFilters();
