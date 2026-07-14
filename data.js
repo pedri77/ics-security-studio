@@ -944,6 +944,19 @@ window.ICS_DATA = {
       differentiators: ["Análisis de firmware binario sin acceso al código fuente", "SBOM automático para dispositivos OT/IoT", "Detección de vulnerabilidades en componentes de terceros", "Cumplimiento EU CRA proactivo"],
       caution: "Nicho muy específico (firmware/SBOM). No monitoriza red ni detecta amenazas en tiempo real. Requiere complementar con plataforma OT. Futuro Accenture.",
       sources: ["https://www.netrise.io/platform/", "https://www.netrise.io/resources/"]
+    },
+    {
+      vendor: "Titanium (Rutile)",
+      primary: "Rutile Platform",
+      implementationGrade: "Intermedio. Plataforma propietaria española de monitorización OT pasiva con descubrimiento de activos y gestión de riesgos.",
+      maturity: 3.5,
+      core: ["Asset discovery ICS/SCADA", "Monitorización pasiva de red", "Gestión de riesgos OT", "Cumplimiento normativo", "Análisis de protocolos industriales"],
+      adjacent: ["SOC OT 24/7/365", "Pentesting industrial", "Auditoría IEC 62443", "Laboratorio industrial", "Respuesta a incidentes"],
+      peerOverlap: ["Nozomi Networks", "Radiflow", "Claroty"],
+      implementation: ["Sensor pasivo en SPAN/TAP", "Consola de gestión on-prem", "Integración SIEM via syslog", "Reporting de cumplimiento"],
+      differentiators: ["Plataforma propietaria española (soberanía)", "Tecnología pasiva sin impacto en producción", "SOC OT propio 24/7 desde España", "Laboratorio industrial para pruebas", "Enfoque normativa europea (ENS, NIS2, IEC 62443)"],
+      caution: "Menor escala que vendors globales. Sin presencia en cuadrantes Gartner/Forrester. Cobertura de protocolos más limitada que líderes.",
+      sources: ["https://www.titaniumindustrialsecurity.com/", "https://www.titaniumindustrialsecurity.com/servicios_es.html"]
     }
   ],
 
@@ -968,7 +981,8 @@ window.ICS_DATA = {
     { vendor: "Cyolo", level: "Bajo", detail: "Empresa pequeña sin CVEs conocidos. Producto enfocado en acceso remoto seguro. Riesgo: tamaño de empresa y madurez.", score: 2 },
     { vendor: "Xage Security", level: "Bajo", detail: "Sin CVEs conocidos. Modelo blockchain innovador. Riesgo: adopción temprana de tecnología distribuida.", score: 2 },
     { vendor: "runZero", level: "Muy bajo", detail: "Herramienta de discovery no intrusiva. Mínima superficie de ataque. Adquirido por Accenture 2026.", score: 1 },
-    { vendor: "NetRise", level: "Muy bajo", detail: "Análisis de firmware offline. Sin componentes en red OT. Mínima superficie de ataque. Adquirido por Accenture 2026.", score: 1 }
+    { vendor: "NetRise", level: "Muy bajo", detail: "Análisis de firmware offline. Sin componentes en red OT. Mínima superficie de ataque. Adquirido por Accenture 2026.", score: 1 },
+    { vendor: "Titanium (Rutile)", level: "Bajo", detail: "Plataforma propietaria Rutile sin CVEs públicos conocidos. Sensor pasivo con mínima superficie de ataque. Empresa española parte de INZU Group. SOC OT propio.", score: 2 }
   ],
 
   // ─── CVE ITEMS ──────────────────────────────────────────────────────
@@ -1031,7 +1045,8 @@ window.ICS_DATA = {
     { vendor: "Cyolo", cves: [], summary: "Sin CVEs públicos. Empresa joven con producto enfocado y superficie de ataque reducida." },
     { vendor: "Xage Security", cves: [], summary: "Sin CVEs públicos. Arquitectura distribuida blockchain reduce puntos únicos de fallo." },
     { vendor: "runZero", cves: [], summary: "Sin CVEs públicos. Herramienta de discovery con superficie de ataque mínima." },
-    { vendor: "NetRise", cves: [], summary: "Sin CVEs públicos. Análisis offline de firmware sin componentes expuestos en red." }
+    { vendor: "NetRise", cves: [], summary: "Sin CVEs públicos. Análisis offline de firmware sin componentes expuestos en red." },
+    { vendor: "Titanium (Rutile)", cves: [], summary: "Sin CVEs públicos. Plataforma Rutile propietaria con sensor pasivo. Mínima superficie de ataque al no interferir en tráfico industrial." }
   ],
 
   // ─── PATCH RESPONSE ITEMS ──────────────────────────────────────────
@@ -1113,7 +1128,8 @@ window.ICS_DATA = {
         { vendor: "Dragos", coverage: 5, detail: "WorldView threat intel con cobertura ransomware ICS. Threat groups tracking." },
         { vendor: "Fortinet OT", coverage: 4, detail: "IPS/AV en FortiGate Rugged. Segmentación previene propagación." },
         { vendor: "TXOne Networks", coverage: 4, detail: "StellarProtect endpoint bloquea ransomware en HMI/SCADA. Application whitelisting." },
-        { vendor: "Waterfall Security", coverage: 5, detail: "Diodo hardware hace imposible la propagación de ransomware de IT a OT." }
+        { vendor: "Waterfall Security", coverage: 5, detail: "Diodo hardware hace imposible la propagación de ransomware de IT a OT." },
+        { vendor: "Titanium (Rutile)", coverage: 3, detail: "Monitorización pasiva detecta anomalías de tráfico indicativas de ransomware. SOC OT 24/7 para respuesta." }
       ]
     },
     {
@@ -1124,7 +1140,8 @@ window.ICS_DATA = {
         { vendor: "Nozomi Networks", coverage: 5, detail: "DPI de protocolos industriales detecta comandos de escritura anómalos." },
         { vendor: "Dragos", coverage: 5, detail: "Análisis de proceso con contexto de threat intel. Detección de técnicas de TRITON/Stuxnet." },
         { vendor: "Tenable OT", coverage: 4, detail: "Active queries detectan cambios en configuración de PLCs." },
-        { vendor: "Siemens", coverage: 4, detail: "Know-how protection y access control en SIMATIC S7." }
+        { vendor: "Siemens", coverage: 4, detail: "Know-how protection y access control en SIMATIC S7." },
+        { vendor: "Titanium (Rutile)", coverage: 3, detail: "DPI pasivo de protocolos industriales detecta comandos de escritura anómalos en Modbus/OPC-UA." }
       ]
     },
     {
@@ -1942,7 +1959,8 @@ window.ICS_DATA = {
     { vendor: "Cyolo", confidence: 0.75, sources: ["Analyst reports on OT remote access", "Vendor documentation", "Customer testimonials", "Industry publications"], lastUpdated: "2025-Q3" },
     { vendor: "Xage Security", confidence: 0.76, sources: ["Gartner Cool Vendor 2023", "Vendor documentation", "Customer case studies", "TSA Pipeline compliance reports"], lastUpdated: "2025-Q3" },
     { vendor: "runZero", confidence: 0.78, sources: ["Analyst reports on asset discovery", "Vendor documentation", "HD Moore publications", "Accenture acquisition announcement 2026"], lastUpdated: "2026-Q2" },
-    { vendor: "NetRise", confidence: 0.74, sources: ["EU CRA compliance publications", "Vendor documentation", "SBOM industry reports", "Accenture acquisition announcement 2026"], lastUpdated: "2026-Q2" }
+    { vendor: "NetRise", confidence: 0.74, sources: ["EU CRA compliance publications", "Vendor documentation", "SBOM industry reports", "Accenture acquisition announcement 2026"], lastUpdated: "2026-Q2" },
+    { vendor: "Titanium (Rutile)", confidence: 0.70, sources: ["Web corporativa Titanium Industrial Security", "Ecosistema CCI (Centro de Ciberseguridad Industrial)", "INZU Group portfolio", "Documentación servicios"], lastUpdated: "2026-Q3" }
   ],
 
   // ─── PROFILE PRESETS ────────────────────────────────────────────────
