@@ -730,6 +730,18 @@ function renderFrameworkVendorDetails() {
           <img src="${vendor.logo}" alt="${vendor.name}" loading="lazy">
           <div><strong>${vendor.name}</strong><p>Fortaleza técnica: ${score.toFixed(1)}/5</p></div>
         </div>
+        <div class="vendor-framework-grid">
+          <div class="framework-item">
+            <strong>Radar de capacidades</strong>
+            ${radarSvgForVendor(index, vendor.color, vendor.name)}
+          </div>
+          <div class="framework-item">
+            <strong>Scores por criterio</strong>
+            <div class="fit-chips">
+              ${criteria.slice(0, 9).map(c => `<span class="fit-chip ${c.scores[index] >= 4 ? "high" : "low"}">${c.label.split(" ")[0]}: ${c.scores[index]}/5</span>`).join("")}
+            </div>
+          </div>
+        </div>
         ${threatHeatmap && threatHeatmap.length ? `
           <div class="heatmap-panel vendor-heatmap">
             <table>
@@ -745,6 +757,98 @@ function renderFrameworkVendorDetails() {
       </article>
     `;
   }).join("");
+}
+
+// ─── RADAR SVG ───────────────────────────────────────────────────────
+
+function radarSvgForVendor(vendorIndex, color, title) {
+  const radarCriteria = criteria.slice(0, 9);
+  const n = radarCriteria.length;
+  const cx = 160, cy = 130, maxR = 100;
+  const points = radarCriteria.map((c, i) => {
+    const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+    const r = 20 + (c.scores[vendorIndex] / 5) * (maxR - 20);
+    return `${cx + Math.cos(angle) * r},${cy + Math.sin(angle) * r}`;
+  }).join(" ");
+
+  return `
+    <svg viewBox="0 0 320 260" role="img" aria-label="Radar de ${title}" style="width:100%;min-height:240px">
+      <rect x="0" y="0" width="320" height="260" rx="8" fill="#fbfcfe"/>
+      ${[100, 66, 33].map(r => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e2e8f0"/>`).join("")}
+      <polygon points="${points}" fill="${color}22" stroke="${color}" stroke-width="2.5"/>
+      ${radarCriteria.map((c, i) => {
+        const angle = (-90 + i * (360 / n)) * Math.PI / 180;
+        const lx = cx + Math.cos(angle) * (maxR + 18);
+        const ly = cy + Math.sin(angle) * (maxR + 18);
+        const label = c.label.length > 14 ? c.label.slice(0, 12) + "..." : c.label;
+        return `<text x="${lx}" y="${ly + 4}" text-anchor="middle" fill="#647084" font-size="9" font-weight="700">${label}</text>`;
+      }).join("")}
+    </svg>
+  `;
+}
+
+// ─── PROTOCOL MAP ────────────────────────────────────────────────────
+
+function renderProtocolMap() {
+  const target = document.getElementById("protocolMap");
+  if (!target || !integrationProtocolItems.length) { if (target) target.innerHTML = ""; return; }
+
+  const protocols = integrationProtocolItems;
+  const allVendors = [...new Set(protocols.flatMap(p => (p.support || []).map(s => s.vendor)))];
+
+  target.innerHTML = `
+    <div class="protocol-matrix">
+      <h3>Matriz de cobertura de protocolos industriales</h3>
+      <p style="margin:0 0 12px;color:var(--muted)">Nivel de soporte: Full DPI (inspección profunda), IPS (firmas), Basic (detección), - (sin soporte documentado)</p>
+      <div class="protocol-table-wrap">
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>Protocolo</th>
+              ${allVendors.map(v => `<th>${v.split(" ")[0]}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${protocols.map(p => `
+              <tr>
+                <td>
+                  <strong>${p.protocol}</strong>
+                  <br><small style="color:var(--muted)">${(p.description || "").slice(0, 60)}${(p.description || "").length > 60 ? "..." : ""}</small>
+                </td>
+                ${allVendors.map(vn => {
+                  const s = (p.support || []).find(s => s.vendor === vn);
+                  if (!s) return `<td class="proto-none">-</td>`;
+                  const cls = s.level === "Full DPI" ? "proto-full" : s.level === "IPS signatures" ? "proto-ips" : "proto-basic";
+                  return `<td class="${cls}" title="${s.detail || ""}">${s.level === "Full DPI" ? "DPI" : s.level === "IPS signatures" ? "IPS" : "Basic"}</td>`;
+                }).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// ─── WIRE SECTION EXPORTS ────────────────────────────────────────────
+
+function wireSectionExports() {
+  document.querySelectorAll(".view > .visual-panel > .panel-title").forEach(title => {
+    const view = title.closest(".view");
+    if (!view || title.querySelector("[data-export-section]")) return;
+    const button = document.createElement("button");
+    button.className = "section-export";
+    button.type = "button";
+    button.dataset.exportSection = view.id;
+    button.title = "Descargar esta sección en PDF";
+    button.setAttribute("aria-label", "Descargar esta sección en PDF");
+    button.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg><span>PDF</span>`;
+    button.addEventListener("click", () => {
+      exportSectionPdf(view.id);
+      toast(`PDF de ${sectionMeta[view.id]?.title || "sección"} generado.`);
+    });
+    title.appendChild(button);
+  });
 }
 
 // ─── SPANISH SECTION ─────────────────────────────────────────────────
@@ -900,22 +1004,41 @@ function createPdf(sectionId) {
   const doc = createPdfWriter();
   const ranked = scoreVendors();
   const winner = ranked.find(i => i.unmetRequirements.length === 0) || ranked[0];
+  const sel = document.getElementById("scenario");
+  const scenarioName = sel?.options[sel.selectedIndex]?.text || "Balanceado";
 
-  doc.cover("ICS Security Studio", sectionId ? (sectionMeta[sectionId]?.title || "Seccion") : "Evaluacion completa de ciberseguridad industrial OT/ICS/SCADA", [
+  doc.cover("ICS Security Studio", sectionId ? (sectionMeta[sectionId]?.title || "Sección") : "Evaluación completa OT/ICS/SCADA", [
     `Fecha: ${new Date().toLocaleDateString("es-ES")}`,
     `Perfil: ${profilePresets[state.profile.preset]?.label || "Balanceado"}`,
+    `Escenario: ${scenarioName}`,
     `Scoring: ${state.scoringSource}`,
-    "Fabricantes globales + ecosistema espanol"
+    "15 fabricantes globales + 10 españoles"
   ]);
 
   if (!sectionId || sectionId === "dashboard") {
     doc.section("1. Resumen ejecutivo");
-    doc.kv("Recomendacion", winner.name);
+    doc.kv("Recomendación", winner.name);
     doc.kv("Perfil", `${state.profile.sector} | ${state.profile.size} | ${state.profile.soc}`);
+    if (state.profile.notes) doc.kv("Notas", state.profile.notes);
     doc.paragraph(winner.bestFor);
+    doc.kv("Requisitos pendientes", String(ranked.reduce((s, i) => s + i.unmetRequirements.length, 0)));
+    doc.kv("Riesgo medio", (vendors.reduce((s, v) => s + v.risk, 0) / vendors.length).toFixed(1));
     doc.section("2. Ranking ponderado");
     doc.barChart("Ranking", ranked.map(i => ({ label: i.name, value: i.score, color: i.color })), 5);
-    ranked.forEach((i, idx) => doc.kv(`#${idx + 1} ${i.name}`, `${i.score.toFixed(2)}/5`));
+    ranked.forEach((item, idx) => {
+      doc.kv(`#${idx + 1} ${item.name}`, `${item.score.toFixed(2)}/5`);
+      if (item.unmetRequirements.length) doc.paragraph(`Requiere: ${item.unmetRequirements.join(", ")}`);
+    });
+    doc.section("3. Lectura ejecutiva");
+    vendors.forEach(v => { doc.subsection(v.name); doc.kv("Ventajas", v.bestFor); doc.kv("Cautelas", v.caution); doc.kv("Cumplimiento", v.compliance); });
+  }
+
+  if (!sectionId || sectionId === "profile") {
+    doc.section("Perfil del cliente");
+    Object.entries(profilePresets).forEach(([, p]) => {
+      doc.subsection(p.label);
+      doc.kv("Pesos", Object.entries(p.weights || {}).map(([k, v]) => `${criteria.find(c => c.id === k)?.label || k}: ${v}`).join(" | ") || "Base");
+    });
   }
 
   if (!sectionId || sectionId === "assessment") {
@@ -926,16 +1049,90 @@ function createPdf(sectionId) {
     });
   }
 
+  if (!sectionId || sectionId === "usecases") {
+    doc.section("Casos imprescindibles");
+    useCases.forEach(u => {
+      const fits = u.fits || u.fit || [];
+      doc.kv(u.label, `${state.required[u.label] ? "IMPRESCINDIBLE" : "Deseable"} | ${vendors.map((v, i) => `${v.name}: ${fits[i] || "-"}`).join(" | ")}`);
+    });
+  }
+
+  if (!sectionId || sectionId === "risks") {
+    doc.section("Riesgos y vulnerabilidades");
+    (riskItems || []).forEach(i => { doc.subsection(`${i.vendor} - ${i.level || "Media"}`); if (i.detail) doc.paragraph(i.detail); });
+    (cveItems || []).forEach(i => {
+      if (i.cves.length) doc.kv(`${i.vendor} CVEs`, i.cves.map(c => `${c.id} (CVSS ${c.cvss})`).join("; "));
+      if (i.summary) doc.kv(i.vendor, i.summary);
+    });
+  }
+
+  if (!sectionId || sectionId === "capabilities") {
+    doc.section("Funcionalidades");
+    productCapabilities.forEach(i => {
+      doc.subsection(`${i.vendor} - ${i.primary}`);
+      doc.kv("Madurez", `${i.maturity}/5`);
+      doc.kv("Core", i.core.join(", "));
+      doc.kv("Diferenciadores", i.differentiators.join(" | "));
+      doc.kv("Precaución", i.caution);
+    });
+  }
+
+  if (!sectionId || sectionId === "technical") {
+    doc.section("Protocolos y técnico");
+    (techItems || []).forEach(i => {
+      doc.subsection(i.vendor);
+      if (i.architecture) doc.kv("Arquitectura", i.architecture);
+      const proto = Array.isArray(i.protocolsSupported) ? i.protocolsSupported.join(", ") : (i.protocolsSupported || "");
+      if (proto) doc.kv("Protocolos", proto);
+    });
+  }
+
+  if (!sectionId || sectionId === "deployment") {
+    doc.section("Despliegue");
+    (deploymentItems || []).forEach(i => {
+      doc.subsection(i.vendor);
+      if (i.onPremise) doc.kv("On-premise", i.onPremise);
+      if (i.cloud) doc.kv("Cloud", i.cloud);
+      if (i.airGapped) doc.kv("Air-gapped", i.airGapped);
+    });
+  }
+
+  if (!sectionId || sectionId === "innovation") {
+    doc.section("Innovación");
+    (innovationItems || []).forEach(i => {
+      doc.subsection(i.vendor);
+      doc.kv("Madurez", `${i.maturity || "-"}/5`);
+      if (i.aiCapabilities) doc.kv("IA/ML", i.aiCapabilities);
+      if (i.digitalTwin) doc.kv("Digital Twin", i.digitalTwin);
+    });
+  }
+
+  if (!sectionId || sectionId === "evidence") {
+    doc.section("Evidencia y confianza");
+    (evidenceItems || []).forEach(i => {
+      doc.subsection(`${i.vendor} - ${i.confidence}/5`);
+      const src = i.sources || [];
+      if (src.length) doc.kv("Fuentes", src.map(s => typeof s === "string" ? s : (s.title || "")).join(" | "));
+    });
+  }
+
   if (!sectionId || sectionId === "spanish") {
     doc.section("Fabricantes españoles");
     spanishVendors.forEach(v => {
       doc.subsection(v.name);
-      doc.kv("Fortaleza", `${v.strength}/5`);
+      doc.kv("Fortaleza / Ajuste", `${v.strength}/5 | ${v.fit}/5`);
       doc.kv("ENS", v.ensStatus || "No documentado");
       doc.kv("CCN-CERT", v.ccnCert || "No documentado");
+      doc.kv("INCIBE", v.incibeRelation || "No documentado");
+      doc.kv("Contratos", v.governmentContracts || "No documentado");
       doc.kv("Ventajas", v.bestFor);
       doc.kv("Cautelas", v.caution);
     });
+  }
+
+  if (!sectionId) {
+    doc.section("Notas de uso");
+    doc.paragraph("La puntuación agregada no sustituye la validación de requisitos imprescindibles en PoC/RFP. Los datos provienen de fuentes públicas y pueden no estar actualizados.");
   }
 
   return doc.toBlob();
@@ -1051,8 +1248,13 @@ function init() {
   renderEvidence();
   renderVendors();
   renderSpanish();
+  renderProtocolMap();
   wireNavigation();
+  wireSectionExports();
   refresh();
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  }
 }
 
 init();
