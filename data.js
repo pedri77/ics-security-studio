@@ -1161,7 +1161,8 @@ window.ICS_DATA = {
         { vendor: "Nozomi Networks", level: "Full DPI", detail: "Parsing completo de Modbus TCP/RTU. Baseline de registros." },
         { vendor: "Dragos", level: "Full DPI", detail: "Análisis de función codes con contexto de proceso." },
         { vendor: "Fortinet OT", level: "IPS signatures", detail: "Firmas IPS para Modbus en FortiGate. Application control." },
-        { vendor: "Radiflow", level: "Full DPI", detail: "iSID con parsing Modbus completo. Detección de anomalías." }
+        { vendor: "Radiflow", level: "Full DPI", detail: "iSID con parsing Modbus completo. Detección de anomalías." },
+        { vendor: "Titanium (Rutile)", level: "Passive DPI", detail: "Monitorización pasiva de Modbus TCP/RTU. Detección de escrituras anómalas sin impacto en proceso." }
       ]
     },
     {
@@ -1171,7 +1172,8 @@ window.ICS_DATA = {
         { vendor: "Claroty", level: "Full", detail: "OPC-UA y DA completo. Detección de nodos y métodos anómalos." },
         { vendor: "Nozomi Networks", level: "Full", detail: "OPC-UA certificate monitoring. DA tag analysis." },
         { vendor: "Siemens", level: "Native", detail: "OPC-UA nativo en SIMATIC. Seguridad integrada en stack." },
-        { vendor: "Microsoft Defender IoT", level: "Full", detail: "OPC-UA parsing con Azure IoT integration." }
+        { vendor: "Microsoft Defender IoT", level: "Full", detail: "OPC-UA parsing con Azure IoT integration." },
+        { vendor: "Titanium (Rutile)", level: "Passive", detail: "Monitorización pasiva OPC-UA. Identificación de nodos y sesiones anómalas." }
       ]
     },
     {
@@ -1458,6 +1460,16 @@ window.ICS_DATA = {
       apiCapabilities: "REST API. CI/CD integration. SBOM export (SPDX/CycloneDX). Webhook notifications.",
       scalability: "Cloud-native. Sin límite de firmware images analizables.",
       minHardware: "N/A. Cloud-only. Sin requisitos de hardware on-prem."
+    },
+    {
+      vendor: "Titanium (Rutile)",
+      architecture: "Plataforma Rutile on-prem. Sensor pasivo propietario para monitorización de tráfico industrial. Consola de gestión centralizada. SOC OT 24/7 integrado.",
+      sensorTypes: ["Sensor pasivo propietario", "Consola de gestión on-prem"],
+      protocolsSupported: 80,
+      deploymentModel: "On-premise exclusivo. Tecnología pasiva sin impacto en producción. Ideal para entornos air-gapped.",
+      apiCapabilities: "API de gestión de activos. Integración con SIEM via syslog. Reporting de cumplimiento IEC 62443.",
+      scalability: "Multi-site con consola centralizada. Orientado a infraestructuras críticas españolas y europeas.",
+      minHardware: "Sensor pasivo: appliance dedicado. Consola: servidor estándar. Requisitos bajo demanda."
     }
   ],
 
@@ -1677,6 +1689,17 @@ window.ICS_DATA = {
       typicalDeployTime: "1 semana",
       sensorDeployment: "Sin despliegue on-prem. Upload de firmware images a cloud para análisis.",
       detail: "Cloud-only. Sin impacto en red OT. Upload de firmware para análisis offline."
+    },
+    {
+      vendor: "Titanium (Rutile)",
+      onPremise: true,
+      cloud: false,
+      hybrid: false,
+      airGapped: true,
+      typicalDeployTime: "2-4 semanas",
+      sensorDeployment: "Sensor pasivo propietario en SPAN/TAP. Monitorización no intrusiva. Sin impacto en procesos industriales.",
+      cloudRegions: "N/A. Solo on-premise. Datos en cliente.",
+      detail: "100% on-premise y soberano. Ideal para infraestructuras críticas con requisitos ENS/NIS2. SOC OT 24/7 opcional desde España."
     }
   ],
 
@@ -1840,6 +1863,14 @@ window.ICS_DATA = {
       digitalTwin: "SBOM como digital twin del software embebido en dispositivos OT.",
       predictiveSecurity: "Detección proactiva de vulnerabilidades en supply chain antes del despliegue.",
       innovation: "Análisis de firmware sin código fuente. SBOM automático para EU CRA compliance.",
+      maturity: 3
+    },
+    {
+      vendor: "Titanium (Rutile)",
+      aiCapabilities: "Análisis de anomalías basado en baseline de tráfico industrial. Detección de comportamientos anómalos en protocolos OT.",
+      digitalTwin: "Inventario completo de activos como modelo digital del entorno industrial.",
+      predictiveSecurity: "Gestión de riesgos basada en vulnerabilidades descubiertas y criticidad de activos industriales.",
+      innovation: "Plataforma propietaria española. Laboratorio industrial propio para pruebas. Enfoque en soberanía y normativa europea (ENS, NIS2, IEC 62443).",
       maturity: 3
     }
   ],
