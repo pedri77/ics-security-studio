@@ -56,7 +56,7 @@ const sectionMeta = {
     hint: "Analiza CVEs, respuesta a parches, incidentes publicados y acciones de mitigación."
   },
   technical: {
-    title: "Protocolos y técnico",
+    title: "Protocolos y especificaciones técnicas",
     hint: "Valida cobertura de protocolos industriales, arquitectura de sensores y modelo de despliegue."
   },
   deployment: {
@@ -1007,12 +1007,12 @@ function createPdf(sectionId) {
   const sel = document.getElementById("scenario");
   const scenarioName = sel?.options[sel.selectedIndex]?.text || "Balanceado";
 
-  doc.cover("ICS Security Studio", sectionId ? (sectionMeta[sectionId]?.title || "Sección") : "Evaluación completa OT/ICS/SCADA", [
+  doc.cover("ICS Security Studio", sectionId ? (sectionMeta[sectionId]?.title || "Sección") : "Evaluación completa de ciberseguridad industrial OT/ICS/SCADA", [
     `Fecha: ${new Date().toLocaleDateString("es-ES")}`,
     `Perfil: ${profilePresets[state.profile.preset]?.label || "Balanceado"}`,
     `Escenario: ${scenarioName}`,
     `Scoring: ${state.scoringSource}`,
-    "15 fabricantes globales + 10 españoles"
+    `${vendors.length} fabricantes globales + ${spanishVendors.length} españoles`
   ]);
 
   if (!sectionId || sectionId === "dashboard") {
@@ -1021,13 +1021,13 @@ function createPdf(sectionId) {
     doc.kv("Perfil", `${state.profile.sector} | ${state.profile.size} | ${state.profile.soc}`);
     if (state.profile.notes) doc.kv("Notas", state.profile.notes);
     doc.paragraph(winner.bestFor);
-    doc.kv("Requisitos pendientes", String(ranked.reduce((s, i) => s + i.unmetRequirements.length, 0)));
-    doc.kv("Riesgo medio", (vendors.reduce((s, v) => s + v.risk, 0) / vendors.length).toFixed(1));
+    doc.kv("Requisitos pendientes de validación", String(ranked.reduce((s, i) => s + i.unmetRequirements.length, 0)));
+    doc.kv("Nivel de riesgo medio", (vendors.reduce((s, v) => s + v.risk, 0) / vendors.length).toFixed(1));
     doc.section("2. Ranking ponderado");
     doc.barChart("Ranking", ranked.map(i => ({ label: i.name, value: i.score, color: i.color })), 5);
     ranked.forEach((item, idx) => {
       doc.kv(`#${idx + 1} ${item.name}`, `${item.score.toFixed(2)}/5`);
-      if (item.unmetRequirements.length) doc.paragraph(`Requiere: ${item.unmetRequirements.join(", ")}`);
+      if (item.unmetRequirements.length) doc.paragraph(`Requiere validación en: ${item.unmetRequirements.join(", ")}`);
     });
     doc.section("3. Lectura ejecutiva");
     vendors.forEach(v => { doc.subsection(v.name); doc.kv("Ventajas", v.bestFor); doc.kv("Cautelas", v.caution); doc.kv("Cumplimiento", v.compliance); });
@@ -1078,7 +1078,7 @@ function createPdf(sectionId) {
   }
 
   if (!sectionId || sectionId === "technical") {
-    doc.section("Protocolos y técnico");
+    doc.section("Protocolos y especificaciones técnicas");
     (techItems || []).forEach(i => {
       doc.subsection(i.vendor);
       if (i.architecture) doc.kv("Arquitectura", i.architecture);
@@ -1132,7 +1132,7 @@ function createPdf(sectionId) {
 
   if (!sectionId) {
     doc.section("Notas de uso");
-    doc.paragraph("La puntuación agregada no sustituye la validación de requisitos imprescindibles en PoC/RFP. Los datos provienen de fuentes públicas y pueden no estar actualizados.");
+    doc.paragraph("La puntuación agregada no sustituye la validación de requisitos imprescindibles mediante PoC o RFP formal. Los datos provienen de fuentes públicas y pueden no estar actualizados. Consulte el DISCLAIMER para más información.");
   }
 
   return doc.toBlob();
@@ -1143,8 +1143,19 @@ function createPdfWriter() {
   const pages = [];
   let cmds = [], y = margin, pn = 0;
   const rgb = h => { const v = h.replace("#", ""); return [parseInt(v.slice(0, 2), 16) / 255, parseInt(v.slice(2, 4), 16) / 255, parseInt(v.slice(4, 6), 16) / 255].map(n => n.toFixed(3)).join(" "); };
-  const clean = v => String(v ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "");
-  const literal = v => `(${clean(v).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)")})`;
+  // WinAnsiEncoding supports Latin-1: á é í ó ú ñ ü ¿ ¡ and more
+  const clean = v => String(v ?? "")
+    .replace(/[""]/g, '"').replace(/['']/g, "'").replace(/[–—]/g, "-").replace(/[·•]/g, "-")
+    .replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF]/g, "");
+  const literal = v => {
+    const s = clean(v);
+    // Encode as hex string to handle chars > 0x7F properly
+    const hex = Array.from(s).map(c => {
+      const code = c.charCodeAt(0);
+      return code.toString(16).padStart(2, "0");
+    }).join("");
+    return `<${hex}>`;
+  };
   const pdfY = v => ph - v;
   const textWidth = (v, s) => clean(v).length * s * 0.48;
   const wrap = (v, s, w) => {
@@ -1162,7 +1173,7 @@ function createPdfWriter() {
   const rect = (x, t, w, h, f = "#ffffff") => { color(f); cmds.push(`${x.toFixed(2)} ${(ph - t - h).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re f`); };
   const line = (x1, y1, x2, y2, s = "#d8dee8", w = 1) => { cmds.push(`${rgb(s)} RG ${w} w ${x1.toFixed(2)} ${pdfY(y1).toFixed(2)} m ${x2.toFixed(2)} ${pdfY(y2).toFixed(2)} l S`); };
   const text = (v, x, t, s = 10, b = false, f = "#17212f") => { color(f); cmds.push(`BT /${b ? "F2" : "F1"} ${s} Tf ${x.toFixed(2)} ${pdfY(t).toFixed(2)} Td ${literal(v)} Tj ET`); };
-  const footer = () => { line(margin, ph - 36, pw - margin, ph - 36, "#d8dee8", 0.6); text("ICS Security Studio", margin, ph - 24, 8, true, "#647084"); text(`Pagina ${pn}`, pw - margin - 42, ph - 24, 8, false, "#647084"); };
+  const footer = () => { line(margin, ph - 36, pw - margin, ph - 36, "#d8dee8", 0.6); text("ICS Security Studio", margin, ph - 24, 8, true, "#647084"); text(`Página ${pn}`, pw - margin - 42, ph - 24, 8, false, "#647084"); };
   const header = () => { rect(margin, 30, 24, 24, "#b45309"); text("ICS", margin + 34, 47, 11, true, "#17212f"); line(margin, 66, pw - margin, 66, "#d8dee8", 0.8); y = 86; };
   const newPage = (wh = true) => { if (cmds.length) { footer(); pages.push(cmds.join("\n")); } cmds = []; pn++; rect(0, 0, pw, ph, "#ffffff"); if (wh) header(); else y = margin; };
   const ensure = h => { if (y + h > ph - 58) newPage(true); };
@@ -1210,8 +1221,8 @@ function createPdfWriter() {
       const pageRefs = pages.map((_, i) => `${6 + i * 2} 0 R`).join(" ");
       objects[1] = "<< /Type /Catalog /Pages 2 0 R >>";
       objects[2] = `<< /Type /Pages /Kids [${pageRefs}] /Count ${pages.length} >>`;
-      objects[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>";
-      objects[4] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>";
+      objects[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
+      objects[4] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
       pages.forEach((stream, i) => {
         objects[5 + i * 2] = `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`;
         objects[6 + i * 2] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pw.toFixed(2)} ${ph.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${5 + i * 2} 0 R >>`;

@@ -4,7 +4,7 @@
 
 window.ICS_DATA = {
 
-  // ─── VENDORS (15 global) ────────────────────────────────────────────
+  // ─── VENDORS (20 global) ────────────────────────────────────────────
   vendors: [
     {
       name: "Claroty",
@@ -245,10 +245,85 @@ window.ICS_DATA = {
       gartner: "Niche Player (CPS Protection)",
       bestFor: "Análisis de riesgo OT basado en simulación. Utilities y agua. Despliegues europeos con requisitos de soberanía.",
       caution: "Menor escala que líderes. Ecosistema de integraciones más pequeño. Recursos de threat intel limitados comparado con Dragos/Claroty."
+    },
+    {
+      name: "Forescout",
+      color: "#00897b",
+      logo: "https://www.google.com/s2/favicons?domain=forescout.com&sz=32",
+      docsUrl: "https://www.forescout.com/resources/",
+      productUrl: "https://www.forescout.com/platform/",
+      compliance: "IEC 62443, NIS2, NERC CIP, NIST CSF",
+      complianceDetail: "Vistaro platform con visibilidad agentless de activos IT/OT/IoT. Clasificación automática de 100% de dispositivos IP. Zero Trust Network Access.",
+      strength: 4.2,
+      fit: 4.3,
+      risk: 2,
+      gartner: "Leader (Forrester Wave IoT Security)",
+      bestFor: "Visibilidad agentless masiva IT/OT/IoT. Más de 180 integraciones. Segmentación y control de acceso.",
+      caution: "Menos profundidad en protocolos industriales que pure-play OT. Adquirido por Advent International."
+    },
+    {
+      name: "Cyolo",
+      color: "#1565c0",
+      logo: "https://www.google.com/s2/favicons?domain=cyolo.io&sz=32",
+      docsUrl: "https://cyolo.io/resources/",
+      productUrl: "https://cyolo.io/products/",
+      compliance: "IEC 62443, NIS2, NIST CSF",
+      complianceDetail: "Cyolo PRO para acceso remoto privilegiado OT con grabación de sesiones. CPS Segmentation para microsegmentación zero trust agentless.",
+      strength: 3.8,
+      fit: 3.7,
+      risk: 2,
+      gartner: "Niche Player (acceso remoto OT)",
+      bestFor: "Acceso remoto seguro OT con JIT provisioning. Microsegmentación sin agente. Grabación de sesiones y MFA.",
+      caution: "Empresa pequeña. Sin visibilidad de activos propia. Requiere integración con plataformas de monitorización."
+    },
+    {
+      name: "Xage Security",
+      color: "#ef6c00",
+      logo: "https://www.google.com/s2/favicons?domain=xage.com&sz=32",
+      docsUrl: "https://xage.com/resources/",
+      productUrl: "https://xage.com/platform/",
+      compliance: "IEC 62443, NERC CIP, NIS2, NIST CSF, TSA Pipeline",
+      complianceDetail: "Plataforma zero trust para OT/IT/cloud. Identidad distribuida blockchain-based. Acceso granular por activo.",
+      strength: 3.9,
+      fit: 3.8,
+      risk: 2,
+      gartner: "Cool Vendor (Gartner 2023)",
+      bestFor: "Zero trust nativo para OT. Identidad distribuida. Gestión de acceso granular por activo y protocolo.",
+      caution: "Empresa en crecimiento. Menor base instalada. Modelo blockchain puede generar complejidad."
+    },
+    {
+      name: "runZero",
+      color: "#10b981",
+      logo: "https://www.google.com/s2/favicons?domain=runzero.com&sz=32",
+      docsUrl: "https://www.runzero.com/docs/",
+      productUrl: "https://www.runzero.com/platform/",
+      compliance: "NIST CSF, NIS2",
+      complianceDetail: "Asset discovery rápido y seguro para OT. Escaneo activo no intrusivo. Inventario completo sin agentes. Adquirido por Accenture 2026.",
+      strength: 3.7,
+      fit: 3.9,
+      risk: 1,
+      gartner: "Adquirido por Accenture (2026, parte del deal Dragos $4.175B)",
+      bestFor: "Descubrimiento de activos ultrarrápido. Escaneo no intrusivo seguro para OT. Inventario completo.",
+      caution: "No es plataforma de seguridad completa. Requiere complementar con monitorización y protección. Futuro bajo paraguas Accenture."
+    },
+    {
+      name: "NetRise",
+      color: "#7c3aed",
+      logo: "https://www.google.com/s2/favicons?domain=netrise.io&sz=32",
+      docsUrl: "https://www.netrise.io/resources/",
+      productUrl: "https://www.netrise.io/platform/",
+      compliance: "NIST CSF, NIS2, EU CRA",
+      complianceDetail: "Análisis de firmware y SBOM para dispositivos OT/IoT. Detección de vulnerabilidades en supply chain. Adquirido por Accenture 2026.",
+      strength: 3.6,
+      fit: 3.5,
+      risk: 1,
+      gartner: "Adquirido por Accenture (2026, parte del deal Dragos $4.175B)",
+      bestFor: "Análisis de firmware y software de terceros. SBOM automático. Detección de vulnerabilidades en supply chain OT.",
+      caution: "Nicho muy específico (firmware/SBOM). No monitoriza red. Requiere complementar con plataforma OT. Futuro Accenture."
     }
   ],
 
-  // ─── SPANISH VENDORS (10) ──────────────────────────────────────────
+  // ─── SPANISH VENDORS (11) ──────────────────────────────────────────
   spanishVendors: [
     {
       name: "S2 Grupo",
@@ -449,29 +524,49 @@ window.ICS_DATA = {
       ensStatus: "ENS Alto certificado para SOC y servicios gestionados.",
       governmentContracts: "Contratos de seguridad integral (física+ciber) con administración pública. Prosegur como proveedor establecido.",
       incibeRelation: "Colaboración con INCIBE en concienciación empresarial. Participación en ecosistema de ciberseguridad español."
+    },
+    {
+      name: "Titanium Industrial Security",
+      color: "#455a64",
+      logo: "https://www.google.com/s2/favicons?domain=titaniumindustrialsecurity.com&sz=32",
+      docsUrl: "https://www.titaniumindustrialsecurity.com/",
+      productUrl: "https://www.titaniumindustrialsecurity.com/",
+      compliance: "IEC 62443, ENS, NIS2",
+      complianceDetail: "Consultoría especializada en ciberseguridad industrial OT/ICS. Evaluaciones de seguridad, planes de mejora, cumplimiento normativo sectorial.",
+      complianceUrl: "https://www.titaniumindustrialsecurity.com/",
+      strength: 3.7,
+      fit: 3.6,
+      risk: 2,
+      gartner: "Especialista OT español",
+      bestFor: "Consultoría OT especializada. Evaluaciones de seguridad industrial. Experiencia en generación eléctrica, transporte y manufactura.",
+      caution: "Empresa de servicios, sin producto propio de monitorización. Tamaño pequeño. Menor cobertura geográfica que grandes consultoras.",
+      ccnCert: "Alineado con marco de ciberseguridad industrial nacional",
+      ensStatus: "Alineado ENS",
+      governmentContracts: "No documentado públicamente",
+      incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial)"
     }
   ],
 
   // ─── CRITERIA (18 OT-specific) ─────────────────────────────────────
   criteria: [
-    { id: "asset_discovery", label: "Descubrimiento de activos OT", weight: 5, scores: [5,5,4,3,4,4,5,3,4,3,4,2,3,3,4] },
-    { id: "network_monitoring", label: "Monitorización de red industrial", weight: 5, scores: [5,5,5,4,4,4,4,3,4,3,3,2,2,3,4] },
-    { id: "threat_detection", label: "Detección de amenazas OT", weight: 5, scores: [5,5,5,4,4,4,4,4,4,3,3,3,3,3,4] },
-    { id: "vulnerability_mgmt", label: "Gestión de vulnerabilidades", weight: 4, scores: [5,4,4,3,3,4,5,4,3,4,5,2,3,3,4] },
-    { id: "remote_access", label: "Acceso remoto seguro", weight: 4, scores: [5,4,3,4,4,3,3,3,3,4,2,2,3,3,3] },
-    { id: "endpoint_protection", label: "Protección endpoint OT", weight: 4, scores: [3,4,3,4,3,3,3,5,3,3,2,2,4,2,2] },
-    { id: "segmentation", label: "Segmentación de red industrial", weight: 5, scores: [4,3,3,5,5,3,3,5,3,4,2,5,3,3,3] },
-    { id: "compliance", label: "Cumplimiento normativo (IEC 62443/NIS2)", weight: 4, scores: [5,4,4,4,4,4,4,4,4,4,4,4,4,4,4] },
-    { id: "protocol_coverage", label: "Cobertura de protocolos industriales", weight: 5, scores: [5,5,5,4,4,4,4,4,4,4,4,3,3,4,4] },
-    { id: "threat_intel", label: "Inteligencia de amenazas ICS", weight: 4, scores: [4,4,5,4,3,4,4,3,3,3,3,3,2,2,3] },
-    { id: "incident_response", label: "Respuesta a incidentes OT", weight: 4, scores: [4,4,5,3,3,3,3,3,3,3,3,2,2,3,3] },
-    { id: "it_ot_convergence", label: "Convergencia IT/OT", weight: 4, scores: [5,4,3,4,4,5,5,3,3,3,4,2,3,3,3] },
-    { id: "soc_integration", label: "Integración SOC/SIEM", weight: 4, scores: [5,4,4,4,4,5,5,3,3,3,4,3,3,3,3] },
-    { id: "deployment_ease", label: "Facilidad de despliegue", weight: 3, scores: [4,4,3,4,3,4,5,4,3,3,4,3,3,3,4] },
-    { id: "sovereignty", label: "Soberanía y on-premise", weight: 3, scores: [4,4,4,5,4,2,2,4,4,4,3,5,4,4,4] },
-    { id: "scalability", label: "Escalabilidad", weight: 3, scores: [5,5,4,4,4,5,5,4,3,3,4,3,3,3,4] },
-    { id: "tco", label: "TCO (Coste Total)", weight: 4, scores: [2,3,2,4,3,4,3,4,3,3,3,3,3,3,3] },
-    { id: "ai_innovation", label: "IA e innovación", weight: 3, scores: [5,5,4,4,3,5,5,4,4,4,4,2,3,3,3] }
+    { id: "asset_discovery", label: "Descubrimiento de activos OT", weight: 5, scores: [5,5,4,3,4,4,5,3,4,3,4,2,3,3,4,5,2,3,5,3] },
+    { id: "network_monitoring", label: "Monitorización de red industrial", weight: 5, scores: [5,5,5,4,4,4,4,3,4,3,3,2,2,3,4,4,2,2,3,2] },
+    { id: "threat_detection", label: "Detección de amenazas OT", weight: 5, scores: [5,5,5,4,4,4,4,4,4,3,3,3,3,3,4,4,2,3,2,2] },
+    { id: "vulnerability_mgmt", label: "Gestión de vulnerabilidades", weight: 4, scores: [5,4,4,3,3,4,5,4,3,4,5,2,3,3,4,4,2,3,3,5] },
+    { id: "remote_access", label: "Acceso remoto seguro", weight: 4, scores: [5,4,3,4,4,3,3,3,3,4,2,2,3,3,3,3,5,4,2,2] },
+    { id: "endpoint_protection", label: "Protección endpoint OT", weight: 4, scores: [3,4,3,4,3,3,3,5,3,3,2,2,4,2,2,3,2,2,2,2] },
+    { id: "segmentation", label: "Segmentación de red industrial", weight: 5, scores: [4,3,3,5,5,3,3,5,3,4,2,5,3,3,3,4,4,4,2,2] },
+    { id: "compliance", label: "Cumplimiento normativo (IEC 62443/NIS2)", weight: 4, scores: [5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3] },
+    { id: "protocol_coverage", label: "Cobertura de protocolos industriales", weight: 5, scores: [5,5,5,4,4,4,4,4,4,4,4,3,3,4,4,3,2,2,3,2] },
+    { id: "threat_intel", label: "Inteligencia de amenazas ICS", weight: 4, scores: [4,4,5,4,3,4,4,3,3,3,3,3,2,2,3,3,2,2,2,2] },
+    { id: "incident_response", label: "Respuesta a incidentes OT", weight: 4, scores: [4,4,5,3,3,3,3,3,3,3,3,2,2,3,3,3,2,2,2,2] },
+    { id: "it_ot_convergence", label: "Convergencia IT/OT", weight: 4, scores: [5,4,3,4,4,5,5,3,3,3,4,2,3,3,3,5,3,3,3,3] },
+    { id: "soc_integration", label: "Integración SOC/SIEM", weight: 4, scores: [5,4,4,4,4,5,5,3,3,3,4,3,3,3,3,4,2,3,3,2] },
+    { id: "deployment_ease", label: "Facilidad de despliegue", weight: 3, scores: [4,4,3,4,3,4,5,4,3,3,4,3,3,3,4,4,4,4,5,4] },
+    { id: "sovereignty", label: "Soberanía y on-premise", weight: 3, scores: [4,4,4,5,4,2,2,4,4,4,3,5,4,4,4,3,4,4,3,3] },
+    { id: "scalability", label: "Escalabilidad", weight: 3, scores: [5,5,4,4,4,5,5,4,3,3,4,3,3,3,4,5,3,3,4,3] },
+    { id: "tco", label: "TCO (Coste Total)", weight: 4, scores: [2,3,2,4,3,4,3,4,3,3,3,3,3,3,3,3,3,3,4,4] },
+    { id: "ai_innovation", label: "IA e innovación", weight: 3, scores: [5,5,4,4,3,5,5,4,4,4,4,2,3,3,3,4,3,3,3,3] }
   ],
 
   // ─── USE CASES (15 OT-specific) ────────────────────────────────────
@@ -480,95 +575,95 @@ window.ICS_DATA = {
       id: "asset_visibility",
       label: "Visibilidad de activos OT/IoT",
       description: "Inventario completo y automático de todos los activos OT, IoT e IIoT en la red industrial.",
-      fits: [5,5,4,3,4,4,5,3,4,3,4,2,3,3,4]
+      fits: [5,5,4,3,4,4,5,3,4,3,4,2,3,3,4,5,2,3,5,3]
     },
     {
       id: "passive_monitoring",
       label: "Monitorización pasiva sin impacto",
       description: "Análisis de tráfico de red industrial sin inyectar paquetes ni afectar a los procesos productivos.",
-      fits: [5,5,5,3,4,4,4,3,4,3,3,2,2,3,4]
+      fits: [5,5,5,3,4,4,4,3,4,3,3,2,2,3,4,4,2,2,3,2]
     },
     {
       id: "protocol_anomaly",
       label: "Detección de anomalías en protocolos industriales",
       description: "Inspección profunda de protocolos como Modbus, DNP3, S7comm, EtherNet/IP, OPC-UA para detectar comandos anómalos.",
-      fits: [5,5,5,4,4,3,4,4,4,4,4,3,2,3,4]
+      fits: [5,5,5,4,4,3,4,4,4,4,4,3,2,3,4,3,2,2,2,2]
     },
     {
       id: "purdue_segmentation",
       label: "Segmentación Purdue/ISA 62443",
       description: "Implementación de zonas y conductos según modelo Purdue y norma ISA/IEC 62443-3-2.",
-      fits: [4,3,3,5,5,3,3,5,3,4,2,5,3,3,3]
+      fits: [4,3,3,5,5,3,3,5,3,4,2,5,3,3,3,4,4,4,2,2]
     },
     {
       id: "secure_remote",
       label: "Acceso remoto seguro a PLCs/SCADA",
       description: "Acceso remoto controlado y auditado a sistemas de control industrial para mantenimiento y soporte.",
-      fits: [5,4,3,4,4,3,3,3,3,4,2,2,3,3,3]
+      fits: [5,4,3,4,4,3,3,3,3,4,2,2,3,3,3,3,5,4,2,2]
     },
     {
       id: "legacy_endpoint",
       label: "Protección endpoint legacy Windows/HMI",
       description: "Protección de estaciones HMI, servidores SCADA y PCs industriales con Windows XP/7/10 legacy.",
-      fits: [3,3,2,4,3,3,3,5,3,3,2,2,4,2,2]
+      fits: [3,3,2,4,3,3,3,5,3,3,2,2,4,2,2,3,2,2,2,2]
     },
     {
       id: "virtual_patching",
       label: "Virtual patching para sistemas no parcheables",
       description: "Protección de sistemas OT que no pueden ser parcheados mediante reglas IPS/IDS inline.",
-      fits: [4,3,3,5,4,3,3,5,3,3,3,3,3,3,3]
+      fits: [4,3,3,5,4,3,3,5,3,3,3,3,3,3,3,3,2,3,2,4]
     },
     {
       id: "nis2_compliance",
       label: "Cumplimiento NIS2/IEC 62443",
       description: "Generación de informes y evidencias de cumplimiento para NIS2, IEC 62443, NERC CIP y ENS.",
-      fits: [5,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+      fits: [5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3]
     },
     {
       id: "siem_xdr_integration",
       label: "Integración con SIEM/XDR corporativo",
       description: "Envío de alertas y telemetría OT a plataformas SIEM/SOAR/XDR para SOC unificado.",
-      fits: [5,4,4,4,4,5,5,3,3,3,4,3,3,3,3]
+      fits: [5,4,4,4,4,5,5,3,3,3,4,3,3,3,3,4,2,3,3,2]
     },
     {
       id: "ot_incident_response",
       label: "Respuesta a incidentes OT",
       description: "Capacidad de investigación forense, contención y recuperación ante incidentes en entornos industriales.",
-      fits: [4,4,5,3,3,3,3,3,3,3,3,2,2,3,3]
+      fits: [4,4,5,3,3,3,3,3,3,3,3,2,2,3,3,3,2,2,2,2]
     },
     {
       id: "supply_chain_risk",
       label: "Gestión de riesgo de la cadena de suministro",
       description: "Evaluación de riesgos de terceros, firmware de proveedores y componentes de la cadena de suministro OT.",
-      fits: [4,4,4,3,3,4,4,4,3,3,4,3,4,3,3]
+      fits: [4,4,4,3,3,4,4,4,3,3,4,3,4,3,3,3,2,3,3,5]
     },
     {
       id: "data_diode",
       label: "Diodos de datos / air gap seguro",
       description: "Transferencia unidireccional de datos desde redes OT a IT manteniendo aislamiento físico.",
-      fits: [2,2,2,3,2,1,1,2,2,2,1,5,4,2,2]
+      fits: [2,2,2,3,2,1,1,2,2,2,1,5,4,2,2,2,2,2,2,2]
     },
     {
       id: "it_ot_soc",
       label: "Convergencia IT/OT en SOC unificado",
       description: "Operación de un SOC que gestione alertas IT y OT con contexto industrial enriquecido.",
-      fits: [5,4,3,4,4,5,5,3,3,3,4,2,3,3,3]
+      fits: [5,4,3,4,4,5,5,3,3,3,4,2,3,3,3,5,3,3,3,2]
     },
     {
       id: "5g_industrial",
       label: "Protección de redes 5G industriales",
       description: "Seguridad para redes 5G privadas en entornos industriales y campus manufacturing.",
-      fits: [4,3,2,4,4,3,4,3,2,3,2,1,2,2,2]
+      fits: [4,3,2,4,4,3,4,3,2,3,2,1,2,2,2,3,2,3,2,2]
     },
     {
       id: "sovereign_onprem",
       label: "Soberanía tecnológica / despliegue on-premise",
       description: "Despliegue completamente on-premise sin dependencia de cloud externo. Requisito para ENS Alto e infraestructura crítica.",
-      fits: [4,4,4,5,4,2,2,4,4,4,3,5,4,4,4]
+      fits: [4,4,4,5,4,2,2,4,4,4,3,5,4,4,4,3,4,4,3,3]
     }
   ],
 
-  // ─── PRODUCT CAPABILITIES (15 vendors) ─────────────────────────────
+  // ─── PRODUCT CAPABILITIES (20 vendors) ─────────────────────────────
   productCapabilities: [
     {
       vendor: "Claroty",
@@ -764,6 +859,71 @@ window.ICS_DATA = {
       differentiators: ["CIARA: único risk assessment basado en simulación de ataques", "What-if analysis para planificación de mitigación", "Fuerte en utilities y agua europeas", "Precio competitivo para mid-market"],
       caution: "Menor escala que líderes. Ecosistema de integraciones más pequeño. Sin endpoint protection. Threat intel limitada.",
       sources: ["https://www.radiflow.com/platform/", "https://www.radiflow.com/resources/"]
+    },
+    {
+      vendor: "Forescout",
+      primary: "Forescout Vistaro Platform",
+      implementationGrade: "Avanzado. Plataforma de visibilidad agentless IT/OT/IoT. Adquirido por Advent International.",
+      maturity: 4.2,
+      core: ["Asset discovery agentless", "Network segmentation", "Zero Trust Network Access", "Compliance assessment", "Risk management"],
+      adjacent: ["OT monitoring (eyeInspect)", "Cloud security", "Medical device security", "NAC enforcement"],
+      peerOverlap: ["Claroty", "Armis", "Cisco Industrial", "Microsoft Defender IoT"],
+      implementation: ["Agentless via traffic mirroring", "Integration con switches (802.1X)", "eyeInspect sensor para OT", "Cloud management console"],
+      differentiators: ["180+ integraciones out-of-box", "Clasificación automática del 100% de dispositivos IP", "Cobertura IT/OT/IoT/IoMT en una sola plataforma", "Fuerte en NAC y segmentación"],
+      caution: "Menor profundidad en protocolos OT que pure-play. eyeInspect (ex-SilentDefense) requiere sensor dedicado. Cambios de ownership recientes.",
+      sources: ["https://www.forescout.com/platform/", "https://www.forescout.com/resources/"]
+    },
+    {
+      vendor: "Cyolo",
+      primary: "Cyolo PRO / CPS Segmentation",
+      implementationGrade: "Emergente. Acceso remoto privilegiado OT y microsegmentación zero trust.",
+      maturity: 3.8,
+      core: ["Privileged remote access OT", "Session recording", "MFA for OT", "JIT provisioning", "Microsegmentation"],
+      adjacent: ["CPS Segmentation", "Identity-based access", "Audit trail", "Compliance reporting"],
+      peerOverlap: ["Claroty SRA", "Xage Security", "Fortinet ZTNA"],
+      implementation: ["Gateway on-prem", "Agentless connection", "Identity provider integration", "Cloud management opcional"],
+      differentiators: ["JIT provisioning para acceso OT temporal", "Grabación completa de sesiones privilegiadas", "Microsegmentación sin agente en dispositivos OT", "MFA adaptativo para entornos industriales"],
+      caution: "Empresa pequeña. Sin capacidad de discovery o monitorización de red. Requiere complementar con NDR/visibility platform.",
+      sources: ["https://cyolo.io/products/", "https://cyolo.io/resources/"]
+    },
+    {
+      vendor: "Xage Security",
+      primary: "Xage Fabric",
+      implementationGrade: "Emergente. Zero trust distribuido para OT con identidad blockchain-based.",
+      maturity: 3.9,
+      core: ["Zero trust access OT", "Distributed identity", "Granular access control", "Remote access", "MFA"],
+      adjacent: ["Data protection", "Blockchain identity", "Policy enforcement", "Compliance reporting"],
+      peerOverlap: ["Cyolo", "Claroty SRA", "Fortinet ZTNA"],
+      implementation: ["Xage Fabric nodes distribuidos", "Integration con PLCs/SCADA", "Cloud or on-prem management", "API-first architecture"],
+      differentiators: ["Identidad distribuida blockchain que no depende de servidor central", "Acceso granular por activo y protocolo", "Zero trust nativo para OT (no adaptado de IT)", "Resiliente a fallos de red (mesh distribuido)"],
+      caution: "Modelo blockchain añade complejidad. Empresa en crecimiento con menor base instalada. Concepto innovador pero adopción temprana.",
+      sources: ["https://xage.com/platform/", "https://xage.com/resources/"]
+    },
+    {
+      vendor: "runZero",
+      primary: "runZero Platform",
+      implementationGrade: "Emergente. Asset discovery ultrarrápido y no intrusivo. Adquirido por Accenture 2026.",
+      maturity: 3.7,
+      core: ["Asset discovery", "Network scanning no intrusivo", "Asset inventory", "Fingerprinting", "Integration APIs"],
+      adjacent: ["Vulnerability correlation", "Compliance inventory", "Cloud asset discovery", "CMDB enrichment"],
+      peerOverlap: ["Armis", "Forescout", "Tenable OT"],
+      implementation: ["Explorer agent ligero", "Scan no intrusivo seguro para OT", "Cloud console", "API REST completa"],
+      differentiators: ["Escaneo activo diseñado para ser seguro en OT", "Velocidad de descubrimiento excepcional", "Fundada por creador de Metasploit (HD Moore)", "Fingerprinting avanzado sin agentes"],
+      caution: "No es plataforma de seguridad (solo discovery). Sin monitorización continua. Sin protección ni detección de amenazas. Futuro bajo Accenture.",
+      sources: ["https://www.runzero.com/platform/", "https://www.runzero.com/docs/"]
+    },
+    {
+      vendor: "NetRise",
+      primary: "NetRise Platform",
+      implementationGrade: "Emergente. Análisis de firmware y SBOM para dispositivos OT/IoT. Adquirido por Accenture 2026.",
+      maturity: 3.6,
+      core: ["Firmware analysis", "SBOM generation", "Vulnerability detection", "Supply chain risk", "Component analysis"],
+      adjacent: ["EU CRA compliance", "License compliance", "Configuration analysis", "Risk scoring"],
+      peerOverlap: ["OPSWAT", "Tenable OT", "Finite State"],
+      implementation: ["Upload de firmware images", "Cloud analysis engine", "API REST", "Integration con CI/CD"],
+      differentiators: ["Análisis de firmware binario sin acceso al código fuente", "SBOM automático para dispositivos OT/IoT", "Detección de vulnerabilidades en componentes de terceros", "Cumplimiento EU CRA proactivo"],
+      caution: "Nicho muy específico (firmware/SBOM). No monitoriza red ni detecta amenazas en tiempo real. Requiere complementar con plataforma OT. Futuro Accenture.",
+      sources: ["https://www.netrise.io/platform/", "https://www.netrise.io/resources/"]
     }
   ],
 
@@ -783,7 +943,12 @@ window.ICS_DATA = {
     { vendor: "Waterfall Security", level: "Muy bajo", detail: "Seguridad hardware-enforced. Imposible comprometer por software. 20+ años sin incidentes. Máxima seguridad del mercado.", score: 1 },
     { vendor: "OPSWAT", level: "Bajo", detail: "Multi-scanning reduce riesgo. Sin CVEs críticos conocidos. Hardware Kiosk aislado. Producto bien auditado.", score: 2 },
     { vendor: "Schneider Electric", level: "Medio", detail: "CVEs periódicos en EcoStruxure y Modicon (CVE-2023-6408, múltiples en M340). PSIRT activo. Triton/TRISIS awareness en Safety.", score: 3 },
-    { vendor: "Radiflow", level: "Bajo", detail: "Empresa más pequeña pero sin CVEs críticos. Producto bien aislado. Riesgo: menor escala de soporte.", score: 2 }
+    { vendor: "Radiflow", level: "Bajo", detail: "Empresa más pequeña pero sin CVEs críticos. Producto bien aislado. Riesgo: menor escala de soporte.", score: 2 },
+    { vendor: "Forescout", level: "Bajo", detail: "Plataforma madura. eyeInspect (ex-SilentDefense) bien establecido. Riesgo: cambios de ownership (Advent International).", score: 2 },
+    { vendor: "Cyolo", level: "Bajo", detail: "Empresa pequeña sin CVEs conocidos. Producto enfocado en acceso remoto seguro. Riesgo: tamaño de empresa y madurez.", score: 2 },
+    { vendor: "Xage Security", level: "Bajo", detail: "Sin CVEs conocidos. Modelo blockchain innovador. Riesgo: adopción temprana de tecnología distribuida.", score: 2 },
+    { vendor: "runZero", level: "Muy bajo", detail: "Herramienta de discovery no intrusiva. Mínima superficie de ataque. Adquirido por Accenture 2026.", score: 1 },
+    { vendor: "NetRise", level: "Muy bajo", detail: "Análisis de firmware offline. Sin componentes en red OT. Mínima superficie de ataque. Adquirido por Accenture 2026.", score: 1 }
   ],
 
   // ─── CVE ITEMS ──────────────────────────────────────────────────────
@@ -841,7 +1006,12 @@ window.ICS_DATA = {
       ],
       summary: "CVEs periódicos en Modicon y EcoStruxure. TRISIS/TRITON en 2017 fue un hito en seguridad industrial. PSIRT activo con advisories regulares."
     },
-    { vendor: "Radiflow", cves: [], summary: "Sin CVEs públicos en iSID/CIARA. Empresa más pequeña con superficie de ataque reducida." }
+    { vendor: "Radiflow", cves: [], summary: "Sin CVEs públicos en iSID/CIARA. Empresa más pequeña con superficie de ataque reducida." },
+    { vendor: "Forescout", cves: [], summary: "Sin CVEs críticos recientes en Vistaro/eyeInspect. Producto maduro con historial limpio." },
+    { vendor: "Cyolo", cves: [], summary: "Sin CVEs públicos. Empresa joven con producto enfocado y superficie de ataque reducida." },
+    { vendor: "Xage Security", cves: [], summary: "Sin CVEs públicos. Arquitectura distribuida blockchain reduce puntos únicos de fallo." },
+    { vendor: "runZero", cves: [], summary: "Sin CVEs públicos. Herramienta de discovery con superficie de ataque mínima." },
+    { vendor: "NetRise", cves: [], summary: "Sin CVEs públicos. Análisis offline de firmware sin componentes expuestos en red." }
   ],
 
   // ─── PATCH RESPONSE ITEMS ──────────────────────────────────────────
@@ -1238,6 +1408,56 @@ window.ICS_DATA = {
       apiCapabilities: "REST API. Syslog/CEF. SIEM connectors. Integration con SOAR.",
       scalability: "Multi-site con consola central. Federación de iSID sensors.",
       minHardware: "iSID: 4 cores, 16GB RAM, 256GB SSD. Requisitos competitivos."
+    },
+    {
+      vendor: "Forescout",
+      architecture: "Vistaro platform cloud + eyeInspect sensor on-prem para OT. Enterprise Manager para gestión. NAC via 802.1X integration.",
+      sensorTypes: ["eyeInspect sensor (physical/virtual)", "CounterACT appliance", "Cloud connector"],
+      protocolsSupported: 200,
+      deploymentModel: "Hybrid: management cloud (Vistaro) + sensors on-prem. eyeInspect para OT dedicado.",
+      apiCapabilities: "REST API completa. 180+ integraciones. SIEM connectors. SOAR playbooks. eyeExtend modules.",
+      scalability: "Multi-site con Enterprise Manager. Cloud-scale con Vistaro. Miles de dispositivos por appliance.",
+      minHardware: "eyeInspect sensor: 8 cores, 32GB RAM, 500GB SSD. CounterACT: appliance dedicado."
+    },
+    {
+      vendor: "Cyolo",
+      architecture: "Gateway on-prem para acceso OT + cloud management opcional. Identity-based zero trust access.",
+      sensorTypes: ["Cyolo Gateway (on-prem)", "Cloud management console"],
+      protocolsSupported: 30,
+      deploymentModel: "On-premise gateway. Cloud management opcional. Agentless en dispositivos OT.",
+      apiCapabilities: "REST API. Integration con IdPs (SAML/OIDC). Syslog para SIEM. Webhooks.",
+      scalability: "Multi-site con gateways distribuidos. Gestión centralizada.",
+      minHardware: "Gateway: 4 cores, 8GB RAM, 100GB SSD. Requisitos ligeros."
+    },
+    {
+      vendor: "Xage Security",
+      architecture: "Xage Fabric nodes distribuidos. Identidad blockchain. Policy enforcement distribuido. Zero trust mesh.",
+      sensorTypes: ["Xage Node (physical/virtual)", "Policy enforcement point"],
+      protocolsSupported: 40,
+      deploymentModel: "On-premise o hybrid. Nodes distribuidos. Cloud management disponible.",
+      apiCapabilities: "REST API. Integration con SIEM/SOAR. SAML/OIDC. Syslog. Terraform provider.",
+      scalability: "Arquitectura mesh distribuida. Escala con nodes adicionales. Sin punto único de fallo.",
+      minHardware: "Xage Node: 4 cores, 16GB RAM, 200GB SSD. Puede correr en edge devices."
+    },
+    {
+      vendor: "runZero",
+      architecture: "Explorer agent ligero + cloud console. Escaneo activo no intrusivo. Fingerprinting avanzado.",
+      sensorTypes: ["Explorer agent (ligero)", "Cloud console"],
+      protocolsSupported: 150,
+      deploymentModel: "SaaS con Explorer on-prem. Self-hosted disponible.",
+      apiCapabilities: "REST API completa. Webhooks. Integration con CMDB/SIEM. Export formats múltiples.",
+      scalability: "Cloud-native. Multi-site con Explorers distribuidos. Escaneo rápido de redes grandes.",
+      minHardware: "Explorer: 2 cores, 4GB RAM, 50GB. Requisitos mínimos del mercado."
+    },
+    {
+      vendor: "NetRise",
+      architecture: "Cloud analysis engine. Upload de firmware images. SBOM generation. Vulnerability correlation.",
+      sensorTypes: ["Cloud platform (sin sensor on-prem)"],
+      protocolsSupported: 0,
+      deploymentModel: "SaaS cloud. Análisis offline de firmware. Sin componentes en red OT.",
+      apiCapabilities: "REST API. CI/CD integration. SBOM export (SPDX/CycloneDX). Webhook notifications.",
+      scalability: "Cloud-native. Sin límite de firmware images analizables.",
+      minHardware: "N/A. Cloud-only. Sin requisitos de hardware on-prem."
     }
   ],
 
@@ -1407,6 +1627,56 @@ window.ICS_DATA = {
       sensorDeployment: "iSID sensor en SPAN port. CIARA cloud o on-prem. Despliegue ligero.",
       cloudRegions: "CIARA: EU (Israel HQ, EU data processing).",
       detail: "Despliegue rápido y ligero. iSID requisitos mínimos. Buena opción mid-market."
+    },
+    {
+      vendor: "Forescout",
+      onPremise: true,
+      cloud: true,
+      hybrid: true,
+      airGapped: false,
+      typicalDeployTime: "3-6 semanas",
+      sensorDeployment: "eyeInspect sensor en SPAN para OT. CounterACT para NAC IT. Agentless discovery.",
+      detail: "Hybrid: sensors on-prem + Vistaro cloud management. eyeInspect dedicado para visibilidad OT."
+    },
+    {
+      vendor: "Cyolo",
+      onPremise: true,
+      cloud: true,
+      hybrid: true,
+      airGapped: true,
+      typicalDeployTime: "1-3 semanas",
+      sensorDeployment: "Gateway on-prem ligero. Sin agente en dispositivos OT. Identity-based access.",
+      detail: "Despliegue rápido. Gateway on-prem con cloud management opcional. Air-gap mode disponible."
+    },
+    {
+      vendor: "Xage Security",
+      onPremise: true,
+      cloud: true,
+      hybrid: true,
+      airGapped: true,
+      typicalDeployTime: "2-4 semanas",
+      sensorDeployment: "Xage Nodes distribuidos. Zero trust mesh. Policy enforcement en cada punto de acceso.",
+      detail: "Nodes distribuidos. Funciona sin conectividad central (mesh). Cloud management opcional."
+    },
+    {
+      vendor: "runZero",
+      onPremise: true,
+      cloud: true,
+      hybrid: true,
+      airGapped: false,
+      typicalDeployTime: "1-2 semanas",
+      sensorDeployment: "Explorer agent ligero. Escaneo no intrusivo. Sin hardware dedicado.",
+      detail: "Despliegue ultrarrápido. Explorer en cualquier Linux/macOS/Windows. Self-hosted disponible."
+    },
+    {
+      vendor: "NetRise",
+      onPremise: false,
+      cloud: true,
+      hybrid: false,
+      airGapped: false,
+      typicalDeployTime: "1 semana",
+      sensorDeployment: "Sin despliegue on-prem. Upload de firmware images a cloud para análisis.",
+      detail: "Cloud-only. Sin impacto en red OT. Upload de firmware para análisis offline."
     }
   ],
 
@@ -1531,6 +1801,46 @@ window.ICS_DATA = {
       predictiveSecurity: "What-if analysis: predice impacto de vulnerabilidades y propone mitigaciones priorizadas.",
       innovation: "CIARA risk simulation es único en el mercado. Digital twin de riesgo para planificación de seguridad.",
       maturity: 3
+    },
+    {
+      vendor: "Forescout",
+      aiCapabilities: "AI para clasificación automática de dispositivos. ML en detección de anomalías. Risk scoring automatizado.",
+      digitalTwin: "Asset intelligence como digital twin de la superficie de ataque IT/OT/IoT.",
+      predictiveSecurity: "Risk scoring predictivo basado en postura de seguridad y vulnerabilidades.",
+      innovation: "Vistaro platform con AI-powered classification. 180+ integraciones como ecosistema abierto.",
+      maturity: 4
+    },
+    {
+      vendor: "Cyolo",
+      aiCapabilities: "ML para detección de comportamiento anómalo en sesiones de acceso remoto.",
+      digitalTwin: "No aplica directamente. Enfoque en acceso, no en modelado.",
+      predictiveSecurity: "Risk-based access decisions. Análisis de patrones de acceso para detección de anomalías.",
+      innovation: "JIT provisioning y microsegmentación zero trust agentless para OT.",
+      maturity: 3
+    },
+    {
+      vendor: "Xage Security",
+      aiCapabilities: "ML para análisis de políticas de acceso. AI-assisted policy creation.",
+      digitalTwin: "Modelo distribuido de identidades como digital twin de la superficie de acceso.",
+      predictiveSecurity: "Blockchain-based identity elimina puntos únicos de fallo. Resilencia distribuida.",
+      innovation: "Identidad distribuida blockchain para OT. Zero trust nativo sin servidor central.",
+      maturity: 3
+    },
+    {
+      vendor: "runZero",
+      aiCapabilities: "ML avanzado para fingerprinting de dispositivos. AI para clasificación de activos.",
+      digitalTwin: "Inventario completo como digital twin del entorno de red.",
+      predictiveSecurity: "Detección de activos desconocidos y shadow IT/OT.",
+      innovation: "Fingerprinting no intrusivo líder. Fundada por HD Moore (creador Metasploit).",
+      maturity: 3
+    },
+    {
+      vendor: "NetRise",
+      aiCapabilities: "AI para análisis de firmware binario. ML para detección de componentes vulnerables en SBOM.",
+      digitalTwin: "SBOM como digital twin del software embebido en dispositivos OT.",
+      predictiveSecurity: "Detección proactiva de vulnerabilidades en supply chain antes del despliegue.",
+      innovation: "Análisis de firmware sin código fuente. SBOM automático para EU CRA compliance.",
+      maturity: 3
     }
   ],
 
@@ -1576,7 +1886,12 @@ window.ICS_DATA = {
     { vendor: "Waterfall Security", confidence: 0.88, sources: ["NRC certifications", "ANSSI approvals", "NERC CIP compliance documentation", "Academic publications on data diodes"], lastUpdated: "2025-Q3" },
     { vendor: "OPSWAT", confidence: 0.84, sources: ["NRC approvals", "CISA cross-domain guidelines", "OPSWAT Academy certifications", "Industry case studies"], lastUpdated: "2025-Q3" },
     { vendor: "Schneider Electric", confidence: 0.78, sources: ["Schneider PSIRT advisories", "CISA ICS-CERT", "IEC 62443 certifications", "CVE databases"], lastUpdated: "2025-Q3" },
-    { vendor: "Radiflow", confidence: 0.82, sources: ["Gartner CPS Protection mentions", "IEC 62443 compliance reports", "Customer case studies", "Industry publications"], lastUpdated: "2025-Q3" }
+    { vendor: "Radiflow", confidence: 0.82, sources: ["Gartner CPS Protection mentions", "IEC 62443 compliance reports", "Customer case studies", "Industry publications"], lastUpdated: "2025-Q3" },
+    { vendor: "Forescout", confidence: 0.86, sources: ["Forrester Wave IoT Security", "Gartner NAC reports", "Forescout research publications", "Customer case studies"], lastUpdated: "2025-Q4" },
+    { vendor: "Cyolo", confidence: 0.75, sources: ["Analyst reports on OT remote access", "Vendor documentation", "Customer testimonials", "Industry publications"], lastUpdated: "2025-Q3" },
+    { vendor: "Xage Security", confidence: 0.76, sources: ["Gartner Cool Vendor 2023", "Vendor documentation", "Customer case studies", "TSA Pipeline compliance reports"], lastUpdated: "2025-Q3" },
+    { vendor: "runZero", confidence: 0.78, sources: ["Analyst reports on asset discovery", "Vendor documentation", "HD Moore publications", "Accenture acquisition announcement 2026"], lastUpdated: "2026-Q2" },
+    { vendor: "NetRise", confidence: 0.74, sources: ["EU CRA compliance publications", "Vendor documentation", "SBOM industry reports", "Accenture acquisition announcement 2026"], lastUpdated: "2026-Q2" }
   ],
 
   // ─── PROFILE PRESETS ────────────────────────────────────────────────
