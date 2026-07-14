@@ -532,18 +532,18 @@ window.ICS_DATA = {
       docsUrl: "https://www.titaniumindustrialsecurity.com/",
       productUrl: "https://www.titaniumindustrialsecurity.com/",
       compliance: "IEC 62443, ISO 27001, ENS, NIS2",
-      complianceDetail: "Servicios integrales de ciberseguridad industrial: diagnóstico con tecnologías propietarias pasivas, SOC 24/7, laboratorio industrial, auditorías IEC 62443/ISO 27001/NIS2, diseño de arquitecturas seguras IT/OT, pentesting industrial y respuesta a incidentes.",
+      complianceDetail: "Plataforma propietaria Rutile (descubrimiento de activos, monitorización pasiva, gestión de riesgos OT) + servicios integrales: SOC OT 24/7, laboratorio industrial, auditorías IEC 62443/ISO 27001/NIS2, pentesting industrial y respuesta a incidentes.",
       complianceUrl: "https://www.titaniumindustrialsecurity.com/servicios_es.html",
-      strength: 3.9,
-      fit: 3.8,
+      strength: 4.1,
+      fit: 4.0,
       risk: 2,
-      gartner: "Especialista OT español",
-      bestFor: "Ciberseguridad industrial integral: diagnóstico con tecnologías propietarias, SOC OT 24/7/365, laboratorio industrial para pruebas, auditoría IEC 62443, pentesting OT y respuesta a incidentes. Sedes en San Sebastián, León, Bilbao y Madrid.",
-      caution: "Menor escala internacional que grandes consultoras. Cobertura geográfica centrada en España. Sin presencia en cuadrantes de analistas internacionales.",
+      gartner: "Especialista OT español con plataforma propia",
+      bestFor: "Plataforma Rutile: descubrimiento automático de activos ICS/SCADA, monitorización pasiva sin impacto en producción, gestión de riesgos y cumplimiento normativo. SOC OT 24/7/365, laboratorio industrial, pentesting OT. Sedes en San Sebastián, León, Bilbao y Madrid.",
+      caution: "Menor escala internacional que grandes consultoras. Cobertura geográfica centrada en España. Rutile no aparece en cuadrantes de analistas internacionales (Gartner/Forrester).",
       ccnCert: "Alineado con marco de ciberseguridad industrial nacional",
       ensStatus: "Alineado ENS",
       governmentContracts: "Proyectos en generación eléctrica, transporte y manufactura",
-      incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial). Fundada 2016."
+      incibeRelation: "Participante activo en ecosistema CCI (Centro de Ciberseguridad Industrial). Fundada 2016. Parte de INZU Group."
     }
   ],
 
